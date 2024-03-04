@@ -1,8 +1,8 @@
 //
 //  RegisterView.swift
-//  Socialmedia
+//  Overall_Backend
 //
-//  Created by user4 on 27/02/24.
+//  Created by user4 on 03/03/24.
 //
 
 import SwiftUI
@@ -34,58 +34,71 @@ struct RegisterView:View{
     @AppStorage("user_UID")var userID:String = ""
     
     var body: some View{
-        VStack(spacing: 10){
-            Text("SignUp").font(.largeTitle.bold())
-                .hAlign(.leading)
-            
-            Text("Do sign Up ").font(.title3)
-                .hAlign(.leading)
-        //MARK: Smaller size optimisations
-            
-            ViewThatFits{
-                VStack{
-                    ScrollView{
-                        HelperView()
+        ZStack{
+            Color("bg-color").ignoresSafeArea()
+            ScrollView{
+                VStack(spacing: 10){
+                    VStack(alignment:.center) {
+                        Text("BeatOven")
+                            .foregroundColor(.black)
+                            .font(Font.custom("Condiment", size: 44))
+                            .padding()
+                            .cornerRadius(10)
+                        .position(CGPoint(x: 40.0, y: 80.0))
                     }
-                    HelperView()
-                }
-               
-            }
-            //MARK: Register Button
-            HStack{
-                Text("Already having an account?").foregroundStyle(Color.gray)
-                Button("Login Now"){
-                    dismiss()
-                }.fontWeight(.bold)
-                    .foregroundStyle(Color.black)
-            }.font(.callout)
-            .vAlign(.bottom)
-                
-        }
-        .vAlign(.top)
-        .padding(15)
-        .overlay(content:{
-            LoadingView(show: $isLoading)
-        })
-        .photosPicker(isPresented: $showimagePicker, selection:$photoItem )
-        .onChange(of: photoItem){newValue in
-            //MARK: Extracting UI Image from photoItem
-            if let newValue{
-                Task{
-                    do{
-                        guard let imagedata = try await newValue.loadTransferable(type: Data.self)else{
-                            return
-                        }
-                        //MARK: UI Must be updated on main thread
-                        await MainActor.run(body:{ userprofiledata = imagedata})
-                    
                         
-                    }catch{}
+                    Text("SignUp").font(.largeTitle.bold())
+                        .hAlign(.leading)
+                    
+                    Text("Do sign Up ").font(.title3)
+                        .hAlign(.leading)
+                //MARK: Smaller size optimisations
+                    
+                    ViewThatFits{
+                        VStack{
+                            ScrollView{
+                                HelperView()
+                            }
+                        }
+                       
+                    }
+                    //MARK: Register Button
+                    HStack{
+                        Text("Already having an account?").foregroundStyle(Color.gray)
+                        Button("Login Now"){
+                            dismiss()
+                        }.fontWeight(.bold)
+                            .foregroundStyle(Color.black)
+                    }.font(.callout)
+                    .vAlign(.bottom)
+                        
                 }
+                .vAlign(.top)
+                .padding(15)
+                .overlay(content:{
+                    LoadingView(show: $isLoading)
+                })
+                .photosPicker(isPresented: $showimagePicker, selection:$photoItem )
+                .onChange(of: photoItem){newValue in
+                    //MARK: Extracting UI Image from photoItem
+                    if let newValue{
+                        Task{
+                            do{
+                                guard let imagedata = try await newValue.loadTransferable(type: Data.self)else{
+                                    return
+                                }
+                                //MARK: UI Must be updated on main thread
+                                await MainActor.run(body:{ userprofiledata = imagedata})
+                            
+                                
+                            }catch{}
+                        }
+                    }
+                }
+                //MARK: Displaying Alert
+                .alert(errormessage, isPresented:$showerror , actions: {})
             }
         }
-        //MARK: Displaying Alert
-        .alert(errormessage, isPresented:$showerror , actions: {})
     }
     @ViewBuilder
     func HelperView()-> some View{

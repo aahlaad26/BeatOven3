@@ -1,8 +1,8 @@
 //
 //  ProfileView.swift
-//  Socialmedia
+//  Overall_Backend
 //
-//  Created by user4 on 28/02/24.
+//  Created by user4 on 03/03/24.
 //
 
 import SwiftUI
@@ -18,11 +18,12 @@ struct ProfileView: View {
     @State var errorMessage: String = ""
     @State var showError: Bool = false
     @State var isLoading: Bool = false
+    @State private var recentPosts: [Post] = []
     var body: some View {
         NavigationStack{
             VStack{
                 if let myProfile{
-                    ReusableProfileContent(user: myProfile )
+                    ReusableProfileContent(posts: $recentPosts, user: myProfile)
                         .refreshable {
                             //MARK: Refresh User Data
                             self.myProfile = nil
@@ -31,10 +32,12 @@ struct ProfileView: View {
                         }
                 }else{
                     ProgressView()
+                        .background(Color("bg-color"))
+                        .ignoresSafeArea()
                 }
             }
-            
             .navigationTitle("My Profile")
+            
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
                     Menu{
@@ -51,6 +54,8 @@ struct ProfileView: View {
                     }
                 }
             }
+            .navigationBarColor(Color("bg-color"))
+            .background(Color("bg-color"))
         }
         .overlay{
             LoadingView(show: $isLoading)
@@ -118,3 +123,4 @@ struct ProfileView: View {
 #Preview {
     ContentView()
 }
+

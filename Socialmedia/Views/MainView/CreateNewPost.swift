@@ -1,3 +1,9 @@
+//
+//  CreateNewPost.swift
+//  Overall_Backend
+//
+//  Created by user4 on 03/03/24.
+//
 import SwiftUI
 import PhotosUI
 import Firebase
@@ -26,116 +32,128 @@ struct CreateNewPost: View {
     @State private var fileURL:URL?
 
     var body: some View {
-        VStack{
-            HStack{
-                Menu{
-                    Button("Cancel",role: .destructive){
-                        dismiss()
-                    }
-                }label:{
-                    Text("Cancel").font(.callout)
-                        .foregroundStyle(Color.black)
-                }
-                .hAlign(.leading)
-                Button(action:createPost){
-                    Text("Post")
-                        .font(.callout)
-                        .foregroundStyle(Color.white)
-                        .padding(.horizontal,20)
-                        .padding(.vertical,6)
-                        .background(.black,in: Capsule())
-                }.disabledOpacity(postText == "")
-            }
-            .padding(.horizontal,15)
-            .padding(.vertical,10)
-            .background{
-                Rectangle()
-                    .fill(.gray.opacity(0.05))
-                    .ignoresSafeArea()
-            }
-            ScrollView(.vertical, showsIndicators: false){
-                VStack(spacing: 15){
-                    TextField("Whats happening?", text: $postText, axis: .vertical)
-                        .focused($showkeyboard)
-                    if let postImageData, let image = UIImage(data: postImageData){
-                        GeometryReader{
-                            let size = $0.size
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: size.width, height: size.height)
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            //delete button
-                                .overlay(alignment: .topTrailing){
-                                    Button{
-                                        withAnimation(.easeInOut(duration: 0.25)){
-                                            self.postImageData = nil
-                                        }
-                                    }label:{
-                                        Image(systemName: "trash").tint(.red)
-                                            .fontWeight(.bold)
-                                    }
-                                    .padding(10)
-                                }
+        ZStack {
+            Color("bg-color").ignoresSafeArea()
+            VStack{
+                HStack{
+                    Menu{
+                        Button("Cancel",role: .destructive){
+                            dismiss()
                         }
-                        .clipped()
-                        .frame(height:220)
+                    }label:{
+                        Text("Cancel").font(.callout)
+                            .foregroundStyle(Color.black)
                     }
-                    if let data = postSongData {
-                                        AudioPlayerView(data: data)
+                    .hAlign(.leading)
+                    Button(action:createPost){
+                        Text("Post")
+                            .font(.callout)
+                            .foregroundStyle(Color.white)
+                            .padding(.horizontal,20)
+                            .padding(.vertical,6)
+                            .background(Color("button-color"),in: Capsule())
+                    }.disabledOpacity(postText == "")
+                }
+                .padding(.horizontal,15)
+                .padding(.vertical,10)
+                .background{
+                    Rectangle()
+                        .fill(.gray.opacity(0.05))
+                        .ignoresSafeArea()
+                }
+                ScrollView(.vertical, showsIndicators: false){
+                    VStack(spacing: 15){
+                        TextField("Whats happening?", text: $postText, axis: .vertical)
+                            .focused($showkeyboard)
+                        if let postImageData, let image = UIImage(data: postImageData){
+                            GeometryReader{
+                                let size = $0.size
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: size.width, height: size.height)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                //delete button
+                                    .overlay(alignment: .topTrailing){
+                                        Button{
+                                            withAnimation(.easeInOut(duration: 0.25)){
+                                                self.postImageData = nil
+                                            }
+                                        }label:{
+                                            Image(systemName: "trash").tint(.red)
+                                                .fontWeight(.bold)
+                                        }
+                                        .padding(10)
                                     }
+                            }
+                            .clipped()
+                            .frame(height:220)
+                        }
+                        if let data = postSongData {
+                                            AudioPlayerView(data: data)
+                                        }
+                    }
+                    .padding(15)
                 }
-                .padding(15)
-            }
-            Divider()
-            HStack{
-                Button{
-                    showImagePicker.toggle()
-                }label: {
-                    Image(systemName: "photo.on.rectangle")
-                        .font(.title3)
-                }
-                Button {
-                    showAudioPicker = true
-                } label: {
-                    Image(systemName: "music.note")
-                        .font(.title3)
-                }.fileImporter(
-                    isPresented: $showAudioPicker,
-                    allowedContentTypes: [.audio],
-                    allowsMultipleSelection: false
-                ) { result in
-                    do {
-                        let fileURL = try result.get().first!
-                        self.fileURL = fileURL
-                        let data = try Data(contentsOf: fileURL)
-                        postSongData = data
-                    } catch {
-                        print("Error reading the selected file: \(error.localizedDescription)")
+                Divider()
+                HStack{
+                    Button{
+                        showImagePicker.toggle()
+                    }label: {
+                        Image(systemName: "photo.on.rectangle")
+                            .resizable()
+                            .font(.title3)
+                            .foregroundColor(Color("button-color"))
+                            .frame(width: 60, height:60)
+                            .padding(.horizontal)
+                            
+                    }
+                    Button {
+                        showAudioPicker = true
+                    } label: {
+                        Image(systemName: "music.note")
+                            .resizable()
+                            .font(.title3)
+                            .foregroundColor(Color("button-color"))
+                            .frame(width: 50, height:60)
+                            .padding(.horizontal)
+                    }.fileImporter(
+                        isPresented: $showAudioPicker,
+                        allowedContentTypes: [.audio],
+                        allowsMultipleSelection: false
+                    ) { result in
+                        do {
+                            let fileURL = try result.get().first!
+                            self.fileURL = fileURL
+                            let data = try Data(contentsOf: fileURL)
+                            postSongData = data
+                        } catch {
+                            print("Error reading the selected file: \(error.localizedDescription)")
+                        }
                     }
                 }
             }
-        }
-        .vAlign(.top)
-        .photosPicker(isPresented: $showImagePicker, selection: $photoItem)
-        .onChange(of: photoItem){newValue in
-            if let newValue{
-                Task{
-                    if let rawImageData = try? await newValue.loadTransferable(type: Data.self
-                    ), let image = UIImage(data: rawImageData),let compressedImageData = image.jpegData(compressionQuality: 0.5){
-                        //UI Must be done on mainthread
-                        await MainActor.run(body: {
-                            postImageData = compressedImageData
-                            photoItem = nil
-                        })
+            .vAlign(.top)
+            .photosPicker(isPresented: $showImagePicker, selection: $photoItem)
+            .onChange(of: photoItem){newValue in
+                if let newValue{
+                    Task{
+                        if let rawImageData = try? await newValue.loadTransferable(type: Data.self
+                        ), let image = UIImage(data: rawImageData),let compressedImageData = image.jpegData(compressionQuality: 0.5){
+                            //UI Must be done on mainthread
+                            await MainActor.run(body: {
+                                postImageData = compressedImageData
+                                photoItem = nil
+                            })
+                        }
                     }
                 }
             }
+            .alert(errorMessage,isPresented: $showError,actions: {})
+            //loading View
+            .overlay{
+                LoadingView(show: $isLoading)
         }
-        .alert(errorMessage,isPresented: $showError,actions: {})
-        //loading View
-        .overlay{
-            LoadingView(show: $isLoading)
         }
     }
     //MARK: Post Content to firebase
@@ -169,7 +187,7 @@ struct CreateNewPost: View {
 //                    //directly post text data to firebase(no imgs present condition)
 //                    let post = Post(text: postText,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL)
 //                    try await createDocumentAtFirebase(post)
-//                    
+//
 //                }
                 if let postSongData{
                     let metadata = StorageMetadata()
@@ -186,7 +204,7 @@ struct CreateNewPost: View {
 //                    //directly post text data to firebase(no imgs present condition)
 //                    let post = Post(text: postText,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL)
 //                    try await createDocumentAtFirebase(post)
-//                    
+//
 //                }
             }catch{
                 await setError(error)
@@ -316,17 +334,19 @@ class Player: ObservableObject {
 struct AudioPlayerView: View {
     let data:Data
     @State private var player: AVAudioPlayer?
-
+    @State private var isPlaying = true
     var body: some View {
         VStack {
             Button(action: {
-                if player?.rate == 0 {
-                    player?.play()
-                } else {
+                if isPlaying {
                     player?.pause()
+                    isPlaying = false
+                } else {
+                    player?.play()
+                    isPlaying = true
                 }
             }) {
-                Image(systemName: player?.rate == 0 ? "play.fill" : "pause.fill")
+                Image(systemName: (!isPlaying) ? "play.fill" : "pause.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
@@ -452,8 +472,8 @@ struct AudioPlayerView: View {
 //                }label: {
 //                    Image(systemName: "photo.on.rectangle")
 //                        .font(.title3)
-//                        
-//                    
+//
+//
 //                }
 //                .hAlign(.leading)
 //                Button("Done"){
@@ -497,9 +517,9 @@ struct AudioPlayerView: View {
 ////                //used to delete the post later
 ////                let imageReferenceID = "\(userUID)\(Date())"
 ////                let storageref = Storage.storage().reference().child("Post_Images").child(imageReferenceID)
-////                
+////
 ////                if let postImageData{
-////                    
+////
 ////                    let _ = try await storageref.putDataAsync(postImageData)
 ////                    let downloadURL = try await storageref.downloadURL()
 ////                    //create post obj with image id and url
@@ -510,11 +530,11 @@ struct AudioPlayerView: View {
 ////                    //directly post text data to firebase(no imgs present condition)
 ////                    let post = Post(text: postText,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL)
 ////                    try await createDocumentAtFirebase(post)
-////                    
+////
 ////                }
 ////            }catch{
 ////                await setError(error)
-////                
+////
 ////            }
 ////        }
 ////    }
@@ -531,10 +551,10 @@ struct AudioPlayerView: View {
 ////                dismiss()
 ////            }
 ////        })
-////        
+////
 ////    }
 ////    //MARK: Displaying errors as alerts
-////    
+////
 ////    func setError(_ error: Error) async{
 ////        await MainActor.run(body: {
 ////            errorMessage = error.localizedDescription
@@ -544,7 +564,7 @@ struct AudioPlayerView: View {
 ////}
 ////
 ////#Preview {
-////    CreateNewPost{_ in 
+////    CreateNewPost{_ in
 ////    }
 ////}
 //
