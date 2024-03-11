@@ -120,7 +120,6 @@ struct LoginView: View {
                             .font(Font.custom("Catamaran", size: 14.5))
                             .tracking(0.26)
                             .lineSpacing(19.50)
-                            .foregroundColor(Color(red: 0.16, green: 0.06, blue: 0.45))
                             .frame(maxWidth: .infinity, alignment: .trailing) // Align to the right
                             .padding(.top, -55)
                             .padding(.trailing, 16)
@@ -156,11 +155,12 @@ struct LoginView: View {
                         Spacer()
                         // Add Spacer to push the HStack to the bottom
                         HStack{
-                            Text("Dont have an account?").foregroundColor(Color(red: 0.16, green: 0.06, blue: 0.45))
+                            Text("Dont have an account?")
                             Button("Register Now"){
                                 createAccount.toggle()
                             }.fontWeight(.bold)
-                                .foregroundColor(Color(red: 0.16, green: 0.06, blue: 0.45))
+                                .foregroundColor(.black)
+                                
                         }
                         .offset(y:100)
                     }

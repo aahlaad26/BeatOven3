@@ -37,66 +37,61 @@ struct RegisterView:View{
         ZStack{
             Color("bg-color").ignoresSafeArea()
             ScrollView{
-                VStack(spacing: 10){
-                    VStack(alignment:.center) {
-                        Text("BeatOven")
-                            .foregroundColor(.black)
-                            .font(Font.custom("Condiment", size: 44))
-                            .padding()
-                            .cornerRadius(10)
-                        .position(CGPoint(x: 40.0, y: 80.0))
-                    }
-                        
-                    Text("SignUp").font(.largeTitle.bold())
-                        .hAlign(.leading)
-                    
-                    Text("Do sign Up ").font(.title3)
-                        .hAlign(.leading)
-                //MARK: Smaller size optimisations
-                    
-                    ViewThatFits{
-                        VStack{
-                            ScrollView{
-                                HelperView()
-                            }
-                        }
-                       
-                    }
-                    //MARK: Register Button
-                    HStack{
-                        Text("Already having an account?").foregroundStyle(Color.gray)
-                        Button("Login Now"){
-                            dismiss()
-                        }.fontWeight(.bold)
-                            .foregroundStyle(Color.black)
-                    }.font(.callout)
-                    .vAlign(.bottom)
-                        
-                }
-                .vAlign(.top)
-                .padding(15)
-                .overlay(content:{
-                    LoadingView(show: $isLoading)
-                })
-                .photosPicker(isPresented: $showimagePicker, selection:$photoItem )
-                .onChange(of: photoItem){newValue in
-                    //MARK: Extracting UI Image from photoItem
-                    if let newValue{
-                        Task{
-                            do{
-                                guard let imagedata = try await newValue.loadTransferable(type: Data.self)else{
-                                    return
+                ZStack{
+
+                        VStack(spacing: 10){
+                        //MARK: Smaller size optimisations
+                            Text("Sign in")
+                                .font(Font.custom("Catamaran", size: 28).weight(.bold))
+                                .tracking(0.56)
+                                .lineSpacing(41)
+                            Text("Welcome, Let’s Fuel your musical fire and let your riffs rule the stage.")
+                            ViewThatFits{
+                                VStack{
+                                    ScrollView{
+                                        HelperView()
+                                    }
                                 }
-                                //MARK: UI Must be updated on main thread
-                                await MainActor.run(body:{ userprofiledata = imagedata})
-                            
+                               
+                            }
+                            //MARK: Register Button
+                            HStack{
+                                Text("Already having an account?").foregroundStyle(Color.black)
+                                Button("Login Now"){
+                                    dismiss()
+                                }.fontWeight(.bold)
+                                    .foregroundStyle(Color.black)
+                            }.font(.callout)
+                            .vAlign(.bottom)
                                 
-                            }catch{}
                         }
-                    }
+                        .vAlign(.top)
+                        .padding(15)
+                        .overlay(content:{
+                            LoadingView(show: $isLoading)
+                        })
+                        .photosPicker(isPresented: $showimagePicker, selection:$photoItem )
+                        .onChange(of: photoItem){newValue in
+                            //MARK: Extracting UI Image from photoItem
+                            if let newValue{
+                                Task{
+                                    do{
+                                        guard let imagedata = try await newValue.loadTransferable(type: Data.self)else{
+                                            return
+                                        }
+                                        //MARK: UI Must be updated on main thread
+                                        await MainActor.run(body:{ userprofiledata = imagedata})
+                                    
+                                        
+                                    }catch{}
+                                }
+                            }
+                        }.padding(.bottom,40)
+                        //MARK: Displaying Alert
+                        .alert(errormessage, isPresented:$showerror , actions: {})
+                    
+                    
                 }
-                //MARK: Displaying Alert
-                .alert(errormessage, isPresented:$showerror , actions: {})
             }
         }
     }
@@ -126,34 +121,40 @@ struct RegisterView:View{
             TextField("Username",text: $username)
                 .textContentType(.username)
                 .border(1, .gray.opacity(0.5))
+                .background(Color("cell-color"))
                
             
             TextField("Email",text: $emailID)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
+                .background(Color("cell-color"))
                 .padding(.top,25)
            
             
             SecureField("Password",text: $password)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
+                .background(Color("cell-color"))
                 .padding(.top,25)
             
             TextField("About You",text: $userbio, axis: .vertical)
                 .frame(minHeight: 100, alignment: .top)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
+                .background(Color("cell-color"))
                 .padding(.top,25)
             TextField("Bio Link[Optional]",text: $userbiolink)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
+                .background(Color("cell-color"))
                 .padding(.top,25)
            
             
             Button(action: registerUser, label: {
                 Text("Sign Up")
                     .foregroundStyle(Color.white)
-            }).fillView(.black)
+                    
+            }).fillView(Color("button-color"))
                 .hAlign(.center)
         }
 //        .disabledOpacity(username == "" || userbio == "" || emailID == "" || password == "" || userprofiledata == nil)

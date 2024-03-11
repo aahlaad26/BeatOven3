@@ -1,15 +1,9 @@
-//
-//  PostCardView.swift
-//  Overall_Backend
-//
-//  Created by user4 on 03/03/24.
-//
-
 import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
 import FirebaseStorage
 import AVKit
+
 struct PostCardView: View {
     @State private var player: AVPlayer?
     @State private var user: User?
@@ -34,15 +28,12 @@ struct PostCardView: View {
                     Text(post.username)
                         .font(.callout)
                         .fontWeight(.semibold)
-                    //                Text((post.publishedDate?.formatted(date: .numeric, time: .shortened))!)
-                    //                    .font(.caption2)
-                    //                    .foregroundStyle(Color.gray)
-                    if let publishedDate = post.publishedDate{
+                    if let publishedDate = post.publishedDate {
                         Text(publishedDate.formatted(date: .numeric, time: .shortened))
                             .font(.caption2)
                             .foregroundStyle(Color.gray)
                     }
-                    else{
+                    else {
                         Text("No date")
                     }
                 }
@@ -62,51 +53,45 @@ struct PostCardView: View {
                 }
             }.padding(.bottom,10)
                 VStack(alignment: .leading, spacing: 6){
-
-                    
-                    //post image if any
-
-                        if let URl = post.imageURL{
-                            if URl.absoluteString.range(of: "Post_Images") != nil{
-                                Text(post.text)
-                                    .textSelection(.enabled)
-                                    .padding(.vertical,8)
-                                GeometryReader{
-                                    let size = $0.size
-                                    WebImage(url: URl)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: size.width, height: size.height)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                    
-                                }
-                                .frame(height: 200)
+                    if let URl = post.imageURL{
+                        if URl.absoluteString.range(of: "Post_Images") != nil{
+                            Text(post.text)
+                                .textSelection(.enabled)
+                                .padding(.vertical,8)
+                            GeometryReader{
+                                let size = $0.size
+                                WebImage(url: URl)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: size.width, height: size.height)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             }
-                            else{
-                                HStack{
-                                    WebImage(url: post.userProfileURL)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 35, height: 35)
-                                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                                    VStack(alignment:.leading){
-                                        Text(post.text)
-                                            .textSelection(.enabled)
-                                        if let publishedDate = post.publishedDate{
-                                            Text(timeSinceDate(date: publishedDate))
-                                                .font(.system(size: 10))
-                                                .foregroundColor(Color(#colorLiteral(red: 0.42, green: 0.42, blue: 0.42, alpha: 1)))
-                                        }
-                                    }
-                                    Spacer()
-                                    
-                                    PlayerView(player: $player, url: URl)
-                                }.padding()
-                                .background(Color("bg-color"))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .frame(width: 300)
-                            }
+                            .frame(height: 200)
                         }
+                        else {
+                            HStack{
+                                WebImage(url: post.userProfileURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 35, height: 35)
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                                VStack(alignment:.leading){
+                                    Text(post.text)
+                                        .textSelection(.enabled)
+                                    if let publishedDate = post.publishedDate {
+                                        Text(timeSinceDate(date: publishedDate))
+                                            .font(.system(size: 10))
+                                            .foregroundColor(Color(#colorLiteral(red: 0.42, green: 0.42, blue: 0.42, alpha: 1)))
+                                    }
+                                }
+                                Spacer()
+                                PlayerView(player: $player, url: URl)
+                            }.padding()
+                            .background(Color("bg-color"))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(width: 300)
+                        }
+                    }
                     PostInteraction()
                 }
         }
@@ -115,67 +100,38 @@ struct PostCardView: View {
         .background(Color("cell-color"))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow( radius: 5)
-        
-        //.shadow(radius: 10)
         .hAlign(.leading)
-        .overlay(alignment: .topTrailing, content: {
-
-            
-        })
+        .overlay(alignment: .topTrailing, content: {})
         .onAppear{
-            if docListener == nil{
-                guard let postID = post.id else{return}
+            if docListener == nil {
+                guard let postID = post.id else { return }
                 docListener = Firestore.firestore().collection("Posts").document(postID).addSnapshotListener({snapshot, error in
-                    if let snapshot{
-                        if snapshot.exists{
-                            //document updated
-                            //fetching updated doc
-                            if let updatedPost = try? snapshot.data(as: Post.self){
+                    if let snapshot {
+                        if snapshot.exists {
+                            if let updatedPost = try? snapshot.data(as: Post.self) {
                                 onUpdate(updatedPost)
                             }
-                        }else{
+                        } else {
                             onDelete()
                         }
                     }
-                }
-                )
-               
-//                docListener = Firestore.firestore().collection("Users").document(userUID).addSnapshotListener({snapshot, error in
-//                    if let snapshot{
-//                        if snapshot.exists{
-//                            //document updated
-//                            //fetching updated doc
-//                            if let updatedPost = try? snapshot.data(as: Post.self){
-//                                onUpdate(updatedPost)
-//                            }
-//                        }else{
-//                            onDelete()
-//                        }
-//                    }
-//                }
-//                )
-                
+                })
             }
-        
         }
         .onDisappear{
-            // MARK: Applying snapshot listener only when the post is available on screen
-            //else remove listener by saving the unwanted live updates from the posts which was swiped away
-            if let docListener{
+            if let docListener {
                 docListener.remove()
-               self.docListener = nil
+                self.docListener = nil
             }
         }
     }
-    // MARK: Like/Dislike Interaction
     
     @ViewBuilder
-    func PostInteraction()->some View{
+    func PostInteraction()->some View {
         HStack(spacing:20){
             HStack(){
                 Button(action: likePost){
                     Image(systemName: post.likedIDs.contains(userUID) ? "heart.fill" : "heart" )
-                    //checks if user's name is in the array of likedids and if yes the colour changes else no
                 }
                 Text("\(post.likedIDs.count)")
                     .font(.caption)
@@ -184,7 +140,6 @@ struct PostCardView: View {
             HStack{
                 Button(action: {}){
                     Image(systemName: "bubble.right" )
-                    //checks if user's name is in the array of likedids and if yes the colour changes else no
                 }
                 Text("\(post.likedIDs.count)")
                     .font(.caption)
@@ -193,91 +148,77 @@ struct PostCardView: View {
             HStack{
                 Button(action: {}){
                     Image(systemName: "square.and.arrow.down" )
-                    //checks if user's name is in the array of likedids and if yes the colour changes else no
                 }
                 Text("\(post.likedIDs.count)")
                     .font(.caption)
                     .foregroundStyle(Color.gray)
             }.frame(width: 75,height: 40)
-            
         }
         .frame(width: 300)
         .foregroundStyle(Color.black)
         .padding(.vertical,8)
-        
     }
-    //liking post
+    
     func likePost(){
         Task{
-            guard let postID = post.id else{return}
-            if post.likedIDs.contains(userUID){ //remove the user's uid id the person has already liked if not add to the array
-                //removing user id from the array
-               try await  Firestore.firestore().collection("Posts").document(postID).updateData([
+            guard let postID = post.id else { return }
+            if post.likedIDs.contains(userUID) {
+                try await Firestore.firestore().collection("Posts").document(postID).updateData([
                     "likedIDs": FieldValue.arrayRemove([userUID])
                 ])
-                
-            }else{
-                //see for removing part once and update
+            } else {
                 try await Firestore.firestore().collection("Posts").document(postID).updateData([
                     "likedIDs": FieldValue.arrayUnion([userUID])
                 ])
             }
         }
     }
-    //delete post
+    
     func deletePost(){
         Task{
-            do{
-                if post.imageReferenceID != ""{
-                    if let URl = post.imageURL{
-                        if URl.absoluteString.range(of: "https://firebasestorage.googleapis.com:443/v0/b/backendposts.appspot.com/o/Post_Images") != nil{
+            do {
+                if post.imageReferenceID != "" {
+                    if let URl = post.imageURL {
+                        if URl.absoluteString.range(of: "Post_Images") != nil {
                             try await Storage.storage().reference().child("Post_Images").child(post.imageReferenceID).delete()
-                        }
-                        else{
+                        } else {
                             try await Storage.storage().reference().child("Post_Audios").child(post.imageReferenceID).delete()
                         }
                     }
-                    
-                    
                 }
-                guard let postID = post.id else{return}
+                guard let postID = post.id else { return }
                 try await Firestore.firestore().collection("Posts").document(postID).delete()
-            }catch{
+            } catch {
                 print(error.localizedDescription)
             }
         }
     }
+    
     func timeSinceDate(date: Date) -> String {
-            let calendar = Calendar.current
-            let now = Date()
-           let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date, to: now)
-    
-           if let year = components.year, year > 0 {
-               return "\(year) year" + (year > 1 ? "s" : "") + " ago"
+        let calendar = Calendar.current
+        let now = Date()
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date, to: now)
+        
+        if let year = components.year, year > 0 {
+            return "\(year) year" + (year > 1 ? "s" : "") + " ago"
         }
-    
-            if let month = components.month, month > 0 {
-                return "\(month) month" + (month > 1 ? "s" : "") + " ago"
-            }
-    
-            if let day = components.day, day > 0 {
-                return "\(day) day" + (day > 1 ? "s" : "") + " ago"
-            }
-    
-            if let hour = components.hour, hour > 0 {
-                return "\(hour) hour" + (hour > 1 ? "s" : "") + " ago"
-            }
-    
-            if let minute = components.minute, minute > 0 {
-                return "\(minute) minute" + (minute > 1 ? "s" : "") + " ago"
-            }
-    
-            if let second = components.second, second > 0 {
-                return "\(second) second" + (second > 1 ? "s" : "") + " ago"
-            }
-    
-            return "Just now"
-       }
+        if let month = components.month, month > 0 {
+            return "\(month) month" + (month > 1 ? "s" : "") + " ago"
+        }
+        if let day = components.day, day > 0 {
+            return "\(day) day" + (day > 1 ? "s" : "") + " ago"
+        }
+        if let hour = components.hour, hour > 0 {
+            return "\(hour) hour" + (hour > 1 ? "s" : "") + " ago"
+        }
+        if let minute = components.minute, minute > 0 {
+            return "\(minute) minute" + (minute > 1 ? "s" : "") + " ago"
+        }
+        if let second = components.second, second > 0 {
+            return "\(second) second" + (second > 1 ? "s" : "") + " ago"
+        }
+        return "Just now"
+    }
 }
 
 struct PlayerView: View {
@@ -285,17 +226,13 @@ struct PlayerView: View {
     let url: URL
     var body: some View {
         VStack {
-            
             AudioPlayerControlsView(player: $player)
         }
         .onAppear {
             if player == nil {
                 do {
                     let playerItem:AVPlayerItem = AVPlayerItem(url: url)
-
                     player = try AVPlayer(playerItem:playerItem)
-                    
-            
                 } catch {
                     print("Error creating AVAudioPlayer: \(error.localizedDescription)")
                 }
@@ -313,8 +250,6 @@ struct AudioPlayerControlsView: View {
             }) {
                 Image(systemName: isPlay ? "play.fill":"pause.fill")
             }
-            
-
     }
     func playPause(){
         self.isPlay.toggle()
@@ -325,11 +260,4 @@ struct AudioPlayerControlsView: View {
             player?.play()
         }
     }
-//    func next(){
-//
-//    }
-//    func prev(){
-//
-//    }
 }
-

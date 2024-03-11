@@ -4,7 +4,7 @@
 //
 //  Created by mathangy on 27/02/24.
 //
-
+import Foundation
 import SwiftUI
 import FirebaseFirestoreSwift
 
@@ -26,4 +26,10 @@ struct User: Identifiable, Codable {
         case useremail
         case userprofileURL
     }
+}
+extension User{
+    static var MOCK_USERS:[User] = [
+
+    
+    ]
 }

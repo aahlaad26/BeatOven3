@@ -13,7 +13,7 @@ struct ContentView: View {
         if(logStatus){
             MainView()
         }else{
-            LoginView()
+            StartSplashView()
         }
         
         
