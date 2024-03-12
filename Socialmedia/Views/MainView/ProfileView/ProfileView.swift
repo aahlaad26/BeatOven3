@@ -14,6 +14,8 @@ struct ProfileView: View {
     //MARK: My profile Data
     @State private var myProfile:User?
     @AppStorage("log_status") var logStatus:Bool = false
+    @State private var showPortfolio: Bool = false
+
     //MARK: View Properties
     @State var errorMessage: String = ""
     @State var showError: Bool = false
@@ -22,6 +24,33 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack{
             VStack{
+                NavigationLink(destination: PortfolioView(), isActive: $showPortfolio) {
+                                    Image(systemName: "doc.badge.gearshape.fill")
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                        .padding()
+                                        .foregroundColor(.black)
+                                        .cornerRadius(10)
+                                }
+                                .offset(x:150,y:-20)
+//                Button(action: {
+//                                    showPortfolio = true
+//                                }) {
+//                                    Image(systemName: "doc.badge.gearshape.fill")
+//                                            .resizable()
+//                                            .frame(width: 24, height: 24)
+//                                            .padding()
+//                                        
+//                                            .foregroundColor(.black)
+//                                            .cornerRadius(10)
+//                                }
+//                                .offset(x:150,y:-20)
+//                                .sheet(isPresented: $showPortfolio) {
+//                                    // This is where you'd put your PortfolioView
+//                                   PortfolioView()
+//                                }
+                                
+
                 if let myProfile{
                     ReusableProfileContent(posts: $recentPosts, user: myProfile)
                         .refreshable {
@@ -46,6 +75,7 @@ struct ProfileView: View {
                         
                         Button("Logout",action: logOutUser)
                         Button("Delete Account",role: .destructive,action: deleteAccount)
+                        
                     }label: {
                         Image(systemName: "ellipsis")
                             .rotationEffect(.init(degrees: 90))
