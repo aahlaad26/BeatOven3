@@ -154,7 +154,7 @@ struct PortfolioView: View {
                 Button(action: {
                     pushDataToFirebase()
                 }) {
-                    Text("View current portfolio")
+                    Text("Create portfolio")
                         .foregroundColor(.white)
                         .padding()
                         .background(Color("button-color"))
