@@ -1,6 +1,6 @@
 import SwiftUI
 import UIKit
-
+import Firebase
 struct PortfolioView: View {
     @State private var name: String = ""
     @State private var cityCountry: String = ""
@@ -37,6 +37,32 @@ struct PortfolioView: View {
             }
         }
     }
+    func pushDataToFirebase() {
+        let db = Firestore.firestore()
+        let documentReference = db.collection("portfolioData").document()
+        
+        documentReference.setData([
+            "name": name,
+            "cityCountry": cityCountry,
+            "instrument1": instrument1,
+            "instrument2": instrument2,
+            "instrument3": instrument3,
+            "song1": song1,
+            "song2": song2,
+            "song3": song3,
+            "aboutMe": aboutMe,
+            "metalink": metalink,
+            "instalink": instalink,
+            "ytlink": ytlink
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(documentReference.documentID)")
+            }
+        }
+    }
+
     
     var body: some View {
         ScrollView {
@@ -127,7 +153,9 @@ struct PortfolioView: View {
                 
                 Spacer()
 
-                Button(action: {}) {
+                Button(action: {
+                    pushDataToFirebase()
+                }) {
                     Text("View current portfolio")
                         .foregroundColor(.white)
                         .padding()
