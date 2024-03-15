@@ -69,6 +69,8 @@
 		983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468AB2B8DFC7D0045D037 /* LoadingView.swift */; };
 		98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */; };
 		98E682222BA46C2A00FA057A /* PortfolioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E682212BA46C2A00FA057A /* PortfolioData.swift */; };
+		98E682252BA4959000FA057A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 98E682242BA4959000FA057A /* Lottie */; };
+		98E682292BA4AE0100FA057A /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E682282BA4AE0100FA057A /* LottieView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +110,7 @@
 		983468AB2B8DFC7D0045D037 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		98E682212BA46C2A00FA057A /* PortfolioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioData.swift; sourceTree = "<group>"; };
+		98E682282BA4AE0100FA057A /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,7 @@
 				9834686D2B8D9B9A0045D037 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				983468932B8D9B9A0045D037 /* FirebaseMLModelDownloader in Frameworks */,
 				983468872B8D9B9A0045D037 /* FirebaseFirestoreSwift in Frameworks */,
+				98E682252BA4959000FA057A /* Lottie in Frameworks */,
 				983468732B8D9B9A0045D037 /* FirebaseAppCheck in Frameworks */,
 				983468712B8D9B9A0045D037 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				983468772B8D9B9A0045D037 /* FirebaseAuth in Frameworks */,
@@ -226,6 +230,7 @@
 				2F5C5D372B8EDD8000531C33 /* ProfileView.swift */,
 				2F5C5D392B8EEB5F00531C33 /* ReusableProfileContent.swift */,
 				98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */,
+				98E682282BA4AE0100FA057A /* LottieView.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 				9834689C2B8D9B9A0045D037 /* FirebaseStorage */,
 				9834689E2B8D9B9A0045D037 /* FirebaseStorageCombine-Community */,
 				2F5C5D3C2B8EECC900531C33 /* SDWebImageSwiftUI */,
+				98E682242BA4959000FA057A /* Lottie */,
 			);
 			productName = Socialmedia;
 			productReference = 983468542B8D997E0045D037 /* Socialmedia.app */;
@@ -372,6 +378,7 @@
 			packageReferences = (
 				983468692B8D9B9A0045D037 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				2F5C5D3B2B8EECC900531C33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				98E682232BA4959000FA057A /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 983468552B8D997E0045D037 /* Products */;
 			projectDirPath = "";
@@ -420,6 +427,7 @@
 				2F5C5D452B8F246000531C33 /* ReusablePostsView.swift in Sources */,
 				2F5C5D342B8EDB9500531C33 /* Views+Extensions.swift in Sources */,
 				0F12B94E2B96681E002C3368 /* StartSplashScreen.swift in Sources */,
+				98E682292BA4AE0100FA057A /* LottieView.swift in Sources */,
 				2F5C5D3F2B8EFBE700531C33 /* CreateNewPost.swift in Sources */,
 				2F5C5D432B8F219200531C33 /* PostsView.swift in Sources */,
 				0F12B9522B96681E002C3368 /* SplashScreenView.swift in Sources */,
@@ -656,6 +664,14 @@
 				minimumVersion = 10.21.0;
 			};
 		};
+		98E682232BA4959000FA057A /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -798,6 +814,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 983468692B8D9B9A0045D037 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		98E682242BA4959000FA057A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98E682232BA4959000FA057A /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

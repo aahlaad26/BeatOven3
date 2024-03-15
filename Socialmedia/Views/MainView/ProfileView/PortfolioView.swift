@@ -2,6 +2,8 @@ import SwiftUI
 import UIKit
 import Firebase
 struct PortfolioView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var showCompletionPortfolio = false
     @AppStorage("user_name") private var userName: String = ""
     @AppStorage("user_UID") private var userUID: String = ""
     @State private var id: String = ""
@@ -24,7 +26,7 @@ struct PortfolioView: View {
     struct SectionView: View {
         let title: String
         @Binding var isVisible: Bool
-
+        
         var body: some View {
             HStack {
                 Image(systemName: "plus")
@@ -45,7 +47,7 @@ struct PortfolioView: View {
         let documentReference = db.collection("portfolioData").document()
         
         let portfolioData = PortfolioData(id: documentReference.documentID, userId: userUID, userName: userName, name: name, cityCountry: cityCountry, instrument1: instrument1, instrument2: instrument2, instrument3: instrument3, song1: song1, song2: song2, song3: song3, aboutMe: aboutMe, metalink: metalink, instalink: instalink, ytlink: ytlink)
-
+        
         
         do {
             let data = try Firestore.Encoder().encode(portfolioData)
@@ -60,7 +62,7 @@ struct PortfolioView: View {
             print("Error encoding PortfolioData: \(error)")
         }
     }
-
+    
     
     var body: some View {
         ScrollView {
@@ -81,11 +83,11 @@ struct PortfolioView: View {
                         Text("Select Profile Image")
                     }
                 }
-
+                
                 TextField("Enter Name", text: $name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing])
-
+                
                 TextField("Enter City, Country", text: $cityCountry)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing, .bottom])
@@ -102,28 +104,28 @@ struct PortfolioView: View {
                 TextField("Enter Instrument 3", text: $instrument3)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing, .bottom])
-
+                
                 Text("Sections to Customize")
                     .font(.title)
                     .fontWeight(.bold)
                     .padding()
-
+                
                 VStack {
                     
                     SectionView(title: "Add Text", isVisible: $isAddTextSectionVisible)
-                                       if isAddTextSectionVisible {
-                                           TextEditor(text: $aboutMe)
-                                               .frame(height: 100)
-                                               .padding([.leading, .trailing, .bottom])
-                                               .onChange(of: aboutMe) { newValue in
-                                                   if newValue.count > 150 {
-                                                       aboutMe = String(newValue.prefix(150))
-                                                   }
-                                               }
-                                       }
+                    if isAddTextSectionVisible {
+                        TextEditor(text: $aboutMe)
+                            .frame(height: 100)
+                            .padding([.leading, .trailing, .bottom])
+                            .onChange(of: aboutMe) { newValue in
+                                if newValue.count > 150 {
+                                    aboutMe = String(newValue.prefix(150))
+                                }
+                            }
+                    }
                     SectionView(title: "Add Social Media Profiles", isVisible: $isAddTextSectionVisible)
                     if isAddTextSectionVisible {
-                       
+                        
                         TextField("Enter Facebook ID Link", text: $metalink)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding([.leading, .trailing, .bottom])
@@ -134,7 +136,7 @@ struct PortfolioView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding([.leading, .trailing, .bottom]);
                     }
-
+                    
                     SectionView(title: "Add Songs", isVisible: $isAddSongsSectionVisible)
                     if isAddSongsSectionVisible {
                         TextField("Enter Song link 1", text: $song1)
@@ -150,9 +152,10 @@ struct PortfolioView: View {
                 }
                 
                 Spacer()
-
+                
                 Button(action: {
                     pushDataToFirebase()
+                    self.showCompletionPortfolio = true
                 }) {
                     Text("Create portfolio")
                         .foregroundColor(.white)
@@ -161,15 +164,37 @@ struct PortfolioView: View {
                         .cornerRadius(10)
                 }
                 .padding()
+                .sheet(isPresented: $showCompletionPortfolio) {
+                    CompletionPortfolio()
+                }
             }
         }
-        .background(Color(red: 252/255, green: 222/255, blue: 208/255))
-        .navigationTitle("Portfolio Creator")
+            .background(Color(red: 252/255, green: 222/255, blue: 208/255))
+            .navigationTitle("Portfolio Creator")
+        }
+    }
+    
+
+struct CompletionPortfolio: View {
+    var body: some View {
+        VStack {
+            LottieView(name: "new.json")
+            Text("Portfolio Created Succesfully!")
+            NavigationLink(destination: MainView()) {
+                Text("Now BeatOven it")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+        }
     }
 }
 
-struct PortfolioView_Previews: PreviewProvider {
-    static var previews: some View {
-        PortfolioView()
+    struct PortfolioView_Previews: PreviewProvider {
+        static var previews: some View {
+            PortfolioView()
+        }
     }
-}
+
