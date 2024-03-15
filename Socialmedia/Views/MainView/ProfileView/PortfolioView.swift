@@ -2,6 +2,9 @@ import SwiftUI
 import UIKit
 import Firebase
 struct PortfolioView: View {
+    @AppStorage("user_name") private var userName: String = ""
+    @AppStorage("user_UID") private var userUID: String = ""
+    @State private var id: String = ""
     @State private var name: String = ""
     @State private var cityCountry: String = ""
     @State private var instrument1: String = ""
@@ -41,25 +44,20 @@ struct PortfolioView: View {
         let db = Firestore.firestore()
         let documentReference = db.collection("portfolioData").document()
         
-        documentReference.setData([
-            "name": name,
-            "cityCountry": cityCountry,
-            "instrument1": instrument1,
-            "instrument2": instrument2,
-            "instrument3": instrument3,
-            "song1": song1,
-            "song2": song2,
-            "song3": song3,
-            "aboutMe": aboutMe,
-            "metalink": metalink,
-            "instalink": instalink,
-            "ytlink": ytlink
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID: \(documentReference.documentID)")
+        let portfolioData = PortfolioData(id: documentReference.documentID, userId: userUID, userName: userName, name: name, cityCountry: cityCountry, instrument1: instrument1, instrument2: instrument2, instrument3: instrument3, song1: song1, song2: song2, song3: song3, aboutMe: aboutMe, metalink: metalink, instalink: instalink, ytlink: ytlink)
+
+        
+        do {
+            let data = try Firestore.Encoder().encode(portfolioData)
+            documentReference.setData(data) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document added with ID: \(documentReference.documentID)")
+                }
             }
+        } catch let error {
+            print("Error encoding PortfolioData: \(error)")
         }
     }
 

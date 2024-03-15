@@ -68,6 +68,7 @@
 		983468A82B8DDA420045D037 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A72B8DDA420045D037 /* User.swift */; };
 		983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468AB2B8DFC7D0045D037 /* LoadingView.swift */; };
 		98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */; };
+		98E682222BA46C2A00FA057A /* PortfolioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E682212BA46C2A00FA057A /* PortfolioData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,7 @@
 		983468A72B8DDA420045D037 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		983468AB2B8DFC7D0045D037 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		98E682212BA46C2A00FA057A /* PortfolioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +290,7 @@
 				2F5C5D402B8EFCFE00531C33 /* Post.swift */,
 				0F12B95A2B96710C002C3368 /* Groups.swift */,
 				0F12B9622B967DBA002C3368 /* AudioPosts.swift */,
+				98E682212BA46C2A00FA057A /* PortfolioData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */,
 				2F5C5D412B8EFCFE00531C33 /* Post.swift in Sources */,
 				2F5C5D362B8EDC0C00531C33 /* MainView.swift in Sources */,
+				98E682222BA46C2A00FA057A /* PortfolioData.swift in Sources */,
 				983468A52B8D9C230045D037 /* LoginView.swift in Sources */,
 				0F12B94F2B96681E002C3368 /* Screen4.swift in Sources */,
 				9834685A2B8D997E0045D037 /* ContentView.swift in Sources */,
