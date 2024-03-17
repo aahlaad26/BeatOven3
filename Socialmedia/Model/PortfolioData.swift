@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-struct PortfolioData: Codable {
+struct PortfolioData: Codable, Identifiable {
     var id: String
     var userId: String
     var userName: String

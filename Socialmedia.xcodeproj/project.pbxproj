@@ -67,6 +67,8 @@
 		983468A52B8D9C230045D037 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A42B8D9C220045D037 /* LoginView.swift */; };
 		983468A82B8DDA420045D037 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A72B8DDA420045D037 /* User.swift */; };
 		983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468AB2B8DFC7D0045D037 /* LoadingView.swift */; };
+		9858F6FF2BA6C5A100F4944E /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F6FE2BA6C5A100F4944E /* PortfolioViewModel.swift */; };
+		9858F7012BA6F66F00F4944E /* FetchPortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */; };
 		98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */; };
 		98E682222BA46C2A00FA057A /* PortfolioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E682212BA46C2A00FA057A /* PortfolioData.swift */; };
 		98E682252BA4959000FA057A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 98E682242BA4959000FA057A /* Lottie */; };
@@ -108,6 +110,8 @@
 		983468A42B8D9C220045D037 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		983468A72B8DDA420045D037 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		983468AB2B8DFC7D0045D037 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		9858F6FE2BA6C5A100F4944E /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
+		9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPortfolioView.swift; sourceTree = "<group>"; };
 		98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		98E682212BA46C2A00FA057A /* PortfolioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioData.swift; sourceTree = "<group>"; };
 		98E682282BA4AE0100FA057A /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 				2F5C5D392B8EEB5F00531C33 /* ReusableProfileContent.swift */,
 				98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */,
 				98E682282BA4AE0100FA057A /* LottieView.swift */,
+				9858F6FE2BA6C5A100F4944E /* PortfolioViewModel.swift */,
+				9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 			files = (
 				0F12B95B2B96710C002C3368 /* Groups.swift in Sources */,
 				0F12B9512B96681E002C3368 /* Screen3.swift in Sources */,
+				9858F7012BA6F66F00F4944E /* FetchPortfolioView.swift in Sources */,
 				983468A82B8DDA420045D037 /* User.swift in Sources */,
 				0F12B9502B96681E002C3368 /* Screen1.swift in Sources */,
 				2F5C5D382B8EDD8000531C33 /* ProfileView.swift in Sources */,
@@ -439,6 +446,7 @@
 				983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */,
 				983468582B8D997E0045D037 /* SocialmediaApp.swift in Sources */,
 				2F5C5D4B2B90331300531C33 /* SearchUserView.swift in Sources */,
+				9858F6FF2BA6C5A100F4944E /* PortfolioViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

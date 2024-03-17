@@ -44,10 +44,10 @@ struct PortfolioView: View {
     }
     func pushDataToFirebase() {
         let db = Firestore.firestore()
-        let documentReference = db.collection("portfolioData").document()
+        
+        let documentReference = db.collection("portfolioData").document(userUID)
         
         let portfolioData = PortfolioData(id: documentReference.documentID, userId: userUID, userName: userName, name: name, cityCountry: cityCountry, instrument1: instrument1, instrument2: instrument2, instrument3: instrument3, song1: song1, song2: song2, song3: song3, aboutMe: aboutMe, metalink: metalink, instalink: instalink, ytlink: ytlink)
-        
         
         do {
             let data = try Firestore.Encoder().encode(portfolioData)
@@ -62,7 +62,31 @@ struct PortfolioView: View {
             print("Error encoding PortfolioData: \(error)")
         }
     }
-    
+    func fetchPortfolioData() {
+        let db = Firestore.firestore()
+        // Use the user's unique ID to get the document
+        let documentReference = db.collection("portfolioData").document(userUID)
+        
+        documentReference.getDocument { (document, error) in
+            if let document = document, document.exists {
+                do {
+                    // Decode the document data into PortfolioData
+                    let portfolioData = try Firestore.Decoder().decode(PortfolioData.self, from: document.data()!)
+                    // Now you can access the fields of portfolioData
+                    print("Name: \(portfolioData.name)")
+                    print("City/Country: \(portfolioData.cityCountry)")
+                    print("Instrument 1: \(portfolioData.cityCountry)")
+                   
+                } catch let error {
+                    print("Error decoding PortfolioData: \(error)")
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+
+
     
     var body: some View {
         ScrollView {

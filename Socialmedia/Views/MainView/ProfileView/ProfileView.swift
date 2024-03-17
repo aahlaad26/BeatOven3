@@ -21,6 +21,8 @@ struct ProfileView: View {
     @State var showError: Bool = false
     @State var isLoading: Bool = false
     @State private var recentPosts: [Post] = []
+    @State private var showFetchPortfolioView: Bool = false
+
     var body: some View {
         NavigationStack{
             VStack{
@@ -33,6 +35,18 @@ struct ProfileView: View {
                                         .cornerRadius(10)
                                 }
                                 .offset(x:150,y:-20)
+                
+                NavigationLink(destination: FetchPortfolioView(), isActive: $showFetchPortfolioView) {
+                    Image(systemName: "folder.fill")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .padding()
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                .offset(x:150,y:-20)
+
+                
 //                Button(action: {
 //                                    showPortfolio = true
 //                                }) {
@@ -68,6 +82,7 @@ struct ProfileView: View {
             .navigationTitle("My Profile")
             
             .toolbar{
+                
                 ToolbarItem(placement: .topBarTrailing){
                     Menu{
                         //MARK: Two actions
