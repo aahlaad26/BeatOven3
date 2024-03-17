@@ -27,22 +27,12 @@ struct ProfileView: View {
         NavigationStack{
             VStack{
                 NavigationLink(destination: PortfolioView(), isActive: $showPortfolio) {
-                                    Image(systemName: "doc.badge.gearshape.fill")
-                                        .resizable()
-                                        .frame(width: 24, height: 24)
-                                        .padding()
-                                        .foregroundColor(.black)
-                                        .cornerRadius(10)
+                                    EmptyView()
                                 }
                                 .offset(x:150,y:-20)
                 
                 NavigationLink(destination: FetchPortfolioView(), isActive: $showFetchPortfolioView) {
-                    Image(systemName: "folder.fill")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .padding()
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
+                    EmptyView()
                 }
                 .offset(x:150,y:-20)
 
@@ -89,8 +79,9 @@ struct ProfileView: View {
                         //Logout, delete account
                         
                         Button("Logout",action: logOutUser)
+                        Button("Create Portfolio",action: {showPortfolio = true})
+                        Button("View Portfolio",action: {showFetchPortfolioView = true})
                         Button("Delete Account",role: .destructive,action: deleteAccount)
-                        
                     }label: {
                         Image(systemName: "ellipsis")
                             .rotationEffect(.init(degrees: 90))
