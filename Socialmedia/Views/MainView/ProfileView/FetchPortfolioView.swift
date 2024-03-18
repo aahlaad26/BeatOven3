@@ -4,33 +4,60 @@ import Firebase
 struct FetchPortfolioView: View {
     @AppStorage("user_UID") private var userUID: String = ""
     @State private var portfolioData: PortfolioData?
+    @State private var isLoading: Bool = true
 
     var body: some View {
-        VStack {
-            if let portfolioData = portfolioData {
-                Text("Name: \(portfolioData.name)")
-                Text("City/Country: \(portfolioData.cityCountry)")
-                Text("About Me \(portfolioData.aboutMe)")
-                Text("instrument1: \(portfolioData.instrument1)")
-                Text("Instrument2: \(portfolioData.instrument2)")
-                Text("Instrument3: \(portfolioData.instrument3)")
-                Text("Song 1 \(portfolioData.song1)")
-                Text("Song 2 \(portfolioData.song2)")
-                Text("Song 3 \(portfolioData.song3)")
-                Text("Facebook Link \(portfolioData.metalink)")
-                Text("Instagram Link \(portfolioData.instalink)")
-                Text("Youtube Profile \(portfolioData.ytlink)")
-                
-                
-               
-                
-                
-            } else {
-                Text("Loading...")
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    if let portfolioData = portfolioData {
+                        Group {
+                            Text("Hi, I am  \(portfolioData.name)")
+                                .font(.title)
+                            Text("About Me: I am from \(portfolioData.cityCountry). \(portfolioData.aboutMe)")
+                        }
+                       
+                        Divider()
+
+                        Text("Instruments Played")
+                            .font(.title2)
+                            .foregroundColor(.green)
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("1. \(portfolioData.instrument1)")
+                            Text("2. \(portfolioData.instrument2)")
+                            Text("3. \(portfolioData.instrument3)")
+                        }
+                        Divider()
+
+                        Text("Featured Songs")
+                            .font(.title2)
+                            .foregroundColor(.purple)
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("1. \(portfolioData.song1)")
+                            Text("2. \(portfolioData.song2)")
+                            Text("3. \(portfolioData.song3)")
+                        }
+                        Divider()
+
+                        Text("Social Media Links")
+                            .font(.title2)
+                            .foregroundColor(.orange)
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Facebook: \(portfolioData.metalink)")
+                            Text("Instagram: \(portfolioData.instalink)")
+                            Text("Youtube: \(portfolioData.ytlink)")
+                        }
+                    } else {
+                        Text("Loading...")
+                    }
+                }
+                .padding()
+                .onAppear {
+                    fetchPortfolioData()
             }
-        }
-        .onAppear {
-            fetchPortfolioData()
+            
+            }
+            .background(Color("bg-color"))
         }
     }
 
@@ -48,6 +75,7 @@ struct FetchPortfolioView: View {
             } else {
                 print("Document does not exist")
             }
+            isLoading = false
         }
     }
 }
@@ -57,4 +85,3 @@ struct FetchPortfolioView_Previews: PreviewProvider {
         FetchPortfolioView()
     }
 }
-

@@ -17,6 +17,7 @@ struct PortfolioView: View {
     @State private var song3: String = ""
     @State private var isAddTextSectionVisible = false
     @State private var isAddSongsSectionVisible = false
+    @State private var isAddLinksSectionVisible = false
     @State private var metalink:String = ""
     @State private var instalink:String = ""
     @State private var ytlink:String = ""
@@ -125,8 +126,8 @@ struct PortfolioView: View {
                                 }
                             }
                     }
-                    SectionView(title: "Add Social Media Profiles", isVisible: $isAddTextSectionVisible)
-                    if isAddTextSectionVisible {
+                    SectionView(title: "Add Social Media Profiles", isVisible: $isAddLinksSectionVisible)
+                    if isAddLinksSectionVisible {
                         
                         TextField("Enter Facebook ID Link", text: $metalink)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
