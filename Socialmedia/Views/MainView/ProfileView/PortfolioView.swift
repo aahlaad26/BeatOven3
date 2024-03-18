@@ -167,7 +167,7 @@ struct PortfolioView: View {
                 }
                 .padding()
                 .sheet(isPresented: $showCompletionPortfolio) {
-                    CompletionPortfolio()
+                    CompletionPortfolio(presentationMode: _presentationMode)
                 }
             }
         }
@@ -178,20 +178,41 @@ struct PortfolioView: View {
     
 
 struct CompletionPortfolio: View {
+//    var body: some View {
+//        VStack {
+//            LottieView(name: "new.json")
+//            Text("Portfolio Created Succesfully!")
+//            
+//            NavigationLink(destination: MainView()) {
+//                Text("Now BeatOven it")
+//                    .font(.headline)
+//                    .foregroundColor(.white)
+//                    .padding()
+//                    .background(Color.blue)
+//                    .cornerRadius(10)
+//            }
+//        }
+//    }
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack {
+            
             LottieView(name: "new.json")
             Text("Portfolio Created Succesfully!")
-            NavigationLink(destination: MainView()) {
-                Text("Now BeatOven it")
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Go Back")
+                    
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color("button-color"))
                     .cornerRadius(10)
             }
         }
     }
+    
 }
 
     struct PortfolioView_Previews: PreviewProvider {
@@ -199,4 +220,8 @@ struct CompletionPortfolio: View {
             PortfolioView()
         }
     }
+
+
+
+
 
