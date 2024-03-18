@@ -29,7 +29,7 @@ struct MainView: View {
                      GroupListView()
                          .tabItem { Image(systemName: "music.note") }
                          .tag(2)
-                     Text("Chat")
+                     MainMessagesView()
                          .tabItem { Image(systemName: "bubble.right") }
                          .tag(3)
                      
