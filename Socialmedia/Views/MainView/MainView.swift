@@ -25,7 +25,8 @@ struct MainView: View {
                      NavigationView{SearchUserView()}
                          .tabItem { Image(systemName: "network") }
                          .tag(1)
-                     ColabView()
+//                     ColabView()
+                     GroupListView()
                          .tabItem { Image(systemName: "music.note") }
                          .tag(2)
                      Text("Chat")

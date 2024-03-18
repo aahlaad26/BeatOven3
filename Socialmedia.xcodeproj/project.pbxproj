@@ -67,6 +67,8 @@
 		983468A52B8D9C230045D037 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A42B8D9C220045D037 /* LoginView.swift */; };
 		983468A82B8DDA420045D037 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A72B8DDA420045D037 /* User.swift */; };
 		983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468AB2B8DFC7D0045D037 /* LoadingView.swift */; };
+		984E28F82BA8BAFD00F3A8A0 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E28F72BA8BAFD00F3A8A0 /* GroupListView.swift */; };
+		984E28FA2BA8BBFD00F3A8A0 /* AddNewGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E28F92BA8BBFD00F3A8A0 /* AddNewGroupView.swift */; };
 		9858F7012BA6F66F00F4944E /* FetchPortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */; };
 		9858F7032BA7EDF600F4944E /* PortfolioStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F7022BA7EDF600F4944E /* PortfolioStartView.swift */; };
 		98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */; };
@@ -110,6 +112,8 @@
 		983468A42B8D9C220045D037 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		983468A72B8DDA420045D037 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		983468AB2B8DFC7D0045D037 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		984E28F72BA8BAFD00F3A8A0 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
+		984E28F92BA8BBFD00F3A8A0 /* AddNewGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewGroupView.swift; sourceTree = "<group>"; };
 		9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPortfolioView.swift; sourceTree = "<group>"; };
 		9858F7022BA7EDF600F4944E /* PortfolioStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioStartView.swift; sourceTree = "<group>"; };
 		98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 		983468A02B8D9BBA0045D037 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				984E28F62BA8BA2F00F3A8A0 /* Groups */,
 				0F12B9642B9682A0002C3368 /* Colab */,
 				0F12B9462B9667DC002C3368 /* SplashScreens */,
 				2F5C5D322B8EDB7F00531C33 /* Helpers */,
@@ -304,6 +309,15 @@
 				98E682212BA46C2A00FA057A /* PortfolioData.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		984E28F62BA8BA2F00F3A8A0 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				984E28F72BA8BAFD00F3A8A0 /* GroupListView.swift */,
+				984E28F92BA8BBFD00F3A8A0 /* AddNewGroupView.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,6 +448,7 @@
 				2F5C5D452B8F246000531C33 /* ReusablePostsView.swift in Sources */,
 				2F5C5D342B8EDB9500531C33 /* Views+Extensions.swift in Sources */,
 				0F12B94E2B96681E002C3368 /* StartSplashScreen.swift in Sources */,
+				984E28F82BA8BAFD00F3A8A0 /* GroupListView.swift in Sources */,
 				98E682292BA4AE0100FA057A /* LottieView.swift in Sources */,
 				2F5C5D3F2B8EFBE700531C33 /* CreateNewPost.swift in Sources */,
 				9858F7032BA7EDF600F4944E /* PortfolioStartView.swift in Sources */,
@@ -444,6 +459,7 @@
 				2F5C5D472B8F2A0E00531C33 /* PostCardView.swift in Sources */,
 				0F12B95F2B9675A1002C3368 /* TrackLibraryView.swift in Sources */,
 				0F12B94D2B96681E002C3368 /* Screen2.swift in Sources */,
+				984E28FA2BA8BBFD00F3A8A0 /* AddNewGroupView.swift in Sources */,
 				983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */,
 				983468582B8D997E0045D037 /* SocialmediaApp.swift in Sources */,
 				2F5C5D4B2B90331300531C33 /* SearchUserView.swift in Sources */,
