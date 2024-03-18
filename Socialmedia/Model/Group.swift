@@ -1,0 +1,16 @@
+//
+//  Group.swift
+//  Socialmedia
+//
+//  Created by mathangy on 19/03/24.
+//
+
+import Foundation
+struct Group: Codable, Identifiable{
+    var documentId: String? = nil
+    let subject: String
+    
+    var id: String{
+        documentId ?? UUID().uuidString
+    }
+}

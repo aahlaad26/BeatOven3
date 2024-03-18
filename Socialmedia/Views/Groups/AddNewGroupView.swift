@@ -13,6 +13,9 @@ struct AddNewGroupView: View {
     private var isFormValid: Bool{
         !groupSubject.isEmpty
     }
+    private func saveGroup(){
+        let group = Group(subject: groupSubject)
+    }
     var body: some View {
         NavigationStack{
             VStack{
@@ -33,7 +36,7 @@ struct AddNewGroupView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button("Create"){
-                        
+                        saveGroup()
                     }.disabled(!isFormValid)
                     
                 }

@@ -69,6 +69,7 @@
 		983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468AB2B8DFC7D0045D037 /* LoadingView.swift */; };
 		984E28F82BA8BAFD00F3A8A0 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E28F72BA8BAFD00F3A8A0 /* GroupListView.swift */; };
 		984E28FA2BA8BBFD00F3A8A0 /* AddNewGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E28F92BA8BBFD00F3A8A0 /* AddNewGroupView.swift */; };
+		984E28FC2BA8CB1800F3A8A0 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E28FB2BA8CB1800F3A8A0 /* Group.swift */; };
 		9858F7012BA6F66F00F4944E /* FetchPortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */; };
 		9858F7032BA7EDF600F4944E /* PortfolioStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F7022BA7EDF600F4944E /* PortfolioStartView.swift */; };
 		98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */; };
@@ -114,6 +115,7 @@
 		983468AB2B8DFC7D0045D037 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		984E28F72BA8BAFD00F3A8A0 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		984E28F92BA8BBFD00F3A8A0 /* AddNewGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewGroupView.swift; sourceTree = "<group>"; };
+		984E28FB2BA8CB1800F3A8A0 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPortfolioView.swift; sourceTree = "<group>"; };
 		9858F7022BA7EDF600F4944E /* PortfolioStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioStartView.swift; sourceTree = "<group>"; };
 		98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				0F12B95A2B96710C002C3368 /* Groups.swift */,
 				0F12B9622B967DBA002C3368 /* AudioPosts.swift */,
 				98E682212BA46C2A00FA057A /* PortfolioData.swift */,
+				984E28FB2BA8CB1800F3A8A0 /* Group.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F12B95B2B96710C002C3368 /* Groups.swift in Sources */,
+				984E28FC2BA8CB1800F3A8A0 /* Group.swift in Sources */,
 				0F12B9512B96681E002C3368 /* Screen3.swift in Sources */,
 				9858F7012BA6F66F00F4944E /* FetchPortfolioView.swift in Sources */,
 				983468A82B8DDA420045D037 /* User.swift in Sources */,
