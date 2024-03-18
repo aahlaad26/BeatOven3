@@ -14,7 +14,7 @@ struct AddNewGroupView: View {
         !groupSubject.isEmpty
     }
     private func saveGroup(){
-        let group = Group(subject: groupSubject)
+        let group = Groupped(subject: groupSubject)
     }
     var body: some View {
         NavigationStack{

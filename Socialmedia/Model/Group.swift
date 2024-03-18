@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Group: Codable, Identifiable{
+struct Groupped: Codable, Identifiable{
     var documentId: String? = nil
     let subject: String
     
