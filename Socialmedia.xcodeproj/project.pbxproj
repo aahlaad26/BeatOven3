@@ -27,6 +27,7 @@
 		0F5CBD1E2BA8D1D900B45EDC /* MainMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD1B2BA8D1D900B45EDC /* MainMessagesView.swift */; };
 		0F5CBD212BA8D1EE00B45EDC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD1F2BA8D1EE00B45EDC /* ChatMessage.swift */; };
 		0F5CBD222BA8D1EE00B45EDC /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD202BA8D1EE00B45EDC /* RecentMessage.swift */; };
+		0F5CBD262BA9FE0900B45EDC /* SearchUserGrpsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD252BA9FE0900B45EDC /* SearchUserGrpsView.swift */; };
 		0FA56D8F2BA726A8006F7F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA56D8E2BA726A8006F7F88 /* GoogleService-Info.plist */; };
 		2F5C5D312B8E2D8400531C33 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D302B8E2D8400531C33 /* RegisterView.swift */; };
 		2F5C5D342B8EDB9500531C33 /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */; };
@@ -107,6 +108,7 @@
 		0F5CBD1B2BA8D1D900B45EDC /* MainMessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMessagesView.swift; sourceTree = "<group>"; };
 		0F5CBD1F2BA8D1EE00B45EDC /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		0F5CBD202BA8D1EE00B45EDC /* RecentMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
+		0F5CBD252BA9FE0900B45EDC /* SearchUserGrpsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserGrpsView.swift; sourceTree = "<group>"; };
 		0FA56D8E2BA726A8006F7F88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F5C5D302B8E2D8400531C33 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Extensions.swift"; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				984E28F72BA8BAFD00F3A8A0 /* GroupListView.swift */,
 				984E28F92BA8BBFD00F3A8A0 /* AddNewGroupView.swift */,
+				0F5CBD252BA9FE0900B45EDC /* SearchUserGrpsView.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				2F5C5D3A2B8EEB5F00531C33 /* ReusableProfileContent.swift in Sources */,
 				0F12B95D2B96750B002C3368 /* ColabView.swift in Sources */,
 				98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */,
+				0F5CBD262BA9FE0900B45EDC /* SearchUserGrpsView.swift in Sources */,
 				2F5C5D412B8EFCFE00531C33 /* Post.swift in Sources */,
 				0F5CBD222BA8D1EE00B45EDC /* RecentMessage.swift in Sources */,
 				2F5C5D362B8EDC0C00531C33 /* MainView.swift in Sources */,
