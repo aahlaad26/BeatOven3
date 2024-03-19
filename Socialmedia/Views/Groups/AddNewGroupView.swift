@@ -6,7 +6,17 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseStorage
+import FirebaseFirestore
 
+
+class UserIDs:ObservableObject{
+    @Published var userIDs = [String]()
+    func addUser(name: String) {
+        userIDs.append(name)
+    }
+}
 struct AddNewGroupView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var model: Model
@@ -14,6 +24,7 @@ struct AddNewGroupView: View {
     private var isFormValid: Bool{
         !groupSubject.isEmpty
     }
+    @ObservedObject var ID = UserIDs()
     private func saveGroup(){
         let group = Groupped(subject: groupSubject)
         model.saveGroup(group: group){ error in
@@ -25,14 +36,18 @@ struct AddNewGroupView: View {
     var body: some View {
         NavigationStack{
             VStack{
-                HStack{
-                    TextField("Group Subject", text: $groupSubject)
-                }
+                
                 Spacer()
+                SearchUserGrpsView()
             }.toolbar{
                 ToolbarItem(placement: .principal){
-                    Text("New Group")
-                        .bold()
+                    HStack{
+                        TextField("Group Subject", text: $groupSubject)
+                            .frame(width: 150)
+                            .padding()
+                    }
+
+                    
                 }
                 ToolbarItem(placement: .navigationBarLeading){
                     Button("Cancel"){
