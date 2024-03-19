@@ -16,6 +16,11 @@ class UserIDs:ObservableObject{
     func addUser(name: String) {
         userIDs.append(name)
     }
+    func removeUser(name: String) {
+        if let index = userIDs.firstIndex(of: name) {
+            userIDs.remove(at: index)
+        }
+    }
 }
 struct AddNewGroupView: View {
     @Environment(\.dismiss) private var dismiss
@@ -26,6 +31,7 @@ struct AddNewGroupView: View {
       private var isFormValid: Bool { !groupSubject.isEmpty }
 
       func saveGroup() {
+          print(ID.userIDs)
         let db = Firestore.firestore()
         let group = Groupped(subject: groupSubject)
 
@@ -46,7 +52,7 @@ struct AddNewGroupView: View {
             VStack{
                 
                 Spacer()
-                SearchUserGrpsView()
+                SearchUserGrpsView(ID: ID)
             }.toolbar{
                 ToolbarItem(placement: .principal){
                     HStack{
