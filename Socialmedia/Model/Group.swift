@@ -14,3 +14,9 @@ struct Groupped: Codable, Identifiable{
         documentId ?? UUID().uuidString
     }
 }
+
+extension Groupped{
+    func toDictionary() -> [String: Any]{
+        return ["subject": subject]
+    }
+}

@@ -9,12 +9,18 @@ import SwiftUI
 
 struct AddNewGroupView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var model: Model
     @State private var groupSubject: String = ""
     private var isFormValid: Bool{
         !groupSubject.isEmpty
     }
     private func saveGroup(){
         let group = Groupped(subject: groupSubject)
+        model.saveGroup(group: group){ error in
+            if let error{
+                print(error.localizedDescription)
+            }
+        }
     }
     var body: some View {
         NavigationStack{
@@ -51,5 +57,6 @@ struct AddNewGroupView: View {
 #Preview {
     NavigationStack {
         AddNewGroupView()
+            .environmentObject(Model())
     }
 }
