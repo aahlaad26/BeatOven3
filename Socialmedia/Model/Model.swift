@@ -24,6 +24,9 @@ class Model: ObservableObject{
                     var newGroup = group
                     newGroup.documentId = docRef.documentID
                     self?.groups.append(newGroup)
+                    completion(nil)
+                }else{
+                    completion(nil)
                 }
             }
         }

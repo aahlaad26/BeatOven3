@@ -21,18 +21,26 @@ struct AddNewGroupView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var model: Model
     @State private var groupSubject: String = ""
-    private var isFormValid: Bool{
-        !groupSubject.isEmpty
-    }
-    @ObservedObject var ID = UserIDs()
-    private func saveGroup(){
+    
+     
+      private var isFormValid: Bool { !groupSubject.isEmpty }
+
+      func saveGroup() {
+        let db = Firestore.firestore()
         let group = Groupped(subject: groupSubject)
-        model.saveGroup(group: group){ error in
-            if let error{
-                print(error.localizedDescription)
-            }
+
+        db.collection("groups").addDocument(data: group.toDictionary()) { error in
+          if let error {
+            print(error.localizedDescription)
+          } else {
+            dismiss()
+          }
         }
-    }
+      }
+   
+    @ObservedObject var ID = UserIDs()
+    
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -69,9 +77,11 @@ struct AddNewGroupView: View {
 }
 
 
-#Preview {
-    NavigationStack {
-        AddNewGroupView()
-            .environmentObject(Model())
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        AddNewGroupView()
+//            .environmentObject(model)
+//    }
+//}
+
+

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupListView: View {
     @State private var isPresented:Bool = false
+    @EnvironmentObject private var model: Model
     var body: some View {
         VStack{
             HStack{
@@ -20,7 +21,7 @@ struct GroupListView: View {
             Spacer()
         }.padding()
             .sheet(isPresented: $isPresented){
-                AddNewGroupView()
+                AddNewGroupView()  
             }
     }
 }
