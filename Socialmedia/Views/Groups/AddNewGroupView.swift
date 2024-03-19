@@ -24,7 +24,13 @@ struct AddNewGroupView: View {
     
      
       private var isFormValid: Bool { !groupSubject.isEmpty }
-
+    func populateGroups() async throws{
+        let db = Firestore.firestore()
+        let snapshot = try await db.collection("groups").getDocuments()
+        groups = snapshot.documents.compactMap{ snapshot in
+            Groupped.fromSnapShot(snapshot:snapshot)
+        }
+    }
       func saveGroup() {
         let db = Firestore.firestore()
         let group = Groupped(subject: groupSubject)
@@ -36,7 +42,9 @@ struct AddNewGroupView: View {
             dismiss()
           }
         }
+        
       }
+    
    
     @ObservedObject var ID = UserIDs()
     
