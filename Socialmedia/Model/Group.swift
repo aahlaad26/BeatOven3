@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 struct Groupped: Codable, Identifiable{
     var documentId: String? = nil
     let subject: String
@@ -18,5 +19,12 @@ struct Groupped: Codable, Identifiable{
 extension Groupped{
     func toDictionary() -> [String: Any]{
         return ["subject": subject]
+    }
+    static func fromSnapShot(snapshot: QueryDocumentSnapShot) -> Groupped?{
+        let dictionary = snapshot.data()
+        guard let subject = dictionary["subject"] as? String else{
+            return nil
+        }
+        return Groupped(documentId: snapshot.documentID, subject: subject)
     }
 }
