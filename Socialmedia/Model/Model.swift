@@ -8,13 +8,17 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-
+import SwiftUI
 @MainActor
 class Model: ObservableObject{
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
     @Published var groups: [Groupped] = []
     func populateGroups() async throws {
         let db = Firestore.firestore()
-        let snapshot = try await db.collection("groups").getDocuments()
+        let snapshot = try await db.collection("groups").whereField("userIDs", arrayContains: userUID).getDocuments()
         groups = snapshot.documents.compactMap{ snapshot in
             Groupped.fromSnapShot(snapshot: snapshot)
         }

@@ -16,6 +16,7 @@ struct GroupList: View {
                                HStack{
                                    Image(systemName: "person.2")
                                    Text(group.subject)
+                                   
                                }
                            })
             .onTapGesture {

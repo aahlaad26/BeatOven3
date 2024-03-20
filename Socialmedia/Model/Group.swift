@@ -14,6 +14,7 @@ struct Groupped: Codable, Identifiable{
     var id: String{
         documentId ?? UUID().uuidString
     }
+    var userIDs = [String]()
 }
 
 extension Groupped{

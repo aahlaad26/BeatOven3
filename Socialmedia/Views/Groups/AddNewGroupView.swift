@@ -29,13 +29,17 @@ struct AddNewGroupView: View {
     @State var showimagePicker:Bool = false
     @State var photoItem:PhotosPickerItem?
     @State var grpprofiledata: Data?
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
       private var isFormValid: Bool { !groupSubject.isEmpty }
     
     func saveGroup() async{
         do{
             print(ID.userIDs)
           let db = Firestore.firestore()
-            var group = Groupped(subject: groupSubject)
+            var group = Groupped(subject: groupSubject,userIDs: ID.userIDs)
             guard let imageData = grpprofiledata else{return}
             let Storageref = Storage.storage().reference().child("GrpProfile_Images").child(group.id)
             let _ = try await Storageref.putDataAsync(imageData)
@@ -135,6 +139,10 @@ struct AddNewGroupView: View {
                     }
                 }
             }
+            .onAppear(perform: {
+                ID.addUser(name: userUID)
+                print(ID.userIDs)
+            })
         }.padding()
         
     }
