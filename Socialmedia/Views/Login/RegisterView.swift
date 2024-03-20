@@ -26,13 +26,17 @@ struct RegisterView:View{
     @State var showerror:Bool = false
     @State var errormessage: String = ""
     @State var isLoading:Bool = false
+    @State private var selectedInstruments: [String] = []
+//    @State private var selectedGenre: String = []
     //MARK: USER DEFAULTS
     
     @AppStorage("log_status")var logStatus:Bool = false
     @AppStorage("user_profile_url")var profileURL:URL?
     @AppStorage("user_name")var usernameStored:String = ""
     @AppStorage("user_UID")var userID:String = ""
-    
+    let instruments = ["Guitar", "Drums", "Bass", "Piano", "Violin", "Saxophone", "Flute", "Trumpet", "Cello", "DJ Turntable"]
+    let genres = ["Rock", "Pop", "Hip Hop", "Electronic", "Country", "Jazz", "Blues", "Classical", "Metal", "R&B"]
+
     var body: some View{
         ZStack{
             Color("bg-color").ignoresSafeArea()
@@ -148,7 +152,33 @@ struct RegisterView:View{
                 .border(1, .gray.opacity(0.5))
                 .background(Color("cell-color"))
                 .padding(.top,25)
-           
+            VStack {
+                        Text("Select Top 3 Instruments:")
+                            .font(.headline)
+                            .padding(.top, 20)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(instruments, id: \.self) { instrument in
+                                    Button(action: {
+                                        if selectedInstruments.contains(instrument) {
+                                            selectedInstruments.removeAll(where: { $0 == instrument })
+                                        } else {
+                                            selectedInstruments.append(instrument)
+                                        }
+                                    }) {
+                                        Text(instrument)
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                            .background(selectedInstruments.contains(instrument) ? Color.blue : Color.gray)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(8)
+                                    }
+                                }
+                            }
+                        }
+                    }
+            
             
             Button(action: registerUser, label: {
                 Text("Sign Up")
@@ -162,6 +192,7 @@ struct RegisterView:View{
             
         
     }
+    
     func registerUser(){
         isLoading = true
         closekeyboard()
@@ -177,7 +208,7 @@ struct RegisterView:View{
                 
                 let downloadurl = try await Storageref.downloadURL()
                 //creating a userfirestore obj
-                let user = User(username: username, userbio: userbio, userbiolink: userbiolink, userid: userID, useremail: emailID, userprofileURL: downloadurl)
+                let user = User(username: username, userbio: userbio, userbiolink: userbiolink, userid: userID, useremail: emailID, userprofileURL: downloadurl, selectedInstruments: selectedInstruments)
                 //saving userdata to firebase
                 let _ = try Firestore.firestore().collection("Users").document(userID).setData(from: user, completion: {
                     error in

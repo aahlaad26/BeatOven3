@@ -16,7 +16,10 @@ struct User: Identifiable, Codable , Hashable {
     var userid: String
     var useremail: String
     var userprofileURL: URL
-    
+    var selectedInstruments: [String]?
+//    var genre1:String
+//    var genre2:String
+//    var genre3: String
     enum CodingKeys: CodingKey {
         case id
         case username
@@ -25,6 +28,10 @@ struct User: Identifiable, Codable , Hashable {
         case userid
         case useremail
         case userprofileURL
+        case selectedInstruments
+//        case genre1
+//        case genre2
+//        case genre3
     }
 }
 extension User{
