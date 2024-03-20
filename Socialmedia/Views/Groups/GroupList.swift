@@ -11,19 +11,16 @@ struct GroupList: View {
     let groups: [Groupped]
     var body: some View {
         List(groups){ group in
-            NavigationLink{
-                Text(group.subject)
-            }label: {
-                HStack{
-                    Image(systemName: "person.2")
-                    Text(group.subject)
-                }
+            NavigationLink(destination: GroupDetailView(group: group),
+                           label: {
+                               HStack{
+                                   Image(systemName: "person.2")
+                                   Text(group.subject)
+                               }
+                           })
+            .onTapGesture {
+                print("NavigationLink was tapped.")
             }
-            
         }
     }
-}
-
-#Preview {
-    GroupList(groups: [])
 }

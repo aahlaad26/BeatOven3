@@ -26,7 +26,7 @@ struct MainView: View {
                          .tabItem { Image(systemName: "network") }
                          .tag(1)
 //                     ColabView()
-                     GroupListView()
+                     GroupListView().environmentObject(Model())
                          .tabItem { Image(systemName: "music.note") }
                          .tag(2)
                      MainMessagesView()
