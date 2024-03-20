@@ -11,26 +11,28 @@ struct GroupListView: View {
     @State private var isPresented:Bool = false
     @EnvironmentObject private var model: Model
     var body: some View {
-        VStack{
-            HStack{
-                Spacer()
-                Button("New Group"){
-                    isPresented = true
+        NavigationStack {
+            VStack{
+                HStack{
+                    Spacer()
+                    Button("New Group"){
+                        isPresented = true
+                    }
                 }
+                GroupList(groups: model.groups)
+                Spacer()
             }
-            GroupList(groups: model.groups)
-            Spacer()
+            .task{
+                do{
+                    try await model.populateGroups()
+                }catch{
+                    print(error)
+                }
+            }.padding()
+                .sheet(isPresented: $isPresented){
+                    AddNewGroupView()  
+            }
         }
-        .task{
-            do{
-                try await model.populateGroups()
-            }catch{
-                print(error)
-            }
-        }.padding()
-            .sheet(isPresented: $isPresented){
-                AddNewGroupView()  
-            }
     }
 }
 

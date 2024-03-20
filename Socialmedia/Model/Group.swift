@@ -10,7 +10,7 @@ import FirebaseFirestore
 struct Groupped: Codable, Identifiable{
     var documentId: String? = nil
     let subject: String
-    
+    var grpProfileImage: URL?
     var id: String{
         documentId ?? UUID().uuidString
     }
