@@ -12,6 +12,14 @@ import FirebaseFirestoreSwift
 @MainActor
 class Model: ObservableObject{
     @Published var groups: [Groupped] = []
+    func populateGroups() async throws {
+        let db = Firestore.firestore()
+        let snapshot = try await db.collection("groups").getDocuments()
+        groups = snapshot.documents.compactMap{ snapshot in
+            Groupped.fromSnapShot(snapshot: snapshot)
+        }
+        
+    }
     func saveGroup(group: Groupped , completion : @escaping (Error?) -> Void){
         let db = Firestore.firestore()
         var docRef : DocumentReference? = nil

@@ -18,7 +18,15 @@ struct GroupListView: View {
                     isPresented = true
                 }
             }
+            GroupList(groups: model.groups)
             Spacer()
+        }
+        .task{
+            do{
+                try await model.populateGroups()
+            }catch{
+                print(error)
+            }
         }.padding()
             .sheet(isPresented: $isPresented){
                 AddNewGroupView()  
@@ -27,5 +35,5 @@ struct GroupListView: View {
 }
 
 #Preview {
-    GroupListView()
+    GroupListView().environmentObject(Model())
 }

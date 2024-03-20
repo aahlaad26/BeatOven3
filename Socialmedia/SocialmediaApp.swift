@@ -9,12 +9,15 @@ import SwiftUI
 import Firebase
 @main
 struct SocialmediaApp: App {
+    @StateObject private var model = Model()
+
     init(){
         FirebaseApp.configure()
     }
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(model)
         }
     }
 }

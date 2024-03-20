@@ -20,7 +20,7 @@ extension Groupped{
     func toDictionary() -> [String: Any]{
         return ["subject": subject]
     }
-    static func fromSnapShot(snapshot: QueryDocumentSnapShot) -> Groupped?{
+    static func fromSnapShot(snapshot: QueryDocumentSnapshot) -> Groupped?{
         let dictionary = snapshot.data()
         guard let subject = dictionary["subject"] as? String else{
             return nil
