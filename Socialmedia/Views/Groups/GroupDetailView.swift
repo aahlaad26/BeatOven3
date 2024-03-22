@@ -33,8 +33,8 @@ struct GroupDetailView: View {
                         }else{
                             //displaying posts
                             
-                            ForEach(posts,id:\.self){audio in
-                                Text(audio.title)
+                            ForEach(posts,id:\.id){audio in
+                                SongCell(posts: posts, grpAudio: audio)
                             }
                         }
                     }
@@ -87,11 +87,13 @@ struct GroupDetailView: View {
             //implementing pagination here
             if let paginationDoc{
                 query = Firestore.firestore().collection("Group_Audios")
+                    .whereField("groupID",isEqualTo: group.id)
                     .order(by: "publishedDate", descending: true)
                     .start(afterDocument:paginationDoc)
                     .limit(to: 20)
             }else{
                 query = Firestore.firestore().collection("Group_Audios")
+                    .whereField("groupID",isEqualTo: group.id)
                     .order(by: "publishedDate", descending: true)
                     .limit(to: 20)
             }
@@ -107,6 +109,30 @@ struct GroupDetailView: View {
             })
         }catch{
             print(error.localizedDescription)
+        }
+    }
+ 
+}
+struct SongCell:View {
+    @State private var isPresented = false
+    var posts:[GrpAudioFiles]
+    var grpAudio:GrpAudioFiles
+    var body: some View {
+        VStack{
+            Button(action:{isPresented = true}){
+                HStack{
+                    ZStack{
+                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
+                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
+                        
+                    }
+                    Text(grpAudio.title)
+                    
+                }
+            }
+        }
+        .sheet(isPresented: $isPresented){
+            ProPlayer(grpAudios: posts, grpAudio: grpAudio)
         }
     }
 }
