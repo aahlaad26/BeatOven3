@@ -54,27 +54,24 @@ struct PostCardView: View {
             }.padding(.bottom,10)
                 VStack(alignment: .leading, spacing: 6){
                     if let URl = post.imageURL{
-                        if URl.absoluteString.range(of: "Post_Images") != nil{
-                            Text(post.text)
-                                .textSelection(.enabled)
-                                .padding(.vertical,8)
-                            GeometryReader{
-                                let size = $0.size
-                                WebImage(url: URl)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: size.width, height: size.height)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            }
-                            .frame(height: 200)
+                        
+                        Text(post.text)
+                            .textSelection(.enabled)
+                            .padding(.vertical,8)
+                        GeometryReader{
+                            let size = $0.size
+                            WebImage(url: URl)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: size.width, height: size.height)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         }
-                        else {
+                        .frame(height: 200)
+                        
+                        
+                        if let songURL = post.songURL {
                             HStack{
-                                WebImage(url: post.userProfileURL)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 35, height: 35)
-                                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                                
                                 VStack(alignment:.leading){
                                     Text(post.text)
                                         .textSelection(.enabled)
@@ -85,13 +82,14 @@ struct PostCardView: View {
                                     }
                                 }
                                 Spacer()
-                                PlayerView(player: $player, url: URl)
+                                PlayerView(player: $player, url: songURL)
                             }.padding()
                             .background(Color("bg-color"))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .frame(width: 300)
                         }
-                    }
+                        }
+                    
                     PostInteraction()
                 }
         }
