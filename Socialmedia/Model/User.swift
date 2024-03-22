@@ -17,6 +17,7 @@ struct User: Identifiable, Codable , Hashable {
     var useremail: String
     var userprofileURL: URL
     var selectedInstruments: [String]?
+    var selectedGenre: [String]?
 //    var genre1:String
 //    var genre2:String
 //    var genre3: String
@@ -29,6 +30,7 @@ struct User: Identifiable, Codable , Hashable {
         case useremail
         case userprofileURL
         case selectedInstruments
+        case selectedGenre
 //        case genre1
 //        case genre2
 //        case genre3

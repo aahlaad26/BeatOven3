@@ -27,7 +27,7 @@ struct RegisterView:View{
     @State var errormessage: String = ""
     @State var isLoading:Bool = false
     @State private var selectedInstruments: [String] = []
-//    @State private var selectedGenre: String = []
+     @State private var selectedGenre: [String] = []
     //MARK: USER DEFAULTS
     
     @AppStorage("log_status")var logStatus:Bool = false
@@ -177,6 +177,30 @@ struct RegisterView:View{
                                 }
                             }
                         }
+                Text("Select Top 3 Genres:")
+                    .font(.headline)
+                    .padding(.top, 20)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(genres, id: \.self) { genre in
+                            Button(action: {
+                                if selectedGenre.contains(genre) {
+                                    selectedGenre.removeAll(where: { $0 == genre })
+                                } else {
+                                    selectedGenre.append(genre)
+                                }
+                            }) {
+                                Text(genre)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .background(selectedGenre.contains(genre) ? Color.blue : Color.gray)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
+                        }
+                    }
+                }
                     }
             
             
@@ -208,7 +232,7 @@ struct RegisterView:View{
                 
                 let downloadurl = try await Storageref.downloadURL()
                 //creating a userfirestore obj
-                let user = User(username: username, userbio: userbio, userbiolink: userbiolink, userid: userID, useremail: emailID, userprofileURL: downloadurl, selectedInstruments: selectedInstruments)
+                let user = User(username: username, userbio: userbio, userbiolink: userbiolink, userid: userID, useremail: emailID, userprofileURL: downloadurl, selectedInstruments: selectedInstruments, selectedGenre: selectedGenre)
                 //saving userdata to firebase
                 let _ = try Firestore.firestore().collection("Users").document(userID).setData(from: user, completion: {
                     error in
