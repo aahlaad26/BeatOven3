@@ -16,8 +16,8 @@ struct Post: Identifiable, Codable, Equatable, Hashable {
     var text: String
     var imageURL: URL?
     var imageReferenceID: String = ""
-    var songURL: URL?  // Added property for the song URL
-    var songReferenceID: String = ""  // Updated to include song reference ID
+    var songURL: URL?
+    var songReferenceID: String = ""  
     var publishedDate: Date?
     var likedIDs: [String] = []
     var username: String
