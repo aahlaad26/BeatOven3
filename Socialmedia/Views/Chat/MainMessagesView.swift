@@ -129,7 +129,7 @@ struct MainMessagesView: View {
                 .overlay(
                     newMessageButton, alignment: .bottom)
             .navigationBarHidden(true)
-            }
+            }.background(Color("bg-color"))
         }
     }
     
@@ -246,7 +246,7 @@ struct MainMessagesView: View {
             }
             .foregroundColor(.white)
             .padding(.vertical)
-                .background(Color.blue)
+                .background(Color("button2-color"))
                 .cornerRadius(32)
                 .padding(.horizontal)
                 .shadow(radius: 15)

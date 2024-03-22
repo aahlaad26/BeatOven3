@@ -174,14 +174,16 @@ struct ChatLogView: View {
     @ObservedObject var vm: ChatLogViewModel
     
     var body: some View {
-        ZStack {
-            messagesView
-            Text(vm.errorMessage)
-        }
-        .navigationTitle(vm.chatUser?.useremail ?? "")
-        .navigationBarTitleDisplayMode(.inline)
-        .onDisappear {
-            vm.firestoreListener?.remove()
+        VStack{
+            ZStack {
+                messagesView
+                Text(vm.errorMessage)
+            }
+            .navigationTitle(vm.chatUser?.useremail ?? "")
+            .navigationBarTitleDisplayMode(.inline)
+            .onDisappear {
+                vm.firestoreListener?.remove()
+            }.background(Color("bg-color"))
         }
     }
     
@@ -207,7 +209,7 @@ struct ChatLogView: View {
                         }
                     }
                 }
-                .background(Color(.init(white: 0.95, alpha: 1)))
+                .background(Color("bg-color"))
                 .safeAreaInset(edge: .bottom) {
                     chatBottomBar
                         .background(Color(.systemBackground).ignoresSafeArea())
@@ -227,6 +229,7 @@ struct ChatLogView: View {
                 DescriptionPlaceholder()
                 TextEditor(text: $vm.chatText)
                     .opacity(vm.chatText.isEmpty ? 0.5 : 1)
+                    .background(Color("bg-color"))
             }
             .frame(height: 40)
             
@@ -238,11 +241,12 @@ struct ChatLogView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
-            .background(Color.blue)
+            .background(Color("button2-color"))
             .cornerRadius(4)
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
+        .background(Color("cell-color"))
     }
 }
 
@@ -260,7 +264,7 @@ struct MessageView: View {
                             .foregroundColor(.white)
                     }
                     .padding()
-                    .background(Color.blue)
+                    .background(Color("button2-color"))
                     .cornerRadius(8)
                 }
             } else {
