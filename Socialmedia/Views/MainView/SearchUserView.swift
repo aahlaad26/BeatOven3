@@ -70,7 +70,7 @@ struct SearchUserView: View {
                 }
                 .listStyle(.plain)
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Search User")
+                .navigationTitle("Discover")
                 .searchable(text: $searchText)
                 .onChange(of: searchText) { newValue in
                     if newValue.isEmpty {
@@ -95,19 +95,47 @@ struct SearchUserView: View {
                     query = Firestore.firestore().collection("Users").whereField("selectedGenre", arrayContains: tag)
                 }
                 
-                guard let query = query else { return }
-                
-                let querySnapshot = try await query.getDocuments()
-                let users = try querySnapshot.documents.compactMap { document -> User? in
-                    try document.data(as: User.self)
+                let snapshot = try await query.getDocuments()
+                let users = snapshot.documents.compactMap { document in
+                    try? document.data(as: User.self)
                 }
+                
                 fetchedUsers = users
+                
+                for user in users {
+                    fetchPosts(for: user, with: tag)
+                }
             } catch {
-                print("Error fetching users: \(error.localizedDescription)")
+                print("Error searching users: \(error)")
             }
         }
     }
+
+    
+    func fetchPosts(for user: User, with tag: String) {
+        let postsRef = Firestore.firestore().collection("Posts")
+        let query = postsRef.whereField("userId", isEqualTo: user.id)
+                            .whereField("tags", arrayContains: tag)
+                            .order(by: "timestamp", descending: true)
+                            .limit(to: 10)
+
+        query.getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error getting posts: \(error)")
+            } else {
+                DispatchQueue.main.async {
+                    self.posts = snapshot?.documents.compactMap { document in
+                        try? document.data(as: Post.self)
+                    } ?? []
+                }
+            }
+        }
+    }
+
+
+    
 }
+
 
 struct SearchUserView_Previews: PreviewProvider {
     static var previews: some View {
