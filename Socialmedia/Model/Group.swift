@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
-struct Groupped: Codable, Identifiable{
+struct Groupped: Codable, Identifiable,Hashable{
     var documentId: String? = nil
     let subject: String
     var grpProfileImage: URL?

@@ -14,23 +14,32 @@ struct ProPlayer : View{
     @State var grpAudio:GrpAudioFiles
     @State var player:AVPlayer?
     var body: some View {
-        VStack{
-            HStack{
-                Button(action:self.prev){
-                    Image (systemName: "arrow.left").resizable()
-                        .frame(width: 70, height: 70, alignment: .center)
+        NavigationView{
+            VStack{
+                
+                HStack{
+                    Button(action:self.prev){
+                        Image (systemName: "arrow.left").resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .padding()
+                    }
+                    
+                    Button(action:self.playPause){
+                        Image (systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .padding()
+                    }
+                    Button(action:self.next){
+                        Image (systemName: "arrow.right").resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .padding()
+                    }
                 }
-                Button(action:self.playPause){
-                    Image (systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
-                        .frame(width: 70, height: 70, alignment: .center)
-                }
-                Button(action:self.next){
-                    Image (systemName: "arrow.right").resizable()
-                        .frame(width: 70, height: 70, alignment: .center)
-                }
+            }.onAppear(){
+                self.playSong()
             }
-        }.onAppear(){
-            self.playSong()
+            .background(Color("bg-color"))
+
         }
     }
     func playSong(){

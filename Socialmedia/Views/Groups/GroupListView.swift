@@ -12,29 +12,37 @@ struct GroupListView: View {
     @EnvironmentObject private var model: Model
     var body: some View {
         NavigationStack {
-            VStack{
-                HStack{
-                    Spacer()
-                    Button("New Group"){
-                        isPresented = true
+            ScrollView{
+                VStack{
+                    
+                    GroupList(groups: model.groups)
+                    
+                }
+                .task{
+                    do{
+                        try await model.populateGroups()
+                    }catch{
+                        print(error)
                     }
+                }.padding()
+                    .sheet(isPresented: $isPresented){
+                        AddNewGroupView()
                 }
-                GroupList(groups: model.groups)
-                Spacer()
+                
+                
             }
-            .task{
-                do{
-                    try await model.populateGroups()
-                }catch{
-                    print(error)
+            .navigationTitle("Groups")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar{
+                Button("New Group"){
+                    isPresented = true
                 }
-            }.padding()
-                .sheet(isPresented: $isPresented){
-                    AddNewGroupView()  
+                }
+            .background(Color("bg-color"))
             }
         }
     }
-}
+
 
 #Preview {
     GroupListView().environmentObject(Model())
