@@ -29,9 +29,9 @@ struct PostCardView: View {
                         .font(.callout)
                         .fontWeight(.semibold)
                     if let publishedDate = post.publishedDate {
-                        Text(publishedDate.formatted(date: .numeric, time: .shortened))
-                            .font(.caption2)
-                            .foregroundStyle(Color.gray)
+                        Text(timeSinceDate(date: publishedDate))
+                            .font(.system(size: 10))
+                            .foregroundColor(Color(#colorLiteral(red: 0.42, green: 0.42, blue: 0.42, alpha: 1)))
                     }
                     else {
                         Text("No date")
@@ -54,10 +54,6 @@ struct PostCardView: View {
             }.padding(.bottom,10)
                 VStack(alignment: .leading, spacing: 6){
                     if let URl = post.imageURL{
-                        
-                        Text(post.text)
-                            .textSelection(.enabled)
-                            .padding(.vertical,8)
                         GeometryReader{
                             let size = $0.size
                             WebImage(url: URl)
@@ -75,18 +71,14 @@ struct PostCardView: View {
                                 VStack(alignment:.leading){
                                     Text(post.text)
                                         .textSelection(.enabled)
-                                    if let publishedDate = post.publishedDate {
-                                        Text(timeSinceDate(date: publishedDate))
-                                            .font(.system(size: 10))
-                                            .foregroundColor(Color(#colorLiteral(red: 0.42, green: 0.42, blue: 0.42, alpha: 1)))
-                                    }
+                                    
                                 }
                                 Spacer()
                                 PlayerView(player: $player, url: songURL)
                             }.padding()
                             .background(Color("bg-color"))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .frame(width: 300)
+                            .frame(width: 340)
                         }
                         }
                     
@@ -152,7 +144,7 @@ struct PostCardView: View {
                     .foregroundStyle(Color.gray)
             }.frame(width: 75,height: 40)
         }
-        .frame(width: 300)
+        .frame(width: 340)
         .foregroundStyle(Color.black)
         .padding(.vertical,8)
     }

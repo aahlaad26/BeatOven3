@@ -123,7 +123,8 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.fromId: uid,
             FirebaseConstants.toId: toId,
             FirebaseConstants.profileImageUrl: chatUser.userprofileURL.absoluteString,
-            FirebaseConstants.email: chatUser.useremail
+            FirebaseConstants.email: chatUser.useremail,
+            FirebaseConstants.username: chatUser.username
         ] as [String : Any]
         
         // you'll need to save another very similar dictionary for the recipient of this message...how?
@@ -179,7 +180,7 @@ struct ChatLogView: View {
                 messagesView
                 Text(vm.errorMessage)
             }
-            .navigationTitle(vm.chatUser?.useremail ?? "")
+            .navigationTitle(vm.chatUser?.username ?? "")
             .navigationBarTitleDisplayMode(.inline)
             .onDisappear {
                 vm.firestoreListener?.remove()

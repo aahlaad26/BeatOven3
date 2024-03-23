@@ -151,8 +151,8 @@ struct MainMessagesView: View {
             
             
             VStack(alignment: .leading, spacing: 4) {
-                let email = vm.chatUser?.useremail.replacingOccurrences(of: "@gmail.com", with: "") ?? ""
-                Text(email)
+                let email = vm.chatUser?.username
+                Text(email ?? "")
                     .font(.system(size: 24, weight: .bold))
                 
                 HStack {

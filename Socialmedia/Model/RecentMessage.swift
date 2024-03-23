@@ -15,9 +15,7 @@ struct RecentMessage: Codable, Identifiable, Hashable {
     let profileImageUrl: String
     let timestamp: Date
     
-    var username: String {
-        email.components(separatedBy: "@").first ?? email
-    }
+    var username: String 
     
     var timeAgo: String {
         let formatter = RelativeDateTimeFormatter()

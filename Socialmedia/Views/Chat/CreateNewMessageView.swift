@@ -66,7 +66,7 @@ struct CreateNewMessageView: View {
                                 .overlay(RoundedRectangle(cornerRadius: 50)
                                             .stroke(Color(.label), lineWidth: 2)
                                 )
-                            Text(user.useremail)
+                            Text(user.username)
                                 .foregroundColor(Color(.label))
                             Spacer()
                         }.padding(.horizontal)

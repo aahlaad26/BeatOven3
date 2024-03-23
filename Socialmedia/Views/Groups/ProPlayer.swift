@@ -22,25 +22,30 @@ struct ProPlayer : View{
                         Image (systemName: "arrow.left").resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                             .padding()
+                            .foregroundColor(Color("button2-color"))
                     }
                     
                     Button(action:self.playPause){
                         Image (systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                             .padding()
+                            .foregroundColor(Color("button2-color"))
                     }
                     Button(action:self.next){
                         Image (systemName: "arrow.right").resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                             .padding()
+                            .foregroundColor(Color("button2-color"))
                     }
                 }
             }.onAppear(){
                 self.playSong()
             }
-            .background(Color("bg-color"))
+
 
         }
+        .background(Color("bg-color"))
+        .ignoresSafeArea()
     }
     func playSong(){
         player = AVPlayer(playerItem: AVPlayerItem(url: grpAudio.audioURL!))
@@ -84,3 +89,4 @@ struct ProPlayer : View{
         }
     }
 }
+

@@ -18,8 +18,7 @@ struct ReusableProfileContent: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                Color("bg-color")
-                    .ignoresSafeArea()
+                
                 ScrollView(.vertical, showsIndicators: false){
                     LazyVStack{
                         HStack(spacing: 12){
@@ -100,6 +99,7 @@ struct ReusableProfileContent: View {
                     
                 }
             }
+            .background(Color("bg-color"))
             .navigationBarColor(Color("bg-color"))
         }
     }
