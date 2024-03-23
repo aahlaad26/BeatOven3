@@ -10,11 +10,11 @@ import FirebaseFirestore
 struct Groupped: Codable, Identifiable,Hashable{
     var documentId: String? = nil
     let subject: String
-    var grpProfileImage: URL?
+    var grpProfileImage: URL
     var id: String{
         documentId ?? UUID().uuidString
     }
-    var userIDs = [String]()
+    var userIDs:[String]
 }
 
 extension Groupped{
@@ -26,6 +26,12 @@ extension Groupped{
         guard let subject = dictionary["subject"] as? String else{
             return nil
         }
-        return Groupped(documentId: snapshot.documentID, subject: subject)
+        guard let url = dictionary["grpProfileImage"] as? String else{
+            return nil
+        }
+        guard let Url = URL(string: url) else{
+            return nil
+        }
+        return Groupped(documentId: snapshot.documentID, subject: subject, grpProfileImage: Url , userIDs: dictionary["userIDs"] as! [String])
     }
 }

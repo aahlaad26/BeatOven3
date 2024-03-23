@@ -20,16 +20,12 @@ struct GroupList: View {
                 NavigationLink(destination: GroupDetailView(group: group),
                                label: {
                     HStack{
-                        if let url = group.grpProfileImage{
+                       let url = group.grpProfileImage
                             WebImage(url: url)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 60, height: 60)
                                 .clipShape(Circle())
-                        }
-                        Button(action:{print(group.grpProfileImage)}){
-                            Text("UserIDs")
-                        }
                                     Text(group.subject)
                                            .font(.title2)
                                        Spacer()
