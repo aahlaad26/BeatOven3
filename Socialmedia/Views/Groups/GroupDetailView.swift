@@ -7,6 +7,8 @@
 //
 import SwiftUI
 import Firebase
+import FirebaseStorage
+import SDWebImageSwiftUI
 struct GroupDetailView: View {
     @State var isFetching: Bool = true
     @State private var posts: [GrpAudioFiles] = []
@@ -117,22 +119,101 @@ struct SongCell:View {
     @State private var isPresented = false
     var posts:[GrpAudioFiles]
     var grpAudio:GrpAudioFiles
+    @State private var alertMessage = ""
+    @State private var showAlert = false
     var body: some View {
         VStack{
-            Button(action:{isPresented = true}){
-                HStack{
-                    ZStack{
-                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
-                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
+        
+            HStack{
+                Button(action:{isPresented = true}){
+                    HStack{
+                        WebImage(url: grpAudio.userProfileURL)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 60, height: 60)
+                            .clipShape(Circle())
+    //                    ZStack{
+    //                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
+    //                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
+    //
+    //                    }
+                        Text(grpAudio.title)
+                        
                         
                     }
-                    Text(grpAudio.title)
+                }
+                Spacer()
+                Menu{
+                    //MARK: Two actions
+                    //Logout, delete account
                     
+                    Button("Download",action:downloadSong)
+                    Button("Delete",role: .destructive,action: {})
+                }label: {
+                    Image(systemName: "ellipsis")
+                        .rotationEffect(.init(degrees: 90))
+                        .tint(.black)
+                        .scaleEffect(0.8)
                 }
             }
         }
         .sheet(isPresented: $isPresented){
             ProPlayer(grpAudios: posts, grpAudio: grpAudio)
         }
+        .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Downloaded"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
     }
+    func downloadSong(){
+        if let url = grpAudio.audioURL{
+            let storageRef = Storage.storage().reference(forURL: url.absoluteString)
+            let localURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(url.lastPathComponent)
+            let downloadTask = storageRef.write(toFile: localURL) { url, error in
+              if let error = error {
+                // Uh-oh, an error occurred!
+              } else {
+                // Local file URL for "images/island.jpg" is returned
+              }
+            }
+        }
+        
+        
+        
+    }
+    func downloadAudioFile() {
+        guard let downloadURL = grpAudio.audioURL else {
+                print("Invalid download URL")
+                return
+            }
+            
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let destinationURL = documentsDirectory.appendingPathComponent(downloadURL.lastPathComponent)
+            
+            let session = URLSession.shared
+            let downloadTask = session.downloadTask(with: downloadURL) { (tempURL, response, error) in
+                if let error = error {
+                    print("Error downloading file: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let tempURL = tempURL else {
+                    print("Invalid temporary URL")
+                    return
+                }
+                
+                do {
+                    try FileManager.default.moveItem(at: tempURL, to: destinationURL)
+                    let downloadLocation = destinationURL.path
+                    print("File downloaded successfully at: \(downloadLocation)")
+                    
+                    // Show alert with download location
+                    alertMessage = "File downloaded successfully at: \(downloadLocation)"
+                    showAlert = true
+                } catch {
+                    print("Error saving file: \(error.localizedDescription)")
+                }
+            }
+            
+            downloadTask.resume()
+        }
 }
