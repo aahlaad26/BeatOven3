@@ -15,7 +15,7 @@ struct SearchUserView: View {
     @State private var searchText: String = ""
     @State private var posts: [Post] = []
     @Environment(\.dismiss) private var dismiss
-    
+    @State private var newPortfolios: [PortfolioData] = []
     let instruments = ["Guitar", "Percussion", "Bass", "Piano", "Ensemble", "Saxophone", "Flute", "Trumpet", "EDM", "Music Production"]
     let genres = ["Rock", "Pop", "Hip Hop", "Electronic", "Country", "Jazz", "Blues", "Classical", "Metal", "R&B"]
     
@@ -81,9 +81,13 @@ struct SearchUserView: View {
                                }
                                .background(Color("bg-color"))
                                .scrollContentBackground(.hidden)
+                 
                            }
                        }
                    }
+    
+
+
                    
     func searchUsers(for tag: String) {
             Task {
@@ -110,6 +114,9 @@ struct SearchUserView: View {
                 }
             }
         }
+   
+
+
     func searchByUsername() {
         let query = Firestore.firestore().collection("Users")
             .whereField("username", isGreaterThanOrEqualTo: searchText)
