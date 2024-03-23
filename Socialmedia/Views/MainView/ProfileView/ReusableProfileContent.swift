@@ -43,6 +43,18 @@ struct ReusableProfileContent: View {
                                         .tint(.blue)
                                         .lineLimit(1)
                                 }
+                                if let selectedInstruments = user.selectedInstruments {
+                                                                    Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
+                                                                        .font(.caption)
+                                                                        .foregroundColor(.gray)
+                                                                        .lineLimit(1)
+                                                                }
+                                if let selectedGenres = user.selectedGenre {
+                                                                    Text("Genres: \(selectedGenres.joined(separator: ", "))")
+                                                                        .font(.caption)
+                                                                        .foregroundColor(.gray)
+                                                                        .lineLimit(1)
+                                                                }
                             }
                             .hAlign(.leading)
                         }
