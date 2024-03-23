@@ -17,64 +17,94 @@ struct SearchUserView: View {
     @Environment(\.dismiss) private var dismiss
     
     let instruments = ["Guitar", "Percussion", "Bass", "Piano", "Ensemble", "Saxophone", "Flute", "Trumpet", "EDM", "Music Production"]
+    let genres = ["Rock", "Pop", "Hip Hop", "Electronic", "Country", "Jazz", "Blues", "Classical", "Metal", "R&B"]
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(searchedUsers) { user in
-                    NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
-                        Text(user.username)
-                            .font(.callout)
-                            .hAlign(.leading)
-                    }
-                }
-                .listRowBackground(Color.clear)
-                
-                ForEach(instruments, id: \.self) { instrument in
-                    Section(header: Text("Find \(instrument) Artists ")) {
-                        ForEach(fetchedUsers.filter { $0.selectedInstruments?.contains(instrument) ?? false }) { user in
-                            NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
-                                Text(user.username)
-                                    .font(.callout)
-                                    .hAlign(.leading)
+            VStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 15) {
+                        ForEach(instruments, id: \.self) { instrument in
+                            Button(action: {
+                                searchUsers(for: instrument)
+                            }) {
+                                Text(instrument)
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 10)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
                             }
+                        }
+                    }
+                    .padding()
+                }
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 15) {
+                        ForEach(genres, id: \.self) { genre in
+                            Button(action: {
+                                searchUsers(for: genre)
+                            }) {
+                                Text(genre)
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 10)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
+                        }
+                    }
+                    .padding()
+                }
+                
+                List {
+                    ForEach(fetchedUsers) { user in
+                        NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
+                            Text(user.username)
+                                .font(.callout)
+                                .hAlign(.leading)
                         }
                     }
                     .listRowBackground(Color.clear)
                 }
-            }
-            .listStyle(.plain)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Search User")
-            .searchable(text: $searchText)
-            .onChange(of: searchText) { newValue in
-                if newValue.isEmpty {
-                    searchedUsers = []
-                } else {
-                    searchedUsers = fetchedUsers.filter { $0.username.localizedCaseInsensitiveContains(newValue) }
+                .listStyle(.plain)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Search User")
+                .searchable(text: $searchText)
+                .onChange(of: searchText) { newValue in
+                    if newValue.isEmpty {
+                        searchedUsers = []
+                    } else {
+                        searchedUsers = fetchedUsers.filter { $0.username.localizedCaseInsensitiveContains(newValue) }
+                    }
                 }
+                .background(Color("bg-color"))
+                .scrollContentBackground(.hidden)
             }
-            .onAppear {
-                Task {
-                    await searchUsers()
-                }
-            }
-            .background(Color("bg-color"))
-            .scrollContentBackground(.hidden)
         }
     }
     
-    func searchUsers() async {
-        do {
-            let querySnapshot = try await Firestore.firestore().collection("Users").getDocuments()
-            let users = try querySnapshot.documents.compactMap { document -> User? in
-                try document.data(as: User.self)
-            }
-            await MainActor.run {
+    func searchUsers(for tag: String) {
+        Task {
+            do {
+                var query: Query!
+                if instruments.contains(tag) {
+                    query = Firestore.firestore().collection("Users").whereField("selectedInstruments", arrayContains: tag)
+                } else if genres.contains(tag) {
+                    query = Firestore.firestore().collection("Users").whereField("selectedGenre", arrayContains: tag)
+                }
+                
+                guard let query = query else { return }
+                
+                let querySnapshot = try await query.getDocuments()
+                let users = try querySnapshot.documents.compactMap { document -> User? in
+                    try document.data(as: User.self)
+                }
                 fetchedUsers = users
+            } catch {
+                print("Error fetching users: \(error.localizedDescription)")
             }
-        } catch {
-            print("Error fetching users: \(error.localizedDescription)")
         }
     }
 }
