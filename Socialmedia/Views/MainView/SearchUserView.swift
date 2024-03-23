@@ -59,58 +59,86 @@ struct SearchUserView: View {
                 }
                 
                 List {
-                    ForEach(fetchedUsers) { user in
-                        NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
-                            Text(user.username)
-                                .font(.callout)
-                                .hAlign(.leading)
-                        }
+                                   ForEach(searchedUsers.isEmpty ? fetchedUsers : searchedUsers) { user in
+                                       NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
+                                           Text(user.username)
+                                               .font(.callout)
+                                               .hAlign(.leading)
+                                       }
+                                   }
+                                   .listRowBackground(Color.clear)
+                               }
+                               .listStyle(.plain)
+                               .navigationBarTitleDisplayMode(.inline)
+                               .navigationTitle("Discover")
+                               .searchable(text: $searchText)
+                               .onChange(of: searchText) { newValue in
+                                   if newValue.isEmpty {
+                                       searchedUsers = []
+                                   } else {
+                                       searchByUsername()
+                                   }
+                               }
+                               .background(Color("bg-color"))
+                               .scrollContentBackground(.hidden)
+                           }
+                       }
+                   }
+                   
+    func searchUsers(for tag: String) {
+            Task {
+                do {
+                    var query: Query!
+                    if instruments.contains(tag) {
+                        query = Firestore.firestore().collection("Users").whereField("selectedInstruments", arrayContains: tag)
+                    } else if genres.contains(tag) {
+                        query = Firestore.firestore().collection("Users").whereField("selectedGenre", arrayContains: tag)
                     }
-                    .listRowBackground(Color.clear)
-                }
-                .listStyle(.plain)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Discover")
-                .searchable(text: $searchText)
-                .onChange(of: searchText) { newValue in
-                    if newValue.isEmpty {
-                        searchedUsers = []
-                    } else {
-                        searchedUsers = fetchedUsers.filter { $0.username.localizedCaseInsensitiveContains(newValue) }
+                    
+                    let snapshot = try await query.getDocuments()
+                    let users = snapshot.documents.compactMap { document in
+                        try? document.data(as: User.self)
                     }
+                    
+                    fetchedUsers = users
+                    
+                    for user in users {
+                        fetchPosts(for: user, with: tag)
+                    }
+                } catch {
+                    print("Error searching users: \(error)")
                 }
-                .background(Color("bg-color"))
-                .scrollContentBackground(.hidden)
             }
         }
-    }
-    
-    func searchUsers(for tag: String) {
-        Task {
-            do {
-                var query: Query!
-                if instruments.contains(tag) {
-                    query = Firestore.firestore().collection("Users").whereField("selectedInstruments", arrayContains: tag)
-                } else if genres.contains(tag) {
-                    query = Firestore.firestore().collection("Users").whereField("selectedGenre", arrayContains: tag)
-                }
-                
-                let snapshot = try await query.getDocuments()
-                let users = snapshot.documents.compactMap { document in
-                    try? document.data(as: User.self)
-                }
-                
-                fetchedUsers = users
-                
-                for user in users {
-                    fetchPosts(for: user, with: tag)
-                }
-            } catch {
-                print("Error searching users: \(error)")
+    func searchByUsername() {
+        let query = Firestore.firestore().collection("Users")
+            .whereField("username", isGreaterThanOrEqualTo: searchText)
+            .whereField("username", isLessThanOrEqualTo: "\(searchText)\u{f8ff}")
+        
+        query.getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error searching users by username: \(error)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                return
+            }
+            
+            let users = documents.compactMap { document -> User? in
+                try? document.data(as: User.self)
+            }
+            
+            DispatchQueue.main.async {
+                self.searchedUsers = users
             }
         }
     }
 
+
+    
+    
     
     func fetchPosts(for user: User, with tag: String) {
         let postsRef = Firestore.firestore().collection("Posts")
@@ -131,9 +159,6 @@ struct SearchUserView: View {
             }
         }
     }
-
-
-    
 }
 
 
@@ -142,6 +167,8 @@ struct SearchUserView_Previews: PreviewProvider {
         SearchUserView()
     }
 }
+
+
 
 
 //import SwiftUI
