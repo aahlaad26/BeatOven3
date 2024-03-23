@@ -15,25 +15,31 @@ struct GroupList: View {
     @AppStorage("user_name") var userNameStored: String = ""
     @AppStorage("user_UID") var userUID: String = ""
     @AppStorage("log_status") var logStatus:Bool = false
+    @State private var searchText = ""
     var body: some View {
         NavigationStack{
-            ForEach(groups,id:\.self){ group in
+            ForEach(groups.filter { searchText.isEmpty ? true : $0.subject.contains(searchText)}){ group in
                 NavigationLink(destination: GroupDetailView(group: group),
                                label: {
-                    HStack{
-                       let url = group.grpProfileImage
-                            WebImage(url: url)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 60, height: 60)
-                                .clipShape(Circle())
+                    VStack{
+                        HStack{
+                           let url = group.grpProfileImage
+                                WebImage(url: url)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                                    .padding(.horizontal)
                                     Text(group.subject)
-                                           .font(.title2)
-                                       Spacer()
-                                       Image(systemName:"arrow.right")
-                                       
-                                   }
-                                   .foregroundColor(.black)
+                                               .font(.title3)
+                                           Spacer()
+                                           Image(systemName:"arrow.right")
+                                           
+                                       }
+                                       .padding()
+                                       .foregroundColor(.black)
+                        Divider()
+                    }
                                })
                 
                 .onTapGesture {
@@ -42,6 +48,7 @@ struct GroupList: View {
 
                 }
             }.background(Color("bg-color"))
+            .searchable(text: $searchText, prompt: "Search by name...")
         }
     }
 }
