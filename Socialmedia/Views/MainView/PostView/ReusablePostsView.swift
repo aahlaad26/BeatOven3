@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 struct ReusablePostsView: View {
+    @AppStorage("user_UID") private var userUID: String = ""
     @Binding var posts: [Post]
     //view properties
     @State var isFetching: Bool = true
@@ -54,32 +55,34 @@ struct ReusablePostsView: View {
     func Posts()-> some View{
         ForEach(posts){post in
 //            Text(post.text)
-            PostCardView(post: post){updatedPost in
-                //updating post in the array
-                if let index = posts.firstIndex(where: {post in
-                    post.id == updatedPost.id
+            if(post.userUID != userUID){
+                PostCardView(post: post){updatedPost in
+                    //updating post in the array
+                    if let index = posts.firstIndex(where: {post in
+                        post.id == updatedPost.id
+                        
+                    }){
+                        posts[index].likedIDs = updatedPost.likedIDs
+                    }
+                } onDelete: {
+                    // Removing Post from the array
+                    withAnimation(.easeInOut(duration: 0.25)){
+                        posts.removeAll{post.id == $0.id}
+                        //id to be included
+                    }
                     
-                }){
-                    posts[index].likedIDs = updatedPost.likedIDs
                 }
-            } onDelete: {
-                // Removing Post from the array
-                withAnimation(.easeInOut(duration: 0.25)){
-                    posts.removeAll{post.id == $0.id}
-                    //id to be included
+                .onAppear(){
+                    //when last post appears, fetching the new post if it exists
+                    if post.id == posts.last?.id && paginationDoc != nil{
+                        Task{await fetchPosts()}
+                    }
                 }
+                Divider()
+                    .padding(.horizontal,-15)
                 
             }
-            .onAppear(){
-                //when last post appears, fetching the new post if it exists
-                if post.id == posts.last?.id && paginationDoc != nil{
-                    Task{await fetchPosts()}
-                }
             }
-            Divider()
-                .padding(.horizontal,-15)
-            
-        }
     }
     // fetching posts
     
