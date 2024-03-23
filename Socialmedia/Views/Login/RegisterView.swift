@@ -34,7 +34,8 @@ struct RegisterView:View{
     @AppStorage("user_profile_url")var profileURL:URL?
     @AppStorage("user_name")var usernameStored:String = ""
     @AppStorage("user_UID")var userID:String = ""
-    let instruments = ["Guitar", "Drums", "Bass", "Piano", "Violin", "Saxophone", "Flute", "Trumpet", "Cello", "DJ Turntable"]
+    let instruments = ["Guitar", "Percussion", "Bass", "Piano", "Ensemble", "Saxophone", "Flute", "Trumpet", "EDM", "Music Production"]
+        
     let genres = ["Rock", "Pop", "Hip Hop", "Electronic", "Country", "Jazz", "Blues", "Classical", "Metal", "R&B"]
 
     var body: some View{
