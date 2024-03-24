@@ -56,6 +56,7 @@ struct LoginView: View {
                                 RoundedRectangle(cornerRadius: 30)
                                     .inset(by: 1.50)
                                     .stroke(Color(red: 0.37, green: 0.16, blue: 0.12), lineWidth: 1.50)
+                                    .background(Color(""))
                             )
                             .offset(y: -30) // Adjust the offset as needed
                         
@@ -63,7 +64,7 @@ struct LoginView: View {
                             Rectangle()
                                 .foregroundColor(.clear)
                                 .frame(width: 338, height: 64)
-                                .background(Color(red: 1, green: 0.79, blue: 0.70))
+                                .background(Color(red: 0.9725490196078431, green: 0.93, blue: 0.90))
                                 .cornerRadius(8)
                                 .overlay(
                                     TextField(" Email", text: $emailID)
@@ -77,7 +78,8 @@ struct LoginView: View {
                             Rectangle()
                                 .foregroundColor(.clear)
                                 .frame(width: 338, height: 64)
-                                .background(Color(red: 1, green: 0.79, blue: 0.70))
+                                .background(Color(red: 0.9725490196078431, green: 0.93, blue: 0.90))
+
                                 .cornerRadius(8)
                                 .overlay(
                                     HStack {
@@ -142,16 +144,28 @@ struct LoginView: View {
 //                            }
 //                        }
                         ) {
+//                            Text("Sign In")
+//                                .foregroundColor(.white)
+//                                .padding()
+//                                .background(Color("button2-color"))
+//                                // Set your desired button color
+//                                .cornerRadius(8)
+                            
                             Text("Sign In")
                                 .foregroundColor(.white)
-                                .padding()
-                                .background(Color("button-color")) // Set your desired button color
-                                .cornerRadius(8)
-                        }
-                        .padding(.top, 2) // Add additional top padding for spacing
+                                .padding(20)
+                                
+                                .frame(maxWidth: .infinity) // Make the button fit the screen size horizontally
+                                .background(Color("button2-color"))
+                                .cornerRadius(20) // Increase this value for more rounded edges
+                                .padding(.top, 2)
+                        }.frame(width: 338, height: 64)
+                           
+                        .padding(.top, 75) // Add additional top padding for spacing
+                         
                         
-                        
-                        
+
+                         
                         Spacer()
                         // Add Spacer to push the HStack to the bottom
                         HStack{

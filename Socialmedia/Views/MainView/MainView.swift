@@ -42,7 +42,7 @@ struct MainView: View {
              }
              .accentColor(Color("button2-color"))
 
-         
+             
      }
 }
 

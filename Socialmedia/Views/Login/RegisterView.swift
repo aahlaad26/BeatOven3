@@ -90,7 +90,7 @@ struct RegisterView:View{
                                     }catch{}
                                 }
                             }
-                        }.padding(.bottom,40)
+                        }.padding(.bottom,50)
                         //MARK: Displaying Alert
                         .alert(errormessage, isPresented:$showerror , actions: {})
                     
@@ -103,7 +103,7 @@ struct RegisterView:View{
     func HelperView()-> some View{
         
         
-        VStack(spacing:12){
+        VStack(spacing:2){
             
             ZStack{
                 if let userprofiledata, let image = UIImage(data: userprofiledata){
@@ -117,41 +117,56 @@ struct RegisterView:View{
             }.frame(width: 85, height: 85)
                 .clipShape(Circle())
                 .contentShape(Circle())
-                .padding(.top,25)
+                .padding(25)
                 .onTapGesture {
                     showimagePicker.toggle()
                 }
             
+//            TextField("Username",text: $username)
+//                .textContentType(.username)
+//                .border(1, .gray.opacity(0.5))
+//                
+//                .frame(width: 338, height: 64)
             TextField("Username",text: $username)
-                .textContentType(.username)
-                .border(1, .gray.opacity(0.5))
-                
-               
+                    .textContentType(.username)
+                    .border(1, .gray.opacity(0.5))
+                    .frame(maxWidth: .infinity, minHeight: 70) // Make the text field fit the screen size horizontally and increase its height
+                    .cornerRadius(10) // Make the corners rounded
+                    .padding(.top,10) // Decrease the top padding to bring the text fields closer to each other
             
             TextField("Email",text: $emailID)
-                .textContentType(.emailAddress)
-                .border(1, .gray.opacity(0.5))
-                .background(Color("cell-color"))
-                .padding(.top,25)
-           
+                   .textContentType(.emailAddress)
+                   .border(1, .gray.opacity(0.5))
+//                   .background(Color("cell-color"))
+                   .frame(maxWidth: .infinity, minHeight: 70)
+                   .cornerRadius(10)
+                   .padding(.top,10)
             
             SecureField("Password",text: $password)
-                .textContentType(.emailAddress)
-                .border(1, .gray.opacity(0.5))
-                .background(Color("cell-color"))
-                .padding(.top,25)
+                    .textContentType(.emailAddress)
+                    .border(1, .gray.opacity(0.5))
+//                    .background(Color("cell-color"))
+                    .frame(maxWidth: .infinity, minHeight: 70)
+                    .cornerRadius(10)
+                    .padding(.top,10)
             
             TextField("About You",text: $userbio, axis: .vertical)
-                .frame(minHeight: 100, alignment: .top)
-                .textContentType(.emailAddress)
-                .border(1, .gray.opacity(0.5))
-                .background(Color("cell-color"))
-                .padding(.top,25)
+                    .frame(maxWidth: .infinity, minHeight: 100, alignment: .top)
+                    .textContentType(.emailAddress)
+                    .border(1, .gray.opacity(0.5))
+//                    .background(Color("cell-color"))
+                    .cornerRadius(10)
+                    .padding(.top,10)
+            
+            
             TextField("Bio Link[Optional]",text: $userbiolink)
-                .textContentType(.emailAddress)
-                .border(1, .gray.opacity(0.5))
-                .background(Color("cell-color"))
-                .padding(.top,25)
+                   .textContentType(.emailAddress)
+                   .border(1, .gray.opacity(0.5))
+//                   .background(Color("cell-color"))
+                   .frame(maxWidth: .infinity, minHeight: 70)
+                   .cornerRadius(10)
+                   .padding(.top,10)
+            
             VStack {
                         Text("Select Top 3 Instruments:")
                             .font(.headline)
@@ -207,11 +222,15 @@ struct RegisterView:View{
             Button(action: registerUser, label: {
                 Text("Sign Up")
                     .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity, minHeight: 40)
+                    .cornerRadius(25)
                     
             }).fillView(Color("button-color"))
                 .hAlign(.center)
+                .padding(.top,25)
         }
 //        .disabledOpacity(username == "" || userbio == "" || emailID == "" || password == "" || userprofiledata == nil)
+        
         .padding(.top,10)
             
         

@@ -29,10 +29,10 @@ struct ReusableProfileContent: View {
                             .clipShape(Circle())
                             VStack(alignment: .leading, spacing: 6){
                                 Text(user.username)
-                                    .font(.title3)
+                                    .font(.title2)
                                     .fontWeight(.semibold)
                                 Text(user.userbio)
-                                    .font(.caption)
+                                    .font(.title3)
                                     .foregroundStyle(Color.gray)
                                     .lineLimit(3)
                                 // MARK: Displaying Bio Link, If given while signin
@@ -44,13 +44,13 @@ struct ReusableProfileContent: View {
                                 }
                                 if let selectedInstruments = user.selectedInstruments {
                                                                     Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
-                                                                        .font(.caption)
+                                                                        .font(.title3)
                                                                         .foregroundColor(.gray)
                                                                         .lineLimit(1)
                                                                 }
                                 if let selectedGenres = user.selectedGenre {
                                                                     Text("Genres: \(selectedGenres.joined(separator: ", "))")
-                                                                        .font(.caption)
+                                                                        .font(.title3)
                                                                         .foregroundColor(.gray)
                                                                         .lineLimit(1)
                                                                 }
