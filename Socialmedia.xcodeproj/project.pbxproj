@@ -83,6 +83,7 @@
 		984E28FC2BA8CB1800F3A8A0 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E28FB2BA8CB1800F3A8A0 /* Group.swift */; };
 		9858F7012BA6F66F00F4944E /* FetchPortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */; };
 		9858F7032BA7EDF600F4944E /* PortfolioStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858F7022BA7EDF600F4944E /* PortfolioStartView.swift */; };
+		986A8CFD2BB0119800E87F12 /* experiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986A8CFC2BB0119800E87F12 /* experiment.swift */; };
 		986B833B2BAA07CE00AF74EF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B833A2BAA07CE00AF74EF /* Model.swift */; };
 		986B833D2BAAFD2700AF74EF /* GroupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B833C2BAAFD2700AF74EF /* GroupList.swift */; };
 		986B833F2BAB106400AF74EF /* GroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B833E2BAB106400AF74EF /* GroupDetailView.swift */; };
@@ -143,6 +144,8 @@
 		984E28FB2BA8CB1800F3A8A0 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		9858F7002BA6F66F00F4944E /* FetchPortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPortfolioView.swift; sourceTree = "<group>"; };
 		9858F7022BA7EDF600F4944E /* PortfolioStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioStartView.swift; sourceTree = "<group>"; };
+		986A8CFB2BB004AB00E87F12 /* Socialmedia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Socialmedia.entitlements; sourceTree = "<group>"; };
+		986A8CFC2BB0119800E87F12 /* experiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = experiment.swift; sourceTree = "<group>"; };
 		986B833A2BAA07CE00AF74EF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		986B833C2BAAFD2700AF74EF /* GroupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupList.swift; sourceTree = "<group>"; };
 		986B833E2BAB106400AF74EF /* GroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailView.swift; sourceTree = "<group>"; };
@@ -306,6 +309,7 @@
 		983468562B8D997E0045D037 /* Socialmedia */ = {
 			isa = PBXGroup;
 			children = (
+				986A8CFB2BB004AB00E87F12 /* Socialmedia.entitlements */,
 				0F12B9532B966831002C3368 /* Fonts */,
 				0F41E0822B94779200590E9A /* Info.plist */,
 				983468A32B8D9BF10045D037 /* Model */,
@@ -338,6 +342,7 @@
 				2F5C5D2F2B8E2D0D00531C33 /* MainView */,
 				2F5C5D2E2B8E2D0000531C33 /* Login */,
 				983468AB2B8DFC7D0045D037 /* LoadingView.swift */,
+				986A8CFC2BB0119800E87F12 /* experiment.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				2F5C5D412B8EFCFE00531C33 /* Post.swift in Sources */,
 				0F5CBD222BA8D1EE00B45EDC /* RecentMessage.swift in Sources */,
 				2F5C5D362B8EDC0C00531C33 /* MainView.swift in Sources */,
+				986A8CFD2BB0119800E87F12 /* experiment.swift in Sources */,
 				986B833D2BAAFD2700AF74EF /* GroupList.swift in Sources */,
 				9836814E2BAB67D100805418 /* CreateAudioFileView.swift in Sources */,
 				0F5CBD1E2BA8D1D900B45EDC /* MainMessagesView.swift in Sources */,
@@ -661,10 +667,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Socialmedia/Socialmedia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Socialmedia/Preview Content\"";
-				DEVELOPMENT_TEAM = RHL26U4H7P;
+				DEVELOPMENT_TEAM = 4NZCYY46NY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Socialmedia/Info.plist;
@@ -691,10 +698,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Socialmedia/Socialmedia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Socialmedia/Preview Content\"";
-				DEVELOPMENT_TEAM = RHL26U4H7P;
+				DEVELOPMENT_TEAM = 4NZCYY46NY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Socialmedia/Info.plist;

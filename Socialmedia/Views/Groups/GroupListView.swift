@@ -6,10 +6,40 @@
 //
 
 import SwiftUI
+//func openCustomURL() {
+//        if let customURL = URL(string: "instagram://") {
+//            if UIApplication.shared.canOpenURL(customURL) {
+//                UIApplication.shared.open(customURL, options: [:], completionHandler: nil)
+//            } else {
+//                print("Cannot open URL: \(customURL)")
+//            }
+//        } else {
+//            print("Invalid URL: facetime://")
+//        }
+//    }
+
+func openInstagram() {
+    let appURL = NSURL(string: "facetime://")!
+    let webURL = NSURL(string: "https://facetime.com/")!
+    
+    let application = UIApplication.shared
+    print("enter func")
+    print(application.canOpenURL(appURL as URL))
+    if application.canOpenURL(appURL as URL) {
+        print("enter 1 if")
+        print("set to true")
+        application.open(appURL as URL)
+    } else {
+        // if Instagram app is not installed, open URL inside Safari
+        print("enter else")
+        application.open(webURL as URL)
+    }
+}
 
 struct GroupListView: View {
     @State private var isPresented:Bool = false
     @EnvironmentObject private var model: Model
+    
     var body: some View {
         NavigationStack {
             ScrollView{
@@ -27,8 +57,13 @@ struct GroupListView: View {
                 }.padding()
                     .sheet(isPresented: $isPresented){
                         AddNewGroupView()
-                }
+                    }
                 
+                Button {
+                    openInstagram()
+                } label: {
+                    Text("Facetime")
+                }
                 
             }
             .navigationTitle("Groups")
@@ -37,10 +72,12 @@ struct GroupListView: View {
                 Button("New Group"){
                     isPresented = true
                 }
-                }
-            .background(Color("bg-color"))
+                
             }
+            .background(Color("bg-color"))
         }
+    }
+    
     }
 
 
