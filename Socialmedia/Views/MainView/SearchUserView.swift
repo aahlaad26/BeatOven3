@@ -79,7 +79,6 @@ struct SearchUserView: View {
                                        searchByUsername()
                                    }
                                }
-                               .background(Color("bg-color"))
                                .scrollContentBackground(.hidden)
                  
                            }

@@ -129,7 +129,7 @@ struct MainMessagesView: View {
                 .overlay(
                     newMessageButton, alignment: .bottom)
             .navigationBarHidden(true)
-            }.background(Color("bg-color"))
+            }
         }
     }
     
@@ -269,7 +269,6 @@ struct MainMessagesView_Previews: PreviewProvider {
     static var previews: some View {
         MainMessagesView()
             .preferredColorScheme(.dark)
-        
         MainMessagesView()
     }
 }

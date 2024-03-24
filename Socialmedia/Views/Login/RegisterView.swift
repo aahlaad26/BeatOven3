@@ -40,7 +40,6 @@ struct RegisterView:View{
 
     var body: some View{
         ZStack{
-            Color("bg-color").ignoresSafeArea()
             ScrollView{
                 ZStack{
 
@@ -126,7 +125,7 @@ struct RegisterView:View{
             TextField("Username",text: $username)
                 .textContentType(.username)
                 .border(1, .gray.opacity(0.5))
-                .background(Color("cell-color"))
+                
                
             
             TextField("Email",text: $emailID)

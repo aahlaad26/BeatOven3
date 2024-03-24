@@ -74,7 +74,6 @@ struct GroupListView: View {
                 }
                 
             }
-            .background(Color("bg-color"))
         }
     }
     

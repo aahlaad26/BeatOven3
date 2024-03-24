@@ -184,7 +184,7 @@ struct ChatLogView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onDisappear {
                 vm.firestoreListener?.remove()
-            }.background(Color("bg-color"))
+            }
         }
     }
     
@@ -210,7 +210,6 @@ struct ChatLogView: View {
                         }
                     }
                 }
-                .background(Color("bg-color"))
                 .safeAreaInset(edge: .bottom) {
                     chatBottomBar
                         .background(Color(.systemBackground).ignoresSafeArea())

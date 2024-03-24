@@ -47,7 +47,7 @@ struct GroupList: View {
                     
 
                 }
-            }.background(Color("bg-color"))
+            }
             .searchable(text: $searchText, prompt: "Search by name...")
         }
     }

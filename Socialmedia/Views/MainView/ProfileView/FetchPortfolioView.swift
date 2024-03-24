@@ -57,7 +57,7 @@ struct FetchPortfolioView: View {
             }
             
             }
-            .background(Color("bg-color"))
+            
         }
     }
 

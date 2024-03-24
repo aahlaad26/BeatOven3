@@ -19,7 +19,7 @@ struct ProPlayer : View{
                 
                 HStack{
                     Button(action:self.prev){
-                        Image (systemName: "arrow.left").resizable()
+                        Image (systemName: "backward.fill").resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                             .padding()
                             .foregroundColor(Color("button2-color"))
@@ -32,7 +32,7 @@ struct ProPlayer : View{
                             .foregroundColor(Color("button2-color"))
                     }
                     Button(action:self.next){
-                        Image (systemName: "arrow.right").resizable()
+                        Image (systemName: "forward.fill").resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                             .padding()
                             .foregroundColor(Color("button2-color"))

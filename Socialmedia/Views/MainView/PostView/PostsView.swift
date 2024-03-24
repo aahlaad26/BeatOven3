@@ -28,8 +28,6 @@ struct PostsView: View {
                     .padding(15)
                 }
                 .navigationTitle("Posts")
-                .navigationBarColor(Color("bg-color"))
-                .background(Color("bg-color"))
         }
             .fullScreenCover(isPresented: $createNewPost){
                 CreateNewPost{post in

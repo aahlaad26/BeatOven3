@@ -84,7 +84,7 @@ struct CreateNewMessageView: View {
                         }
                     }
                 }
-                .background(Color("bg-color"))
+                
         }
     }
 }

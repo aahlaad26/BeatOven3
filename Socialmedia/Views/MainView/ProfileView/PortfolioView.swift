@@ -172,7 +172,7 @@ struct PortfolioView: View {
                 }
             }
         }
-            .background(Color(red: 252/255, green: 222/255, blue: 208/255))
+         
             .navigationTitle("Portfolio Creator")
         }
     }

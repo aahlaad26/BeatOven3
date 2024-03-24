@@ -90,8 +90,6 @@ struct ProfileView: View {
                     }
                 }
             }
-            .navigationBarColor(Color("bg-color"))
-            .background(Color("bg-color"))
         }
         .overlay{
             LoadingView(show: $isLoading)

@@ -50,7 +50,7 @@ struct LoginView: View {
                         Rectangle()
                             .foregroundColor(.clear)
                             .frame(width: 393, height: 475)
-                            .background(Color(red: 0.99, green: 0.87, blue: 0.82))
+                            .background()
                             .cornerRadius(30)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 30)

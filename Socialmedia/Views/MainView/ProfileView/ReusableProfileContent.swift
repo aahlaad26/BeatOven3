@@ -99,8 +99,7 @@ struct ReusableProfileContent: View {
                     
                 }
             }
-            .background(Color("bg-color"))
-            .navigationBarColor(Color("bg-color"))
+
         }
     }
     @ViewBuilder
