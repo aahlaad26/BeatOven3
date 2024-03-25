@@ -12,13 +12,16 @@ class CreateNewMessageViewModel: ObservableObject {
     
     @Published var users = [User]()
     @Published var errorMessage = ""
-    
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
     init() {
         fetchAllUsers()
     }
     
     private func fetchAllUsers() {
-        FirebaseManager.shared.firestore.collection("Users")
+        FirebaseManager.shared.firestore.collection("Users").whereField("followers", arrayContains: userUID)
             .getDocuments { documentsSnapshot, error in
                 if let error = error {
                     self.errorMessage = "Failed to fetch users: \(error)"
@@ -73,6 +76,9 @@ struct CreateNewMessageView: View {
                     }
                     Divider()
                         .padding(.vertical, 8)
+                }
+                if(vm.users.count == 0){
+                    Text("Follow Others to message them")
                 }
             }.navigationTitle("New Message")
                 .toolbar {

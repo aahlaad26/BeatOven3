@@ -14,6 +14,9 @@ struct ReusablePostsView: View {
     @State var isFetching: Bool = true
     //pagination
     @State private var paginationDoc: QueryDocumentSnapshot?
+    @State var errorMessage = ""
+    @State private var tempUser: User?
+    @State private var listOfFollowing:[String] = ["None"]
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             LazyVStack{// used in like onappear and keeps track of when the user is leaving the screen and entering
@@ -88,15 +91,25 @@ struct ReusablePostsView: View {
     
     func fetchPosts()async{
         do{
+            fetchUsersWithUID(uid: userUID)
             var query: Query!
             //implementing pagination here
+            if let followers = tempUser?.following  {
+                print("does follow")
+                self.listOfFollowing = followers
+            }
+            else{
+                print("Doesnt follow")
+            }
             if let paginationDoc{
                 query = Firestore.firestore().collection("Posts")
+                    .whereField("userUID", in: listOfFollowing)
                     .order(by: "publishedDate", descending: true)
                     .start(afterDocument:paginationDoc)
                     .limit(to: 20)
             }else{
                 query = Firestore.firestore().collection("Posts")
+                    .whereField("userUID", in: listOfFollowing)
                     .order(by: "publishedDate", descending: true)
                     .limit(to: 20)
             }
@@ -112,6 +125,18 @@ struct ReusablePostsView: View {
             })
         }catch{
             print(error.localizedDescription)
+        }
+    }
+    func fetchUsersWithUID(uid : String){
+        FirebaseManager.shared.firestore.collection("Users").document(userUID).getDocument { snapshot, error in
+            if let error = error {
+                self.errorMessage = "Failed to fetch current user: \(error)"
+                print("Failed to fetch current user:", error)
+                return
+            }
+            
+            self.tempUser = try? snapshot?.data(as: User.self)
+            
         }
     }
 }

@@ -16,79 +16,94 @@ struct ReusableProfileContent: View {
     @AppStorage("log_status") var logStatus:Bool = false
     @Binding var posts: [Post]
     //view properties
-    @AppStorage("user_UID") private var userUID: String = ""
     @State private var portfolioData: PortfolioData?
     @State private var isLoading: Bool = true
     @State var isFetching: Bool = true
     //pagination
     @State private var paginationDoc: QueryDocumentSnapshot?
+    @State private var showFetchPortfolioView = false
     @State var user:User
     @State private var tempUser: User?
     var body: some View {
         NavigationStack{
-            ZStack{
                 
                 ScrollView(.vertical, showsIndicators: false){
-                    LazyVStack{
-                        HStack(spacing: 12){
+                    LazyVStack(alignment: .leading){
+                        HStack(spacing:20){
                             WebImage(url: user.userprofileURL)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 100 , height: 100)
                             .clipShape(Circle())
-                            VStack(alignment: .leading, spacing: 6){
-                                Text(user.username)
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                Text(user.userbio)
-                                    .font(.title3)
-                                    .foregroundStyle(Color.gray)
-                                    .lineLimit(3)
-                                // MARK: Displaying Bio Link, If given while signin
-                                if let bioLink = URL(string: user.userbiolink){
-                                    Link(user.userbiolink, destination: bioLink)
-                                        .font(.callout)
-                                        .tint(.blue)
-                                        .lineLimit(1)
-                                }
-                                if let selectedInstruments = user.selectedInstruments {
-                                    Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
-                                        .font(.system(size: 14))  // Set your desired size here
-                                        .foregroundColor(.gray)
-                                        .lineLimit(3)
-                                }
-                                if let selectedGenres = user.selectedGenre {
-                                                                    Text("Genres: \(selectedGenres.joined(separator: ", "))")
-                                                                        .font(.title3)
-                                                                        .foregroundColor(.gray)
-                                                                        .lineLimit(1)
-                                                                }
-                                HStack{
-                                    if let followers = user.followers{
-                                        Text("Follower :\(followers.count)")
-                                    }
-                                    else{
-                                        Text("Follower: 0")
-                                    }
-                                    if let following = user.following{
-                                        Text("Following : \(following.count)")
-                                    }
-                                    else{
-                                        Text("Following: 0")
-                                    }
-                                }
+                            VStack{
                                 
-                                if user.userid != userUID{
-                                    if let followers = user.followers{
-                                        if followers.contains(userUID){
-                                            Button(action:follow){
-                                                Text("Unfollow")
-                                            }
-                                        }
-                                        else{
-                                            Button(action:follow){
-                                                Text("Follow")
-                                            }
+                                if let followers = user.followers{
+                                    Text("\(followers.count)")
+                                }
+                                else{
+                                    Text("0")
+                                }
+                                Text("Followers")
+                            }
+                            VStack{
+                                
+                                if let following = user.following{
+                                    Text("\(following.count)")
+                                }
+                                else{
+                                    Text("0")
+                                }
+                                Text("Following")
+                            }
+                            VStack{
+                                Text("\(posts.count)")
+                                Text("Posts")
+                            }
+                                
+                                
+                            
+                            
+                            
+                            
+                        }.padding(.bottom)
+                        
+                        VStack(alignment: .leading, spacing: 6){
+                            Text(user.username)
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                            Text(user.userbio)
+                                .font(.title3)
+                                .foregroundStyle(Color.gray)
+                                .lineLimit(3)
+                            // MARK: Displaying Bio Link, If given while signin
+                            if let bioLink = URL(string: user.userbiolink){
+                                Link(user.userbiolink, destination: bioLink)
+                                    .font(.subheadline)
+                                    .tint(.blue)
+                                    .lineLimit(1)
+                            }
+                            if let selectedInstruments = user.selectedInstruments {
+                                Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
+                                    .font(.subheadline)  // Set your desired size here
+                                    .foregroundColor(.gray)
+                                    .lineLimit(3)
+                            }
+                            if let selectedGenres = user.selectedGenre {
+                                                                Text("Genres: \(selectedGenres.joined(separator: ", "))")
+                                    .font(.subheadline)
+                                                                    .foregroundColor(.gray)
+                                                                    .lineLimit(1)
+                                                            }
+                            
+                            
+                        }
+                        .hAlign(.leading)
+                        HStack{
+                            if user.userid != userUID{
+                                if let followers = user.followers{
+                                    if followers.contains(userUID){
+                                        Button(action:follow){
+                                            Text("Unfollow")
                                         }
                                     }
                                     else{
@@ -97,25 +112,27 @@ struct ReusableProfileContent: View {
                                         }
                                     }
                                 }
-                                
+                                else{
+                                    Button(action:follow){
+                                        Text("Follow")
+                                    }
+                                }
                             }
-                            .hAlign(.leading)
-                        }.padding(.bottom)
-                       
-                        Button(action: {
-                        
-                          showFetchPortfolioView = true
-                        }) {
-                            Image(systemName: "briefcase")
-//                            .font(.title2)
-//                            .fontWeight(.semibold)
-//                            .padding()
-//                            .background(Color.blue)
-//                            .foregroundColor(.white)
-//                            .cornerRadius(10)
+                            Button(action: {
+                            
+                              showFetchPortfolioView = true
+                            }) {
+                                Image(systemName: "briefcase")
+    //                            .font(.title2)
+    //                            .fontWeight(.semibold)
+    //                            .padding()
+    //                            .background(Color.blue)
+    //                            .foregroundColor(.white)
+    //                            .cornerRadius(10)
+                            }
+                            .frame(width: 50, height: 50)
                         }
-                        .padding(.bottom)
-                        .frame(width: 50, height: 50)
+                        
                         // NavigationLink to FetchPortfolioView, conditionally shown based on the flag
                         NavigationLink(destination: FetchPortfolioView(), isActive: $showFetchPortfolioView) {
                           EmptyView() // Placeholder, can be replaced with actual content
@@ -123,7 +140,7 @@ struct ReusableProfileContent: View {
                         .offset(x: 150, y: -100) // Adjust offset for positioning if needed
 
                         
-                        
+                        Divider()
                         Text("Posts").font(.title2)
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.black)
@@ -169,7 +186,7 @@ struct ReusableProfileContent: View {
                     
                 }
                 
-            }
+            
 
         }
     }
@@ -215,11 +232,13 @@ struct ReusableProfileContent: View {
             //implementing pagination here
             if let paginationDoc{
                 query = Firestore.firestore().collection("Posts")
+                    .whereField("userUID",isEqualTo: user.userid)
                     .order(by: "publishedDate", descending: true)
                     .start(afterDocument:paginationDoc)
                     .limit(to: 20)
             }else{
                 query = Firestore.firestore().collection("Posts")
+                    .whereField("userUID",isEqualTo: user.userid)
                     .order(by: "publishedDate", descending: true)
                     .limit(to: 20)
             }

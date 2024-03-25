@@ -14,7 +14,10 @@ struct SearchUserGrpsView: View {
     @State private var searchText: String = ""
     @State private var selectedUsers: Set<User> = []
     @ObservedObject var ID = UserIDs()
-
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
     var body: some View {
         NavigationView {
             VStack {
@@ -55,6 +58,10 @@ struct SearchUserGrpsView: View {
                             
                 
                 List {
+                    if(fetchedUsers.count == 0){
+                        Text("Follow other people to make groups with them.")
+                            .foregroundColor(Color.gray)
+                    }
                     ForEach(fetchedUsers) { user in
                         CheckboxRow(user: user, isSelected: selectedUsers.contains(user)) { isChecked in
                             if isChecked {
@@ -94,6 +101,7 @@ struct SearchUserGrpsView: View {
                 .collection("Users")
                 .whereField("username", isGreaterThanOrEqualTo: searchText)
                 .whereField("username", isLessThanOrEqualTo: "\(searchText)\u{f8ff}")
+                .whereField("followers", arrayContains: userUID)
                 .getDocuments()
 
             let users = try documents.documents.compactMap { doc -> User? in
