@@ -30,7 +30,7 @@ struct SplashScreenView: View {
                     
                   )
                   .rotationEffect(Angle(degrees: -0.64))
-                Text("BeatOven.")
+                Text("BeatOven")
                     .font(Font.custom("Condiment-Regular", size: 52)
                         )
                   .foregroundColor(.black)

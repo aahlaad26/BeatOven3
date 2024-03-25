@@ -24,7 +24,7 @@ struct Screen2: View {
                 .position(CGPoint(x: 100.0, y: 150.0))
                 .frame(width: 300)
 
-            Text("Beat oven")
+            Text("BeatOven")
                 .foregroundColor(.black)
                 .font(Font.custom("Condiment", size: 44))
                 .padding()
