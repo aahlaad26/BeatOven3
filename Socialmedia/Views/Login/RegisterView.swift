@@ -185,7 +185,7 @@ struct RegisterView:View{
                                         Text(instrument)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 5)
-                                            .background(selectedInstruments.contains(instrument) ? Color.blue : Color.gray)
+                                            .background(selectedInstruments.contains(instrument) ? Color("button2-color") : Color.gray)
                                             .foregroundColor(.white)
                                             .cornerRadius(8)
                                     }
@@ -209,7 +209,7 @@ struct RegisterView:View{
                                 Text(genre)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 5)
-                                    .background(selectedGenre.contains(genre) ? Color.blue : Color.gray)
+                                    .background(selectedGenre.contains(genre) ? Color("button2-color") : Color.gray)
                                     .foregroundColor(.white)
                                     .cornerRadius(8)
                             }
@@ -225,7 +225,7 @@ struct RegisterView:View{
                     .frame(maxWidth: .infinity, minHeight: 40)
                     .cornerRadius(25)
                     
-            }).fillView(Color("button-color"))
+            }).fillView(Color("button2-color"))
                 .hAlign(.center)
                 .padding(.top,25)
         }

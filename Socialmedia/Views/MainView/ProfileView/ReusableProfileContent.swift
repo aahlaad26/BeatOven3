@@ -98,40 +98,62 @@ struct ReusableProfileContent: View {
                             
                         }
                         .hAlign(.leading)
-                        HStack{
+                        HStack(spacing: 20){
                             if user.userid != userUID{
                                 if let followers = user.followers{
                                     if followers.contains(userUID){
                                         Button(action:follow){
                                             Text("Unfollow")
+                                                .font(.title2)
+                                                .fontWeight(.semibold)
+                                                .padding()
+                                                .frame(maxWidth: .infinity)
+                                                .background(Color("button2-color"))
+                                                .foregroundColor(.white)
+                                                .cornerRadius(10)
                                         }
                                     }
                                     else{
                                         Button(action:follow){
                                             Text("Follow")
+                                                .font(.title2)
+                                                .fontWeight(.semibold)
+                                                .padding()
+                                                .frame(maxWidth: .infinity, minHeight: 40)
+                                                .background(Color("button2-color"))
+                                                .foregroundColor(.white)
+                                                .cornerRadius(10)
                                         }
                                     }
                                 }
                                 else{
                                     Button(action:follow){
                                         Text("Follow")
+                                            .font(.title2)
+                                            .fontWeight(.semibold)
+                                            .padding()
+                                            .background(Color("button2-color"))
+                                            .frame(maxWidth: .infinity, minHeight: 40)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
                                     }
                                 }
+                                Button(action: {
+                                
+                                  showFetchPortfolioView = true
+                                }) {
+                                    Image(systemName: "briefcase")
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                    .padding()
+                                    .background(Color("button2-color"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                }
+                                .frame(width: 50, height: 50)
                             }
-                            Button(action: {
                             
-                              showFetchPortfolioView = true
-                            }) {
-                                Image(systemName: "briefcase")
-    //                            .font(.title2)
-    //                            .fontWeight(.semibold)
-    //                            .padding()
-    //                            .background(Color.blue)
-    //                            .foregroundColor(.white)
-    //                            .cornerRadius(10)
-                            }
-                            .frame(width: 50, height: 50)
-                        }
+                        }.padding(.vertical)
                         
                         // NavigationLink to FetchPortfolioView, conditionally shown based on the flag
                         NavigationLink(destination: FetchPortfolioView(user: user), isActive: $showFetchPortfolioView) {
