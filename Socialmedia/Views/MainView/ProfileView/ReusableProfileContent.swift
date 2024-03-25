@@ -9,12 +9,18 @@ import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
 struct ReusableProfileContent: View {
+    @State var errorMessage = ""
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
     @Binding var posts: [Post]
     //view properties
     @State var isFetching: Bool = true
     //pagination
     @State private var paginationDoc: QueryDocumentSnapshot?
-    var user:User
+    @State var user:User
+    @State private var tempUser: User?
     var body: some View {
         NavigationStack{
             ZStack{
@@ -54,6 +60,41 @@ struct ReusableProfileContent: View {
                                                                         .foregroundColor(.gray)
                                                                         .lineLimit(1)
                                                                 }
+                                HStack{
+                                    if let followers = user.followers{
+                                        Text("Follower :\(followers.count)")
+                                    }
+                                    else{
+                                        Text("Follower: 0")
+                                    }
+                                    if let following = user.following{
+                                        Text("Following : \(following.count)")
+                                    }
+                                    else{
+                                        Text("Following: 0")
+                                    }
+                                }
+                                
+                                if user.userid != userUID{
+                                    if let followers = user.followers{
+                                        if followers.contains(userUID){
+                                            Button(action:follow){
+                                                Text("Unfollow")
+                                            }
+                                        }
+                                        else{
+                                            Button(action:follow){
+                                                Text("Follow")
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        Button(action:follow){
+                                            Text("Follow")
+                                        }
+                                    }
+                                }
+                                
                             }
                             .hAlign(.leading)
                         }
@@ -91,13 +132,17 @@ struct ReusableProfileContent: View {
                     isFetching = true
                     posts = []
                     await fetchPosts()
+                    fetchUsersWithUID(uid: user.userid)
+                    
                 }
                 .task{
                     // fetching for one time
                     guard posts.isEmpty else{return}
                     await fetchPosts()
+                    fetchUsersWithUID(uid: user.userid)
                     
                 }
+                
             }
 
         }
@@ -164,6 +209,54 @@ struct ReusableProfileContent: View {
             })
         }catch{
             print(error.localizedDescription)
+        }
+    }
+    func follow(){
+        Task{
+            if user.followers == nil || user.followers == []{
+                try await Firestore.firestore().collection("Users").document(user.userid).updateData([
+                    "followers": FieldValue.arrayUnion([userUID])
+                ])
+                try await
+                Firestore.firestore().collection("Users").document(userUID).updateData([
+                    "following": FieldValue.arrayUnion([user.userid])
+                ])
+                print("userid added")
+            }
+            guard let followers = user.followers else{
+                return
+            }
+            if followers.contains(userUID) {
+                try await Firestore.firestore().collection("Users").document(user.userid).updateData([
+                    "followers": FieldValue.arrayRemove([userUID])
+                ])
+                try await Firestore.firestore().collection("Users").document(userUID).updateData([
+                    "following": FieldValue.arrayRemove([user.userid])
+                ])
+                print("userid removed")
+            } else {
+                try await Firestore.firestore().collection("Users").document(user.userid).updateData([
+                    "followers": FieldValue.arrayUnion([userUID])
+                ])
+                try await
+                Firestore.firestore().collection("Users").document(userUID).updateData([
+                    "following": FieldValue.arrayUnion([user.userid])
+                ])
+                print("userid added")
+            }
+            fetchUsersWithUID(uid: user.userid)
+        }
+    }
+    func fetchUsersWithUID(uid : String){
+        FirebaseManager.shared.firestore.collection("Users").document(uid).getDocument { snapshot, error in
+            if let error = error {
+                self.errorMessage = "Failed to fetch current user: \(error)"
+                print("Failed to fetch current user:", error)
+                return
+            }
+            
+            self.tempUser = try? snapshot?.data(as: User.self)
+            user = tempUser!
         }
     }
 }
