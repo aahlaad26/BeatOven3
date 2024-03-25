@@ -159,8 +159,8 @@ struct MainMessagesView: View {
                     Circle()
                         .foregroundColor(.green)
                         .frame(width: 14, height: 14)
-                    Text("online")
-                        .font(.system(size: 12))
+                    Text("Online")
+                        .font(.system(size: 18))
                         .foregroundColor(Color(.lightGray))
                 }
                 

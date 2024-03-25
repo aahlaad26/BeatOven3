@@ -43,17 +43,18 @@ struct ReusableProfileContent: View {
                                         .lineLimit(1)
                                 }
                                 if let selectedInstruments = user.selectedInstruments {
-                                                                    Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
-                                                                        .font(.title3)
-                                                                        .foregroundColor(.gray)
-                                                                        .lineLimit(1)
-                                                                }
+                                    Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
+                                        .font(.system(size: 14))  // Set your desired size here
+                                        .foregroundColor(.gray)
+                                        .lineLimit(3)
+                                }
                                 if let selectedGenres = user.selectedGenre {
-                                                                    Text("Genres: \(selectedGenres.joined(separator: ", "))")
-                                                                        .font(.title3)
-                                                                        .foregroundColor(.gray)
-                                                                        .lineLimit(1)
-                                                                }
+                                    Text("Genres: \(selectedGenres.joined(separator: ", "))")
+                                        .font(.system(size: 14))  // Set your desired size here
+                                        .foregroundColor(.gray)
+                                        .lineLimit(1)
+                                }
+
                             }
                             .hAlign(.leading)
                         }
