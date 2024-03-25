@@ -11,9 +11,13 @@ import Firebase
 struct ReusableProfileContent: View {
     @Binding var posts: [Post]
     //view properties
+    @AppStorage("user_UID") private var userUID: String = ""
+    @State private var portfolioData: PortfolioData?
+    @State private var isLoading: Bool = true
     @State var isFetching: Bool = true
     //pagination
     @State private var paginationDoc: QueryDocumentSnapshot?
+    @State private var showFetchPortfolioView: Bool = false
     var user:User
     var body: some View {
         NavigationStack{
@@ -57,7 +61,30 @@ struct ReusableProfileContent: View {
 
                             }
                             .hAlign(.leading)
+                        }.padding(.bottom)
+                       
+                        Button(action: {
+                        
+                          showFetchPortfolioView = true
+                        }) {
+                            Image(systemName: "briefcase")
+//                            .font(.title2)
+//                            .fontWeight(.semibold)
+//                            .padding()
+//                            .background(Color.blue)
+//                            .foregroundColor(.white)
+//                            .cornerRadius(10)
                         }
+                        .padding(.bottom)
+                        .frame(width: 50, height: 50)
+                        // NavigationLink to FetchPortfolioView, conditionally shown based on the flag
+                        NavigationLink(destination: FetchPortfolioView(), isActive: $showFetchPortfolioView) {
+                          EmptyView() // Placeholder, can be replaced with actual content
+                        }
+                        .offset(x: 150, y: -100) // Adjust offset for positioning if needed
+
+                        
+                        
                         Text("Posts").font(.title2)
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.black)
@@ -165,6 +192,23 @@ struct ReusableProfileContent: View {
             })
         }catch{
             print(error.localizedDescription)
+        }
+    }
+    func fetchPortfolioData() {
+        let db = Firestore.firestore()
+        let documentReference = db.collection("portfolioData").document(userUID)
+
+        documentReference.getDocument { (document, error) in
+            if let document = document, document.exists {
+                do {
+                    self.portfolioData = try Firestore.Decoder().decode(PortfolioData.self, from: document.data()!)
+                } catch let error {
+                    print("Error decoding PortfolioData: \(error)")
+                }
+            } else {
+                print("Document does not exist")
+            }
+            isLoading = false
         }
     }
 }
