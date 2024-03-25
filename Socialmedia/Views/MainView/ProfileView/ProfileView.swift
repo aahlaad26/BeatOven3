@@ -31,10 +31,10 @@ struct ProfileView: View {
                                 }
                                 .offset(x:150,y:-20)
                 
-                NavigationLink(destination: FetchPortfolioView(), isActive: $showFetchPortfolioView) {
-                    EmptyView()
-                }
-                .offset(x:150,y:-20)
+//                NavigationLink(destination: FetchPortfolioView(user: <#User#>), isActive: $showFetchPortfolioView) {
+//                    EmptyView()
+//                }
+//                .offset(x:150,y:-20)
 
                 
 //                Button(action: {

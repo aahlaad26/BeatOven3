@@ -5,7 +5,7 @@ struct FetchPortfolioView: View {
     @AppStorage("user_UID") private var userUID: String = ""
     @State private var portfolioData: PortfolioData?
     @State private var isLoading: Bool = true
-    
+    var user:User
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -48,22 +48,23 @@ struct FetchPortfolioView: View {
                             Text("Youtube: \(portfolioData.ytlink)")
                         }
                     } else {
-                        Text("Loading...")
+                        Text("No Portfolio Found")
                     }
                 }
                 .padding()
                 .onAppear {
-                    fetchPortfolioData()
-            }
+                    fetchPortfolioData(userId: user.userid)
+                }
+
             
             }
             
         }
     }
 
-    func fetchPortfolioData() {
+    func fetchPortfolioData(userId: String) {
         let db = Firestore.firestore()
-        let documentReference = db.collection("portfolioData").document(userUID)
+        let documentReference = db.collection("portfolioData").document(userId)
 
         documentReference.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -78,10 +79,11 @@ struct FetchPortfolioView: View {
             isLoading = false
         }
     }
+
 }
 
-struct FetchPortfolioView_Previews: PreviewProvider {
-    static var previews: some View {
-        FetchPortfolioView()
-    }
-}
+//struct FetchPortfolioView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FetchPortfolioView(user: )
+//    }
+//}

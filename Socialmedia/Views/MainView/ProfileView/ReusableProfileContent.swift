@@ -134,7 +134,7 @@ struct ReusableProfileContent: View {
                         }
                         
                         // NavigationLink to FetchPortfolioView, conditionally shown based on the flag
-                        NavigationLink(destination: FetchPortfolioView(), isActive: $showFetchPortfolioView) {
+                        NavigationLink(destination: FetchPortfolioView(user: user), isActive: $showFetchPortfolioView) {
                           EmptyView() // Placeholder, can be replaced with actual content
                         }
                         .offset(x: 150, y: -100) // Adjust offset for positioning if needed
