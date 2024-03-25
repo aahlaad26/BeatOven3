@@ -135,7 +135,7 @@ struct CreateAudioFileView: View {
                         let downloadURL = try await audioRef.downloadURL()
 
 //                        let post = Post(text: postText, imageURL: downloadURL,imageReferenceID: songReferenceID, publishedDate: Date(), username: userName, userUID : userUID, userProfileURL: profileURL)
-                        let audio = GrpAudioFiles(title: audioTitle, audioURL: downloadURL  ,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL, groupID:group.id )
+                        let audio = GrpAudioFiles(title: audioTitle, audioURL: downloadURL  ,audioReferenceID: audioReferenceID,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL, groupID:group.id )
                         try await createDocumentAtFirebase(audio)
                     }
 

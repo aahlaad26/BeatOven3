@@ -149,7 +149,7 @@ struct SongCell:View {
                     //Logout, delete account
                     
                     Button("Download",action:downloadSong)
-                    Button("Delete",role: .destructive,action: {})
+                    Button("Delete",role: .destructive,action: deleteSong)
                 }label: {
                     Image(systemName: "ellipsis")
                         .rotationEffect(.init(degrees: 90))
@@ -164,9 +164,48 @@ struct SongCell:View {
                 .presentationDetents([.height(700)])
                 }
         .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Downloaded"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                    Alert(title: Text("Deleted"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
     }
+    
+    func deleteSong(){
+        Task {
+            do{
+                
+                guard let documentId = grpAudio.id else {
+                    alertMessage = "Error: Document ID is missing."
+                    showAlert = true
+                    return
+                }
+                if grpAudio.title != ""{
+                    if let url = grpAudio.audioURL{
+                        try await Storage.storage().reference().child("Group_Audios")
+                            .child(grpAudio.audioReferenceID)
+                            .delete()
+                    }
+                }
+                
+                let firestore = Firestore.firestore()
+                firestore.collection("Group_Audios").document(documentId).delete { error in
+                    if let error = error {
+                        DispatchQueue.main.async {
+                            alertMessage = "Deletion error: \(error.localizedDescription)"
+                            showAlert = true
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            alertMessage = "\(grpAudio.title) has been successfully deleted."
+                            showAlert = true
+                            // Optionally, trigger a refresh of the list if you have such functionality
+                        }
+                    }
+                }
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     func downloadSong(){
         if let url = grpAudio.audioURL{
             let storageRef = Storage.storage().reference(forURL: url.absoluteString)

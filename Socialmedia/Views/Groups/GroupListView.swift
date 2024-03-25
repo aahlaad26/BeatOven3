@@ -59,11 +59,11 @@ struct GroupListView: View {
                         AddNewGroupView()
                     }
                 
-                Button {
-                    openInstagram()
-                } label: {
-                    Text("Facetime")
-                }
+//                Button {
+//                    openInstagram()
+//                } label: {
+//                    Text("Facetime")
+//                }
                 
             }
             .navigationTitle("Groups")

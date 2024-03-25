@@ -170,9 +170,9 @@ struct PostCardView: View {
             do {
                 if post.imageReferenceID != "" {
                     if let URl = post.imageURL {
-                        if URl.absoluteString.range(of: "Post_Images") != nil {
+                        
                             try await Storage.storage().reference().child("Post_Images").child(post.imageReferenceID).delete()
-                        } else {
+                        if let URl = post.songURL{
                             try await Storage.storage().reference().child("Post_Audios").child(post.imageReferenceID).delete()
                         }
                     }
