@@ -48,6 +48,7 @@ struct GroupList: View {
 
                 }
             }
+            
             .searchable(text: $searchText, prompt: "Search by name...")
         }
     }

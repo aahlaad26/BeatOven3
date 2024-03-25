@@ -75,6 +75,13 @@ struct GroupListView: View {
                 
             }
         }
+        .refreshable {
+            do{
+                try await model.populateGroups()
+            }catch{
+                print(error)
+            }
+        }
     }
     
     }

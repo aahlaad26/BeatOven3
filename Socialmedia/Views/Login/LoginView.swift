@@ -200,6 +200,7 @@ struct LoginView: View {
             do{
                 try await Auth.auth().signIn(withEmail: emailID, password: password)
                 print("user found")
+                logStatus = true
                 try await fetchUser()
             }
             catch{

@@ -97,10 +97,6 @@ class MainMessagesViewModel: ObservableObject {
         }
     }
     
-    func handleSignOut() {
-        isUserCurrentlyLoggedOut.toggle()
-        try? FirebaseManager.shared.auth.signOut()
-    }
     
 }
 
@@ -129,6 +125,9 @@ struct MainMessagesView: View {
                 .overlay(
                     newMessageButton, alignment: .bottom)
             .navigationBarHidden(true)
+            }
+            .refreshable {
+                vm.fetchRecentMessages()
             }
         }
     }
@@ -188,7 +187,7 @@ struct MainMessagesView: View {
                         }
 
                         
-                        self.chatLogViewModel.chatUser = self.chatUser
+                        self.chatLogViewModel.chatUser = self.vm.tempUser
                         self.chatLogViewModel.fetchMessages()
                         self.shouldNavigateToChatLogView.toggle()
                     } label: {

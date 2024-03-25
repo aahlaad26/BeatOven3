@@ -274,7 +274,7 @@ struct MessageView: View {
                             .foregroundColor(.black)
                     }
                     .padding()
-                    .background(Color.white)
+                    .background(Color("cell2-color"))
                     .cornerRadius(8)
                     Spacer()
                 }

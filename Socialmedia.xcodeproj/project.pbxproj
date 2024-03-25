@@ -28,8 +28,8 @@
 		0F5CBD212BA8D1EE00B45EDC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD1F2BA8D1EE00B45EDC /* ChatMessage.swift */; };
 		0F5CBD222BA8D1EE00B45EDC /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD202BA8D1EE00B45EDC /* RecentMessage.swift */; };
 		0F5CBD262BA9FE0900B45EDC /* SearchUserGrpsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD252BA9FE0900B45EDC /* SearchUserGrpsView.swift */; };
-		0FA56D8F2BA726A8006F7F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA56D8E2BA726A8006F7F88 /* GoogleService-Info.plist */; };
 		0FEE0F902BAE09DE00E579AD /* ProPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEE0F8F2BAE09DE00E579AD /* ProPlayer.swift */; };
+		0FEE0F942BB2270F00E579AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE0F932BB2270F00E579AD /* GoogleService-Info.plist */; };
 		2F5C5D312B8E2D8400531C33 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D302B8E2D8400531C33 /* RegisterView.swift */; };
 		2F5C5D342B8EDB9500531C33 /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */; };
 		2F5C5D362B8EDC0C00531C33 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D352B8EDC0C00531C33 /* MainView.swift */; };
@@ -116,8 +116,8 @@
 		0F5CBD1F2BA8D1EE00B45EDC /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		0F5CBD202BA8D1EE00B45EDC /* RecentMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
 		0F5CBD252BA9FE0900B45EDC /* SearchUserGrpsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserGrpsView.swift; sourceTree = "<group>"; };
-		0FA56D8E2BA726A8006F7F88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FEE0F8F2BAE09DE00E579AD /* ProPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayer.swift; sourceTree = "<group>"; };
+		0FEE0F932BB2270F00E579AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F5C5D302B8E2D8400531C33 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Extensions.swift"; sourceTree = "<group>"; };
 		2F5C5D352B8EDC0C00531C33 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -317,7 +317,6 @@
 				983468592B8D997E0045D037 /* ContentView.swift */,
 				983468A02B8D9BBA0045D037 /* Views */,
 				9834685B2B8D997F0045D037 /* Assets.xcassets */,
-				0FA56D8E2BA726A8006F7F88 /* GoogleService-Info.plist */,
 				9834685D2B8D997F0045D037 /* Preview Content */,
 			);
 			path = Socialmedia;
@@ -343,6 +342,7 @@
 				2F5C5D2E2B8E2D0000531C33 /* Login */,
 				983468AB2B8DFC7D0045D037 /* LoadingView.swift */,
 				986A8CFC2BB0119800E87F12 /* experiment.swift */,
+				0FEE0F932BB2270F00E579AD /* GoogleService-Info.plist */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -472,9 +472,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FEE0F942BB2270F00E579AD /* GoogleService-Info.plist in Resources */,
 				9834685F2B8D997F0045D037 /* Preview Assets.xcassets in Resources */,
 				0F12B9582B9668D6002C3368 /* HoltwoodOneSC-Regular.ttf in Resources */,
-				0FA56D8F2BA726A8006F7F88 /* GoogleService-Info.plist in Resources */,
 				0F12B9572B9668D4002C3368 /* Condiment-Regular.ttf in Resources */,
 				9834685C2B8D997F0045D037 /* Assets.xcassets in Resources */,
 				0F12B9592B9668D8002C3368 /* SFPRODISPLAYBOLD.OTF in Resources */,
@@ -671,7 +671,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Socialmedia/Preview Content\"";
-				DEVELOPMENT_TEAM = 4NZCYY46NY;
+				DEVELOPMENT_TEAM = RHL26U4H7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Socialmedia/Info.plist;
@@ -702,7 +702,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Socialmedia/Preview Content\"";
-				DEVELOPMENT_TEAM = 4NZCYY46NY;
+				DEVELOPMENT_TEAM = RHL26U4H7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Socialmedia/Info.plist;

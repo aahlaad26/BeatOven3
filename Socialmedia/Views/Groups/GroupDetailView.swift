@@ -19,7 +19,7 @@ struct GroupDetailView: View {
     var body: some View {
         NavigationStack{
             ScrollView(.vertical, showsIndicators: false){
-                Text("Details for \(group.subject)")
+
                 LazyVStack{
                     if isFetching{
                         ProgressView()
@@ -71,9 +71,8 @@ struct GroupDetailView: View {
             }
             .padding(15)
         }
-        .navigationTitle("Posts")
-        .navigationBarColor(Color("bg-color"))
-        .background(Color("bg-color"))
+        .navigationTitle("Audio Files")
+        
         
     .fullScreenCover(isPresented: $createNewAudio){
         CreateAudioFileView(group: group){audio in
@@ -116,11 +115,13 @@ struct GroupDetailView: View {
  
 }
 struct SongCell:View {
+    
     @State private var isPresented = false
     var posts:[GrpAudioFiles]
     var grpAudio:GrpAudioFiles
     @State private var alertMessage = ""
     @State private var showAlert = false
+    @State private var isDownloading = false
     var body: some View {
         VStack{
         
@@ -169,12 +170,13 @@ struct SongCell:View {
     func downloadSong(){
         if let url = grpAudio.audioURL{
             let storageRef = Storage.storage().reference(forURL: url.absoluteString)
-            let localURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(url.lastPathComponent)
+            let localURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let downloadTask = storageRef.write(toFile: localURL) { url, error in
               if let error = error {
-                // Uh-oh, an error occurred!
+                print("Error in download")
               } else {
                 // Local file URL for "images/island.jpg" is returned
+                  print("downloaded")
               }
             }
         }
@@ -183,39 +185,72 @@ struct SongCell:View {
         
     }
     func downloadAudioFile() {
+        isDownloading = true
         guard let downloadURL = grpAudio.audioURL else {
                 print("Invalid download URL")
                 return
             }
             
-            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let destinationURL = documentsDirectory.appendingPathComponent(downloadURL.lastPathComponent)
-            
-            let session = URLSession.shared
-            let downloadTask = session.downloadTask(with: downloadURL) { (tempURL, response, error) in
-                if let error = error {
-                    print("Error downloading file: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let tempURL = tempURL else {
-                    print("Invalid temporary URL")
-                    return
-                }
-                
-                do {
-                    try FileManager.default.moveItem(at: tempURL, to: destinationURL)
-                    let downloadLocation = destinationURL.path
-                    print("File downloaded successfully at: \(downloadLocation)")
-                    
-                    // Show alert with download location
-                    alertMessage = "File downloaded successfully at: \(downloadLocation)"
-                    showAlert = true
-                } catch {
-                    print("Error saving file: \(error.localizedDescription)")
-                }
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let destinationURL = documentsDirectory?.appendingPathComponent("\(grpAudio.title).mp3")
+        if let destinationURL = destinationURL{
+            if FileManager().fileExists(atPath: destinationURL.path){
+                checkFileExists()
+                print("File already exists")
+                isDownloading = false
             }
-            
-            downloadTask.resume()
+            else{
+                print("Downloading")
+                let urlRequest = URLRequest(url: grpAudio.audioURL!)
+
+                            let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                                if let error = error {
+                                    print("Request error: ", error)
+                                    self.isDownloading = false
+                                    return
+                                }
+
+                                guard let response = response as? HTTPURLResponse else { return }
+
+                                if response.statusCode == 200 {
+                                    guard let data = data else {
+                                        self.isDownloading = false
+                                        return
+                                    }
+                                    DispatchQueue.main.async {
+                                        do {
+                                            try data.write(to: destinationURL, options: Data.WritingOptions.atomic)
+                                            DispatchQueue.main.async {
+                                                self.isDownloading = false
+                                            }
+                                        } catch let error {
+                                            print("Error decoding: ", error)
+                                            self.isDownloading = false
+                                        }
+                                    }
+                                }
+                            }
+                            dataTask.resume()
+                checkFileExists()
+                        
+            }
         }
+        }
+    func checkFileExists() {
+        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+
+        let destinationUrl = docsUrl?.appendingPathComponent("\(grpAudio.title).mp4")
+        if let destinationUrl = destinationUrl {
+            if (FileManager().fileExists(atPath: destinationUrl.path)) {
+                isDownloading = true
+                print("Does exist")
+            } else {
+                isDownloading = false
+                print("Doesnt exist")
+            }
+        } else {
+            isDownloading = false
+            print("Doesnt exist")
+        }
+    }
 }

@@ -52,6 +52,7 @@ struct ReusablePostsView: View {
             await fetchPosts()
             
         }
+        
     }
     // display fetched posts
     @ViewBuilder

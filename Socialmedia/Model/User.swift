@@ -20,9 +20,9 @@ struct User: Identifiable, Codable , Hashable {
     var selectedGenre: [String]?
     var followers:[String]?
     var following:[String]?
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: String,CodingKey{
         case id
-        case username
+        case username = "username"
         case userbio
         case userbiolink
         case userid

@@ -34,7 +34,6 @@ struct CreateAudioFileView: View {
 
         var body: some View {
             ZStack {
-                Color("bg-color").ignoresSafeArea()
                 VStack{
                     HStack{
                         Menu{
