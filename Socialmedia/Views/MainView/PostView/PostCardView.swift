@@ -70,18 +70,21 @@ struct PostCardView: View {
                                 
                                 VStack(alignment:.leading){
                                     Text(post.text)
-                                        .textSelection(.enabled)
+                                        .font(.system(size: 20))
                                     
                                 }
                                 Spacer()
                                 Button(action: {
                                 isPresented = true}) {
                                     Image(systemName:"play.fill")
+                                        .resizable()
+                                        .frame(width: 25,height: 25)
                                 }
                             }.padding()
-                            .background(Color("bg-color"))
+                            .background(Color("cell2-color"))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .frame(width: 340)
+                            .padding(.top,5)
                         }
                         }
                     
@@ -94,7 +97,7 @@ struct PostCardView: View {
         }
         .frame(width: UIScreen.main.bounds.width-50)
         .padding()
-        .background(Color("cell-color"))
+        .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow( radius: 5)
         .hAlign(.leading)
@@ -129,27 +132,18 @@ struct PostCardView: View {
             HStack(){
                 Button(action: likePost){
                     Image(systemName: post.likedIDs.contains(userUID) ? "heart.fill" : "heart" )
+                        .foregroundStyle(post.likedIDs.contains(userUID) ? Color("button2-color") : Color.black)
                 }
                 Text("\(post.likedIDs.count)")
                     .font(.caption)
-                    .foregroundStyle(Color.gray)
-            }.frame(width: 75,height: 40)
-            HStack{
-                Button(action: {}){
-                    Image(systemName: "bubble.right" )
-                }
-                Text("\(post.likedIDs.count)")
-                    .font(.caption)
-                    .foregroundStyle(Color.gray)
+                    .foregroundStyle(post.likedIDs.contains(userUID) ? Color("button2-color") : Color.gray)
             }.frame(width: 75,height: 40)
             HStack{
                 Button(action: {}){
                     Image(systemName: "square.and.arrow.down" )
                 }
-                Text("\(post.likedIDs.count)")
-                    .font(.caption)
-                    .foregroundStyle(Color.gray)
             }.frame(width: 75,height: 40)
+            Spacer()
         }
         .frame(width: 340)
         .foregroundStyle(Color.black)
