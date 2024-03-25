@@ -16,6 +16,9 @@ struct ReusableProfileContent: View {
     @AppStorage("log_status") var logStatus:Bool = false
     @Binding var posts: [Post]
     //view properties
+    @AppStorage("user_UID") private var userUID: String = ""
+    @State private var portfolioData: PortfolioData?
+    @State private var isLoading: Bool = true
     @State var isFetching: Bool = true
     //pagination
     @State private var paginationDoc: QueryDocumentSnapshot?
@@ -49,11 +52,11 @@ struct ReusableProfileContent: View {
                                         .lineLimit(1)
                                 }
                                 if let selectedInstruments = user.selectedInstruments {
-                                                                    Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
-                                                                        .font(.title3)
-                                                                        .foregroundColor(.gray)
-                                                                        .lineLimit(1)
-                                                                }
+                                    Text("Instruments: \(selectedInstruments.joined(separator: ", "))")
+                                        .font(.system(size: 14))  // Set your desired size here
+                                        .foregroundColor(.gray)
+                                        .lineLimit(3)
+                                }
                                 if let selectedGenres = user.selectedGenre {
                                                                     Text("Genres: \(selectedGenres.joined(separator: ", "))")
                                                                         .font(.title3)
@@ -97,7 +100,30 @@ struct ReusableProfileContent: View {
                                 
                             }
                             .hAlign(.leading)
+                        }.padding(.bottom)
+                       
+                        Button(action: {
+                        
+                          showFetchPortfolioView = true
+                        }) {
+                            Image(systemName: "briefcase")
+//                            .font(.title2)
+//                            .fontWeight(.semibold)
+//                            .padding()
+//                            .background(Color.blue)
+//                            .foregroundColor(.white)
+//                            .cornerRadius(10)
                         }
+                        .padding(.bottom)
+                        .frame(width: 50, height: 50)
+                        // NavigationLink to FetchPortfolioView, conditionally shown based on the flag
+                        NavigationLink(destination: FetchPortfolioView(), isActive: $showFetchPortfolioView) {
+                          EmptyView() // Placeholder, can be replaced with actual content
+                        }
+                        .offset(x: 150, y: -100) // Adjust offset for positioning if needed
+
+                        
+                        
                         Text("Posts").font(.title2)
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.black)

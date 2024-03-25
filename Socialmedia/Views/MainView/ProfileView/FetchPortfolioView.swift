@@ -5,7 +5,7 @@ struct FetchPortfolioView: View {
     @AppStorage("user_UID") private var userUID: String = ""
     @State private var portfolioData: PortfolioData?
     @State private var isLoading: Bool = true
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
