@@ -160,7 +160,7 @@ struct SongCell:View {
         .sheet(isPresented: $isPresented) {
                     // ProPlayer view presentation
                     ProPlayer(grpAudios: posts, grpAudio: grpAudio)
-                .presentationDetents([.height(200)])
+                .presentationDetents([.height(700)])
                 }
         .alert(isPresented: $showAlert) {
                     Alert(title: Text("Downloaded"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
