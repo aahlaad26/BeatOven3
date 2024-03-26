@@ -39,7 +39,7 @@ struct SearchUserView: View {
                 .listRowBackground(Color.clear)
                 
                 ForEach(instruments, id: \.self) { instrument in
-                    Section(header: Text("Find \(instrument)s")) {
+                    Section(header: Text("Find \(instrument) artists")) {
                         ForEach(fetchedUsers.filter { $0.selectedInstruments?.contains(instrument) ?? false }) { user in
                             NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
 //                                Text(user.username)
