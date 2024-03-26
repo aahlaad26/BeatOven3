@@ -10,29 +10,34 @@ struct SearchUserView: View {
     @State private var searchText: String = ""
     @State private var posts: [Post] = []
     @Environment(\.dismiss) private var dismiss
-    
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
     let instruments = ["Guitar", "Percussion", "Bass", "Piano", "Ensemble", "Saxophone", "Flute", "Trumpet", "EDM", "Music Production"]
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(searchedUsers) { user in
-                    NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
-//                        Text(user.username)
-//                            .font(.callout)
-//                            .hAlign(.leading)
-                        HStack{
-                            WebImage(url: user.userprofileURL)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
-                            VStack(alignment: .leading){
-                                Text(user.username)
-                                    .fontWeight(.semibold)
+                    if(user.userid != userUID){
+                        NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
+    //                        Text(user.username)
+    //                            .font(.callout)
+    //                            .hAlign(.leading)
+                            HStack{
+                                WebImage(url: user.userprofileURL)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                                VStack(alignment: .leading){
+                                    Text(user.username)
+                                        .fontWeight(.semibold)
+                                }
+                                .padding(.vertical)
+                                Spacer()
                             }
-                            .padding(.vertical)
-                            Spacer()
                         }
                     }
                 }
@@ -41,22 +46,24 @@ struct SearchUserView: View {
                 ForEach(instruments, id: \.self) { instrument in
                     Section(header: Text("Find \(instrument) artists")) {
                         ForEach(fetchedUsers.filter { $0.selectedInstruments?.contains(instrument) ?? false }) { user in
-                            NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
-//                                Text(user.username)
-//                                    .font(.callout)
-//                                    .hAlign(.leading)
-                                HStack{
-                                    WebImage(url: user.userprofileURL)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 50, height: 50)
-                                        .clipShape(Circle())
-                                    VStack(alignment: .leading){
-                                        Text(user.username)
-                                            .fontWeight(.semibold)
+                            if user.userid != userUID{
+                                NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
+    //                                Text(user.username)
+    //                                    .font(.callout)
+    //                                    .hAlign(.leading)
+                                    HStack{
+                                        WebImage(url: user.userprofileURL)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 50, height: 50)
+                                            .clipShape(Circle())
+                                        VStack(alignment: .leading){
+                                            Text(user.username)
+                                                .fontWeight(.semibold)
+                                        }
+                                        .padding(.vertical)
+                                        Spacer()
                                     }
-                                    .padding(.vertical)
-                                    Spacer()
                                 }
                             }
                             
