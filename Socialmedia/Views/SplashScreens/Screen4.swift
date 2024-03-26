@@ -54,7 +54,7 @@ struct Screen4: View {
                 }
 
                 // Add "BeatOven" text at the top-right corner
-                Text("BeatOven.")
+                Text("BeatOven")
                     .font(Font.custom("Condiment", size: 44))
                     .foregroundColor(.black)
                     .padding(.top, 100)
