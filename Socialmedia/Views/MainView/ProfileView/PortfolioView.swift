@@ -172,8 +172,11 @@ struct PortfolioView: View {
                     Text("Create portfolio")
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color("button-color"))
+                        .background(Color("button2-color"))
+                        .font(.title3)
+                        .fontWeight(.semibold)
                         .cornerRadius(10)
+                    
                 }
                 .padding()
                 .sheet(isPresented: $showCompletionPortfolio) {
