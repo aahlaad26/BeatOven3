@@ -80,47 +80,50 @@ struct PortfolioView: View {
                             // Implement logic to change or remove the profile image
                         }
                 } else {
-                    Button(action: {
-                        // Present ImagePicker to select an image
-                    }) {
-                        Text("Select Profile Image")
-                    }
+                
                 }
                 
                 TextField("Enter Name", text: $name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing])
-                
+                    .padding(.vertical,10)
                 TextField("Enter City, Country", text: $cityCountry)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding([.leading, .trailing, .bottom])
-                
+                    .padding([.leading, .trailing])
+                    .padding(.vertical,10)
                 TextField("Enter Instrument 1", text: $instrument1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding([.leading, .trailing, .bottom])
+                    .padding([.leading, .trailing])
+                    .padding(.vertical,10)
                 
                 TextField("Enter Instrument 2", text: $instrument2)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding([.leading, .trailing, .bottom])
+                    .padding([.leading, .trailing])
+                    .padding(.vertical,10)
                 
                 
                 TextField("Enter Instrument 3", text: $instrument3)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding([.leading, .trailing, .bottom])
+                    .padding([.leading, .trailing])
+                    .padding(.vertical,10)
                 
                 Text("Sections to Customize")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding()
+                    .padding([.leading, .trailing])
+                    .padding(.vertical,10)
                 
                 VStack {
                     
                     SectionView(title: "Add Text", isVisible: $isAddTextSectionVisible)
+                    
                     if isAddTextSectionVisible {
                         TextEditor(text: $aboutMe)
                             .frame(height: 100)
-                            .padding([.leading, .trailing, .bottom])
-                            .onChange(of: aboutMe) { newValue in
+                            .textFieldStyle(.roundedBorder)
+                            .border(1, Color.gray.opacity(0.5))
+                            .padding([.leading, .trailing])
+                            .padding(.vertical,10)                            .onChange(of: aboutMe) { newValue in
                                 if newValue.count > 150 {
                                     aboutMe = String(newValue.prefix(150))
                                 }
@@ -131,26 +134,32 @@ struct PortfolioView: View {
                         
                         TextField("Enter Facebook ID Link", text: $metalink)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding([.leading, .trailing, .bottom])
+                            .padding([.leading, .trailing])
+                            .padding(.vertical,10)
                         TextField("Enter Instagram ID Link", text: $instalink)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding([.leading, .trailing, .bottom]);
+                            .padding([.leading, .trailing])
+                            .padding(.vertical,10)
                         TextField("Enter Youtube ID Link", text: $ytlink)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding([.leading, .trailing, .bottom]);
+                            .padding([.leading, .trailing])
+                            .padding(.vertical,10)
                     }
                     
                     SectionView(title: "Add Songs", isVisible: $isAddSongsSectionVisible)
                     if isAddSongsSectionVisible {
                         TextField("Enter Song link 1", text: $song1)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding([.leading, .trailing, .bottom])
+                            .padding([.leading, .trailing])
+                            .padding(.vertical,10)
                         TextField("Enter Song link 2", text: $song2)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding([.leading, .trailing, .bottom])
+                            .padding([.leading, .trailing])
+                            .padding(.vertical,10)
                         TextField("Enter Song link 3", text: $song3)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding([.leading, .trailing, .bottom])
+                            .padding([.leading, .trailing])
+                            .padding(.vertical,10)
                     }
                 }
                 

@@ -119,7 +119,7 @@ struct ReusableProfileContent: View {
                                                 .font(.title2)
                                                 .fontWeight(.semibold)
                                                 .padding()
-                                                .frame(maxWidth: .infinity, minHeight: 40)
+                                                .frame(maxWidth: .infinity, minHeight: 20)
                                                 .background(Color("button2-color"))
                                                 .foregroundColor(.white)
                                                 .cornerRadius(10)
@@ -129,11 +129,10 @@ struct ReusableProfileContent: View {
                                 else{
                                     Button(action:follow){
                                         Text("Follow")
-                                            .font(.title2)
+                                            .font(.title3)
                                             .fontWeight(.semibold)
-                                            .padding()
                                             .background(Color("button2-color"))
-                                            .frame(maxWidth: .infinity, minHeight: 40)
+                                            .frame(maxWidth: .infinity, minHeight: 20)
                                             .foregroundColor(.white)
                                             .cornerRadius(10)
                                     }
