@@ -41,7 +41,7 @@ struct Screen3: View {
                 }
             }
 
-            Text("BeatOven.")
+            Text("BeatOven")
                 .font(Font.custom("Condiment", size: 44))
                 .foregroundColor(.black)
                 .padding(.top, 100)
