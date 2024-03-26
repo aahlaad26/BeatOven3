@@ -51,18 +51,19 @@ struct FetchPortfolioView: View {
                             Text("Instagram: \(portfolioData.instalink)")
                             Text("Youtube: \(portfolioData.ytlink)")
                         }
+                        Button(action: {
+                            generatePDF()
+                        }) {
+                            Text("Download as PDF")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
                     } else {
                         Text("No Portfolio Found")
                     }
-                    Button(action: {
-                        generatePDF()
-                    }) {
-                        Text("Download as PDF")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
+            
                 }
                 .padding()
             }
