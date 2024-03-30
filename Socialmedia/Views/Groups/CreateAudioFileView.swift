@@ -46,7 +46,7 @@ struct CreateAudioFileView: View {
                         }
                         .hAlign(.leading)
                         Button(action:createPost){
-                            Text("Audios")
+                            Text("Add")
                                 .font(.callout)
                                 .foregroundStyle(Color.white)
                                 .padding(.horizontal,20)

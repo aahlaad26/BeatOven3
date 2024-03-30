@@ -139,20 +139,29 @@ struct SongCell:View {
                                 WebImage(url: grpAudio.userProfileURL)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: 60, height: 60)
+                                    .frame(width: 30, height: 30)
                                     .clipShape(Circle())
+                                    .padding(.bottom)
             //                    ZStack{
             //                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
             //                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
             //
             //                    }
                                 VStack(alignment:.leading){
-                                    Text(grpAudio.title)
+                                    Text(grpAudio.username)
                                         .font(.system(size: 15))
                                         .foregroundStyle(Color.black)
-                                    Text(grpAudio.username)
-                                        .font(.system(size: 12))
-                                        .foregroundStyle(Color.gray)
+                                    HStack{
+                                        Image(systemName: "music.note")
+                                            .resizable()
+                                            .font(.title3)
+                                            .foregroundColor(Color("button-color"))
+                                            .frame(width: 15,height: 15)
+                                        Text(grpAudio.title)
+                                            .font(.system(size: 12))
+                                            .foregroundStyle(Color.gray)
+                                    }
+                                    
                                 }
                                 
                                 
@@ -172,22 +181,33 @@ struct SongCell:View {
             //                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
             //
             //                    }
-                                
+                                WebImage(url: grpAudio.userProfileURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                                    .clipShape(Circle())
+                                    .padding(.bottom)
                                 
                                 VStack(alignment:.leading){
-                                    Text(grpAudio.title)
+                                    Text(grpAudio.username)
                                         .font(.system(size: 15))
                                         .foregroundStyle(Color.black)
 //                                    Text(grpAudio.username)
 //                                        .font(.system(size: 12))
 //                                        .foregroundStyle(Color.gray)
+                                    HStack{
+                                        Image(systemName: "music.note")
+                                            .resizable()
+                                            .font(.title3)
+                                            .foregroundColor(Color("button-color"))
+                                            .frame(width: 15,height: 15)
+                                        Text(grpAudio.title)
+                                            .font(.system(size: 12))
+                                            .foregroundStyle(Color.white)
+                                    }
                                 }
-                                WebImage(url: grpAudio.userProfileURL)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(Circle())
-                                    .padding(.horizontal)
+                                
+                                
 
                                 
                             }
