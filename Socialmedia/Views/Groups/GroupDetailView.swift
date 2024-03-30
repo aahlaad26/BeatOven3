@@ -14,6 +14,9 @@ struct GroupDetailView: View {
     @State private var posts: [GrpAudioFiles] = []
     @State private var recentPosts: [GrpAudioFiles] = []
     @State private var paginationDoc: QueryDocumentSnapshot?
+    @AppStorage("user_profile_url") private var profileURL: URL?
+    @AppStorage("user_name") private var userName:String = ""
+    @AppStorage("user_UID") private var userUID:String = ""
     let group: Groupped
     @State private var createNewAudio: Bool = false
     var body: some View {
@@ -122,40 +125,82 @@ struct SongCell:View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     @State private var isDownloading = false
+    @AppStorage("user_profile_url") private var profileURL: URL?
+    @AppStorage("user_name") private var userName:String = ""
+    @AppStorage("user_UID") private var userUID:String = ""
     var body: some View {
         VStack{
         
             HStack{
                 Button(action:{isPresented = true}){
-                    HStack{
-                        WebImage(url: grpAudio.userProfileURL)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 60, height: 60)
-                            .clipShape(Circle())
-    //                    ZStack{
-    //                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
-    //                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
-    //
-    //                    }
-                        Text(grpAudio.title)
-                        
+                    if(userUID != grpAudio.userUID){
+                        HStack{
+                            HStack{
+                                WebImage(url: grpAudio.userProfileURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+            //                    ZStack{
+            //                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
+            //                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
+            //
+            //                    }
+                                VStack(alignment:.leading){
+                                    Text(grpAudio.title)
+                                        .font(.system(size: 15))
+                                        .foregroundStyle(Color.black)
+                                    Text(grpAudio.username)
+                                        .font(.system(size: 12))
+                                        .foregroundStyle(Color.gray)
+                                }
+                                
+                                
+                            }.padding()
+                                .background(Color("cell2-color"))
+                                .cornerRadius(8)
+                            Spacer()
+                        }
                         
                     }
+                    else{
+                        HStack{
+                            Spacer()
+                            HStack{
+                                        //                    ZStack{
+            //                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
+            //                        Circle().frame(width: 20,height: 20,alignment: .center).foregroundColor(Color.white)
+            //
+            //                    }
+                                
+                                
+                                VStack(alignment:.leading){
+                                    Text(grpAudio.title)
+                                        .font(.system(size: 15))
+                                        .foregroundStyle(Color.black)
+//                                    Text(grpAudio.username)
+//                                        .font(.system(size: 12))
+//                                        .foregroundStyle(Color.gray)
+                                }
+                                WebImage(url: grpAudio.userProfileURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                                    .padding(.horizontal)
+
+                                
+                            }
+                            .padding()
+                            .background(Color("button2-color"))
+                            .cornerRadius(8)
+                            .contextMenu {
+                                                menuItems
+                                            }
+                        }
+                    }
                 }
-                Spacer()
-                Menu{
-                    //MARK: Two actions
-                    //Logout, delete account
-                    
-                    Button("Download",action:downloadSong)
-                    Button("Delete",role: .destructive,action: deleteSong)
-                }label: {
-                    Image(systemName: "ellipsis")
-                        .rotationEffect(.init(degrees: 90))
-                        .tint(.black)
-                        .scaleEffect(0.8)
-                }
+                
             }
         }
         .sheet(isPresented: $isPresented) {
@@ -167,6 +212,13 @@ struct SongCell:View {
                     Alert(title: Text("Deleted"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
     }
+    var menuItems: some View {
+        Group {
+            Button("Download",action:downloadSong)
+            Button("Delete",role: .destructive,action: deleteSong)
+        }
+    }
+
     
     func deleteSong(){
         Task {

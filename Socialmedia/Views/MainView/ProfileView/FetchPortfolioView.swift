@@ -18,7 +18,7 @@ struct FetchPortfolioView: View {
                         Group {
                             Text("Hi, I am  \(portfolioData.name)")
                                 .font(.title)
-                            Text("About Me: I am from \(portfolioData.cityCountry). \(portfolioData.aboutMe)")
+                            Text("I am from \(portfolioData.cityCountry). \(portfolioData.aboutMe)")
                         }
                        
                         Divider()
