@@ -92,13 +92,13 @@ struct GroupDetailView: View {
             if let paginationDoc{
                 query = Firestore.firestore().collection("Group_Audios")
                     .whereField("groupID",isEqualTo: group.id)
-                    .order(by: "publishedDate", descending: true)
+                    .order(by: "publishedDate", descending: false)
                     .start(afterDocument:paginationDoc)
                     .limit(to: 20)
             }else{
                 query = Firestore.firestore().collection("Group_Audios")
                     .whereField("groupID",isEqualTo: group.id)
-                    .order(by: "publishedDate", descending: true)
+                    .order(by: "publishedDate", descending: false)
                     .limit(to: 20)
             }
            
