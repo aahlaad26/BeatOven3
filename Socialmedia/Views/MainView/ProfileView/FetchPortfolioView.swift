@@ -67,7 +67,7 @@ struct FetchPortfolioView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Portfolio Details")
+            .navigationTitle("Portfolio")
             .onAppear {
                 fetchPortfolioData(userId: user.userid)
             }

@@ -1,9 +1,3 @@
-//
-//  FirebaseConstants.swift
-//  LBTASwiftUIFirebaseChat
-//
-//  Created by Brian Voong on 11/19/21.
-//
 
 import Foundation
 
