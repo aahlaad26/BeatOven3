@@ -19,58 +19,96 @@ struct SearchUserView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(searchedUsers) { user in
-                    if(user.userid != userUID){
-                        NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
-    //                        Text(user.username)
-    //                            .font(.callout)
-    //                            .hAlign(.leading)
-                            HStack{
-                                WebImage(url: user.userprofileURL)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 50, height: 50)
-                                    .clipShape(Circle())
-                                VStack(alignment: .leading){
-                                    Text(user.username)
-                                        .fontWeight(.semibold)
-                                }
-                                .padding(.vertical)
-                                Spacer()
+                if searchedUsers.isEmpty{
+                    ForEach(instruments, id: \.self) { instrument in
+                        Section(header: Text("Find \(instrument) artists")
+                            .padding(.horizontal,10)) {
+                            ScrollView(.horizontal){
+                                HStack{
+                                    ForEach(fetchedUsers.filter { $0.selectedInstruments?.contains(instrument) ?? false }) { user in
+                                        if user.userid != userUID{
+                                            NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
+                //                                Text(user.username)
+                //                                    .font(.callout)
+                //                                    .hAlign(.leading)
+                                                VStack{
+                                                    WebImage(url: user.userprofileURL)
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 100, height: 100)
+                                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                        .padding(.vertical)
+                                                    VStack(alignment: .leading){
+                                                        Text(user.username)
+                                                            .fontWeight(.semibold)
+                                                            .foregroundStyle(Color.black)
+                                                    }
+                                                    .padding(.vertical)
+                                                    
+                                                }
+                                                .frame(width: 150, height: 150)
+                                                .padding()
+                                                .background(Color.white)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                .shadow( radius: 5)
+                                                .padding(.horizontal,10)
+                                                                                        }
+                                        }
+                                        
+                                    }
+                                }.padding(.vertical)
+                                    .padding(.horizontal,10)
+                                
                             }
                         }
+                        .listRowBackground(Color.clear)
                     }
                 }
-                .listRowBackground(Color.clear)
-                
-                ForEach(instruments, id: \.self) { instrument in
-                    Section(header: Text("Find \(instrument) artists")) {
-                        ForEach(fetchedUsers.filter { $0.selectedInstruments?.contains(instrument) ?? false }) { user in
-                            if user.userid != userUID{
-                                NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
-    //                                Text(user.username)
-    //                                    .font(.callout)
-    //                                    .hAlign(.leading)
-                                    HStack{
-                                        WebImage(url: user.userprofileURL)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 50, height: 50)
-                                            .clipShape(Circle())
-                                        VStack(alignment: .leading){
-                                            Text(user.username)
-                                                .fontWeight(.semibold)
-                                        }
-                                        .padding(.vertical)
-                                        Spacer()
+                else{
+                    Section(header: Text("Searched artists")
+                        .padding(.horizontal,10)) {
+                        ScrollView(.horizontal){
+                            HStack{
+                                ForEach(searchedUsers) { user in
+                                    if user.userid != userUID{
+                                        NavigationLink(destination: ReusableProfileContent(posts: $posts, user: user)) {
+            //                                Text(user.username)
+            //                                    .font(.callout)
+            //                                    .hAlign(.leading)
+                                            VStack{
+                                                WebImage(url: user.userprofileURL)
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 100, height: 100)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                    .padding(.vertical)
+                                                VStack(alignment: .leading){
+                                                    Text(user.username)
+                                                        .fontWeight(.semibold)
+                                                        .foregroundStyle(Color.black)
+                                                }
+                                                .padding(.vertical)
+                                                
+                                            }
+                                            .frame(width: 150, height: 150)
+                                            .padding()
+                                            .background(Color.white)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                            .shadow( radius: 5)
+                                            .padding(.horizontal,10)
+                                                                                    }
                                     }
+                                    
                                 }
-                            }
+                            }.padding(.vertical)
+                                .padding(.horizontal,10)
                             
                         }
                     }
                     .listRowBackground(Color.clear)
                 }
+                
+               
             }
             .listStyle(.plain)
             .navigationBarTitleDisplayMode(.inline)
