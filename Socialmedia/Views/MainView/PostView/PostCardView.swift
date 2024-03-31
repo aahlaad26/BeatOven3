@@ -86,6 +86,50 @@ struct PostCardView: View {
                             .frame(width: 340)
                             .padding(.top,5)
                         }
+                        VStack{
+//                                    Text("Ins")
+//                                        .font(.headline)
+//                                        .padding(.top, 20)
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack {
+                                            if let instruments = post.userInstruments{
+                                                ForEach(instruments, id: \.self) { instrument in
+                                            
+                                                        Text(instrument)
+                                                            .padding(.horizontal, 10)
+                                                            .padding(.vertical, 5)
+                                                            .background(Color("button2-color"))
+                                                            .foregroundColor(.white)
+                                                            .cornerRadius(8)
+                                                    }
+                                            }
+                                            
+                                            }
+                                        
+                                    }
+//                            Text("Select the Genres this artwork comes under")
+//                                .font(.headline)
+//                                .padding(.top, 20)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    if let genres = post.userGenre{
+                                        ForEach(genres, id: \.self) { genre in
+                                          
+                                                Text(genre)
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 5)
+                                                    .background(Color("button2-color"))
+                                                    .foregroundColor(.white)
+                                                    .cornerRadius(8)
+                                            }
+                                    }
+                                    
+                                    }
+                                
+                            }
+                                }
                         }
                     
                     PostInteraction()

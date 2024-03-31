@@ -23,18 +23,21 @@ struct Post: Identifiable, Codable, Equatable, Hashable {
     var username: String
     var userUID: String
     var userProfileURL: URL
-
+    var userInstruments: [String]?
+    var userGenre: [String]?
     enum CodingKeys: CodingKey {
         case id
         case text
         case imageURL
         case imageReferenceID
-        case songURL  // Updated to include song URL
-        case songReferenceID  // Updated to include song reference ID
+        case songURL
+        case songReferenceID
         case publishedDate
         case likedIDs
         case username
         case userUID
         case userProfileURL
+        case userInstruments
+        case userGenre
     }
 }

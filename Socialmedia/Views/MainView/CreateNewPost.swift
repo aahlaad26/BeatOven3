@@ -31,6 +31,11 @@ struct CreateNewPost: View {
     @FocusState private var showkeyboard: Bool
     @State private var player: AVPlayer?
     @State private var fileURL:URL?
+    let instruments = ["Guitar", "Percussion", "Bass", "Piano", "Ensemble", "Saxophone", "Flute", "Trumpet", "EDM", "Music Production"]
+        
+    let genres = ["Rock", "Pop", "Hip Hop", "Electronic", "Country", "Jazz", "Blues", "Classical", "Metal", "R&B"]
+    @State private var selectedInstruments: [String] = []
+     @State private var selectedGenre: [String] = []
 
     var body: some View {
         ZStack {
@@ -88,10 +93,63 @@ struct CreateNewPost: View {
                             }
                             .clipped()
                             .frame(height:220)
+                            
                         }
+                        
                         if let data = postSongData {
                                             AudioPlayerView(data: data)
                                         }
+                        VStack{
+                                    Text("Select the Instruments used in this artwork")
+                                        .font(.headline)
+                                        .padding(.top, 20)
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack {
+                                            ForEach(instruments, id: \.self) { instrument in
+                                                Button(action: {
+                                                    if selectedInstruments.contains(instrument) {
+                                                        selectedInstruments.removeAll(where: { $0 == instrument })
+                                                    } else {
+                                                        selectedInstruments.append(instrument)
+                                                    }
+                                                }) {
+                                                    Text(instrument)
+                                                        .padding(.horizontal, 10)
+                                                        .padding(.vertical, 5)
+                                                        .background(selectedInstruments.contains(instrument) ? Color("button2-color") : Color.gray)
+                                                        .foregroundColor(.white)
+                                                        .cornerRadius(8)
+                                                }
+                                            }
+                                        }
+                                    }
+                            Text("Select the Genres this artwork comes under")
+                                .font(.headline)
+                                .padding(.top, 20)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(genres, id: \.self) { genre in
+                                        Button(action: {
+                                            if selectedGenre.contains(genre) {
+                                                selectedGenre.removeAll(where: { $0 == genre })
+                                            } else {
+                                                selectedGenre.append(genre)
+                                            }
+                                        }) {
+                                            Text(genre)
+                                                .padding(.horizontal, 10)
+                                                .padding(.vertical, 5)
+                                                .background(selectedGenre.contains(genre) ? Color("button2-color") : Color.gray)
+                                                .foregroundColor(.white)
+                                                .cornerRadius(8)
+                                        }
+                                    }
+                                }
+                            }
+                                }
+                        
                     }
                     .padding(15)
                 }
@@ -154,6 +212,7 @@ struct CreateNewPost: View {
             .overlay{
                 LoadingView(show: $isLoading)
         }
+            
         }
     }
     //MARK: Post Content to firebase
@@ -204,7 +263,7 @@ struct CreateNewPost: View {
                                 publishedDate: Date(),
                                 username: userName,
                                 userUID: userUID,
-                                userProfileURL: profileURL)
+                                userProfileURL: profileURL,userInstruments: selectedInstruments,userGenre: selectedGenre)
 
                 // Create document in Firebase
                 try await createDocumentAtFirebase(post)
