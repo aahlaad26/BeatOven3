@@ -168,7 +168,7 @@ struct RegisterView:View{
                    .padding(.top,10)
             
             VStack {
-                        Text("Select Top 3 Instruments:")
+                        Text("Select atleast top 3 Instruments of yours:")
                             .font(.headline)
                             .padding(.top, 20)
                         
@@ -192,7 +192,7 @@ struct RegisterView:View{
                                 }
                             }
                         }
-                Text("Select Top 3 Genres:")
+                Text("Select atleast top 3 Genres of yours:")
                     .font(.headline)
                     .padding(.top, 20)
                 

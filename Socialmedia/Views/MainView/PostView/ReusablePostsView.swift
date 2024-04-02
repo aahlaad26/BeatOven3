@@ -128,18 +128,23 @@ struct ReusablePostsView: View {
             print(error.localizedDescription)
         }
     }
-    func fetchUsersWithUID(uid : String){
-        FirebaseManager.shared.firestore.collection("Users").document(userUID).getDocument { snapshot, error in
+    func fetchUsersWithUID(uid: String) {
+        guard !uid.isEmpty else {
+            print("User UID is empty")
+            return
+        }
+
+        FirebaseManager.shared.firestore.collection("Users").document(uid).getDocument { snapshot, error in
             if let error = error {
                 self.errorMessage = "Failed to fetch current user: \(error)"
                 print("Failed to fetch current user:", error)
                 return
             }
-            
+
             self.tempUser = try? snapshot?.data(as: User.self)
-            
         }
     }
+
 }
 
 #Preview {

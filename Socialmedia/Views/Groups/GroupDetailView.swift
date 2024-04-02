@@ -139,8 +139,9 @@ struct SongCell:View {
                                 WebImage(url: grpAudio.userProfileURL)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 60, height: 60)
                                     .clipShape(Circle())
+                                    .padding(.leading)
                                     .padding(.bottom)
             //                    ZStack{
             //                        Circle().frame(width: 50,height: 50,alignment: .center).foregroundColor(Color("button-color"))
@@ -152,13 +153,13 @@ struct SongCell:View {
                                         .font(.system(size: 15))
                                         .foregroundStyle(Color.black)
                                     HStack{
-                                        Image(systemName: "music.note")
+                                        Image(systemName: "waveform.badge.plus")
                                             .resizable()
                                             .font(.title3)
                                             .foregroundColor(Color("button-color"))
-                                            .frame(width: 15,height: 15)
+                                            .frame(width: 25,height: 25)
                                         Text(grpAudio.title)
-                                            .font(.system(size: 12))
+                                            .font(.system(size: 14))
                                             .foregroundStyle(Color.gray)
                                     }
                                     
@@ -166,7 +167,7 @@ struct SongCell:View {
                                 
                                 
                             }.padding()
-                                .background(Color("cell2-color"))
+                                .background(Color(red: 1.00,green : 0.65,blue: 0.30))
                                 .cornerRadius(8)
                             Spacer()
                         }
@@ -184,25 +185,25 @@ struct SongCell:View {
                                 WebImage(url: grpAudio.userProfileURL)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 50, height: 50)
                                     .clipShape(Circle())
                                     .padding(.bottom)
                                 
                                 VStack(alignment:.leading){
                                     Text(grpAudio.username)
-                                        .font(.system(size: 15))
+                                        .font(.system(size: 14.5))
                                         .foregroundStyle(Color.black)
 //                                    Text(grpAudio.username)
 //                                        .font(.system(size: 12))
 //                                        .foregroundStyle(Color.gray)
                                     HStack{
-                                        Image(systemName: "music.note")
+                                        Image(systemName: "waveform")
                                             .resizable()
                                             .font(.title3)
                                             .foregroundColor(Color("button-color"))
-                                            .frame(width: 15,height: 15)
+                                            .frame(width: 30,height: 30)
                                         Text(grpAudio.title)
-                                            .font(.system(size: 12))
+                                            .font(.system(size: 16))
                                             .foregroundStyle(Color.white)
                                     }
                                 }
@@ -212,7 +213,7 @@ struct SongCell:View {
                                 
                             }
                             .padding()
-                            .background(Color("button2-color"))
+                            .background(Color(red: 1.00,green : 0.53,blue: 0.30))
                             .cornerRadius(8)
                             .contextMenu {
                                                 menuItems

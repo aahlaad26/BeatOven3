@@ -27,7 +27,7 @@ struct MainView: View {
                          .tag(1)
 //                     ColabView()
                      GroupListView().environmentObject(Model())
-                         .tabItem { Image(systemName: "music.note") }
+                         .tabItem { Image(systemName: "waveform.and.person.filled") }
                          .tag(2)
                      MainMessagesView()
                          .tabItem { Image(systemName: "bubble.right") }

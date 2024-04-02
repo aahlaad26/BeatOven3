@@ -78,11 +78,11 @@ struct CreateAudioFileView: View {
                         Button {
                             showAudioPicker = true
                         } label: {
-                            Image(systemName: "music.note")
+                            Image(systemName: "waveform.badge.plus")
                                 .resizable()
                                 .font(.title3)
                                 .foregroundColor(Color("button-color"))
-                                .frame(width: 50, height:60)
+                                .frame(width: 50, height:50)
                                 .padding(.horizontal)
                         }.fileImporter(
                             isPresented: $showAudioPicker,

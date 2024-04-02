@@ -29,6 +29,8 @@ struct CreateNewPost: View {
     @State private var showAudioPicker = false
     @State private var photoItem: PhotosPickerItem?
     @FocusState private var showkeyboard: Bool
+    @State private var photoLibraryAuthorized = false
+    @State private var audioAuthorized = false
     @State private var player: AVPlayer?
     @State private var fileURL:URL?
     let instruments = ["Guitar", "Percussion", "Bass", "Piano", "Ensemble", "Saxophone", "Flute", "Trumpet", "EDM", "Music Production"]
@@ -213,7 +215,38 @@ struct CreateNewPost: View {
                 LoadingView(show: $isLoading)
         }
             
+        }.onAppear {
+            // Request authorization for photo library access
+            PHPhotoLibrary.requestAuthorization { status in
+                switch status {
+                case .authorized:
+                    // User granted access
+                    photoLibraryAuthorized = true
+                default:
+                    // User denied access or restricted access
+                    photoLibraryAuthorized = false
+                }
+            }
+            
+            // Request authorization for audio access
+            AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                audioAuthorized = granted
+            }
         }
+        .alert(isPresented: .constant(!photoLibraryAuthorized || !audioAuthorized)) {
+            Alert(
+                title: Text("Permission Required"),
+                message: Text("Please grant permission to access photos and audio files in settings."),
+                primaryButton: .default(Text("Open Settings"), action: {
+                    // Open app settings
+                    guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                    UIApplication.shared.open(settingsURL)
+                }),
+                secondaryButton: .cancel(Text("Cancel"))
+            )
+        }
+    
+
     }
     //MARK: Post Content to firebase
     func createPost() {
