@@ -41,7 +41,7 @@ struct SplashScreenView: View {
                     self.isActive = true
                 }
             }
-            .frame(width: 393, height: 852)
+            .frame(maxWidth: .infinity,maxHeight: .infinity)
             .background(Color(red: 0.99, green: 0.87, blue: 0.82))
         }
             
