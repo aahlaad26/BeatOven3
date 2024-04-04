@@ -144,7 +144,8 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.fromId: uid,
             FirebaseConstants.toId: toId,
             FirebaseConstants.profileImageUrl: currentUser.userprofileURL.absoluteString,
-            FirebaseConstants.email: currentUser.useremail
+            FirebaseConstants.email: currentUser.useremail,
+            FirebaseConstants.username: currentUser.username
         ] as [String : Any]
         
         FirebaseManager.shared.firestore

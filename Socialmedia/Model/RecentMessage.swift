@@ -25,14 +25,4 @@ struct RecentMessage: Codable, Identifiable, Hashable {
     }
     
     // Specify only the properties you want to encode/decode.
-    enum CodingKeys: String, CodingKey {
-        case id
-        case text
-        case email
-        case fromId = "fromId"
-        case toId = "toId"
-        case profileImageUrl
-        case timestamp
-        case username = "username"// No need to map `username` to itself, just listing it is enough.
-        // `timeAgo` is not included here since it's computed.
-    }}
+    }
