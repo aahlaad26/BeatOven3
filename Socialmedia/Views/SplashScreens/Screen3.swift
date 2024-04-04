@@ -7,32 +7,31 @@ struct Screen3: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 10) {
-                Spacer()
 
                 Rectangle()
                     .foregroundColor(.clear)
-                    .frame(width: 342.83636, height: 416.81018)
+                    .frame(width:UIScreen.main.bounds.width * 342.83636 / 393, height: UIScreen.main.bounds.height * 416.81018 / 852 )
                     .background(
                         Image("scrn3")
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 342.83636474609375, height: 406.8101806640625)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width:UIScreen.main.bounds.width * 342.83636474609375 / 393, height: UIScreen.main.bounds.height * 406.8101806640625 / 852 )
                             .clipped()
                             .rotationEffect(Angle(degrees: -0.64))
                     )
-                    .padding(.top, 150)
+                    .padding(.top, UIScreen.main.bounds.height * 130 / 852)
 
-                Spacer()
 
                 Text("Post Tracks and let\npeople find your profile")
-                    .font(Font.custom("Holtwood One SC", size: 24))
                     .foregroundColor(.black)
-                    .frame(width: 344, height: 193, alignment: .topLeading)
-                    .position(x: 200, y: 67)
+                    .font(Font.custom("Holtwood One SC", size: 17).weight(.bold))
+                    .multilineTextAlignment(.leading)
+                    .padding(.horizontal)
+                    .padding(.top, UIScreen.main.bounds.height * 100 / 852)                    .frame(width:UIScreen.main.bounds.width * 344 / 393, height: UIScreen.main.bounds.height * 193 / 852,alignment: .topLeading)
+                    .position(x: UIScreen.main.bounds.width * 200 / 393, y: UIScreen.main.bounds.height * 67 / 852)
 
-                Spacer()
             }
-            .frame(width: 393, height: 952)
+            .frame(width:UIScreen.main.bounds.width * 393 / 393, height: UIScreen.main.bounds.height * 952 / 852)
             .background(Color(red: 0.99, green: 0.64, blue: 0.47))
             .cornerRadius(20)
             .onAppear {
@@ -46,7 +45,8 @@ struct Screen3: View {
                 .foregroundColor(.black)
                 .padding(.top, 100)
                 .padding(.trailing, 20)
-                .position(x: 310, y: 120)
+                .position(x: UIScreen.main.bounds.width * 310 / 393, y: UIScreen.main.bounds.height * 120 / 852)
+                
 
             VStack {
                 Spacer()
@@ -69,8 +69,7 @@ struct Screen3: View {
                     Spacer()
                 }
                 .padding(.bottom, 90)
-                .position(x: 195, y: 750)
-
+                .position(x: UIScreen.main.bounds.width * 195 / 393, y: UIScreen.main.bounds.height * 750 / 852)
                 NavigationLink(destination: Screen4().navigationBarBackButtonHidden(true), isActive: $isActive) {
                     EmptyView()
                 }
@@ -84,14 +83,13 @@ struct Screen3: View {
                     Text("Next")
                         .foregroundColor(.black)
                         .font(.system(size: 20, weight: .bold))
-                        .padding(.horizontal, 123)
-                        .padding(.vertical, 19)
+                        .padding()
+                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 50)
                         .background(Color.white)
                         .cornerRadius(10)
                 }
                 .padding()
-                .position(x: 195, y: 450)
-
+                .position(x: UIScreen.main.bounds.width * 195 / 393, y: UIScreen.main.bounds.height * 450 / 852)
                 // Skip Button
                 
                 Button(action: {
@@ -103,7 +101,8 @@ struct Screen3: View {
                         .font(.system(size: 20, weight: .bold))
                 }
                 .padding()
-                .position(x: 195, y: 190)
+
+                .position(x: UIScreen.main.bounds.width * 195 / 393, y: UIScreen.main.bounds.height * 190 / 852)
 
                 NavigationLink(destination: Screen4().navigationBarBackButtonHidden(true), isActive: $isActive) {
                     EmptyView()

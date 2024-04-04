@@ -20,12 +20,12 @@ struct Screen4: View {
 
                     Rectangle()
                         .foregroundColor(.clear)
-                        .frame(width: 342.83636, height: 376.81018)
+                        .frame(width:UIScreen.main.bounds.width * 342.83636474609375 / 393, height: UIScreen.main.bounds.height * 376.81018 / 852 )
                         .background(
                             Image("scrn4")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 342.83636474609375, height: 476.8101806640625)
+                                .frame(width:UIScreen.main.bounds.width * 342.83636474609375 / 393, height: UIScreen.main.bounds.height * 476.8101806640625 / 852 )
                                 .clipped()
                                 .opacity(fadeIn ? 1.0 : 0.0) // Fade-in animation
                                 .rotationEffect(Angle(degrees: -0.64))
