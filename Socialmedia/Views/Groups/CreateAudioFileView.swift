@@ -6,6 +6,7 @@
 //
 
 
+
 import SwiftUI
 
 import Firebase
@@ -13,6 +14,7 @@ import FirebaseStorage
 import AVFoundation
 struct CreateAudioFileView: View {
        var group:Groupped
+        let refetch:() async -> Void
         var onPost: (GrpAudioFiles)->()
         @State private var audioTitle: String = ""
        
@@ -138,8 +140,10 @@ struct CreateAudioFileView: View {
                         let audio = GrpAudioFiles(title: audioTitle, audioURL: downloadURL  ,audioReferenceID: audioReferenceID,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL, groupID:group.id )
                         try await createDocumentAtFirebase(audio)
                     }
-
-                }catch{
+                  await refetch()
+                }
+                
+                catch{
                     await setError(error)
                     
                 }
@@ -173,9 +177,18 @@ struct CreateAudioFileView: View {
 
 //#Preview {
 //    CreateAudioFileView(group: <#Groupped#>){_ in
-//        
+//
 //    }
 //}
+
+
+
+
+
+
+
+
+
 
 
 
