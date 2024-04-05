@@ -55,7 +55,8 @@ struct AddNewGroupView: View {
 //              dismiss()
 //            }
 //          }
-            let _ = try Firestore.firestore().collection("groups").document(group.documentId ?? group.id).setData(from: group, completion: {
+            let grpID = UUID().uuidString
+            let _ = try Firestore.firestore().collection("groups").document(grpID).setData(from: group, completion: {
                 error in
                 if error ==  nil{
                     //MARK: Print saved successfully
@@ -64,6 +65,24 @@ struct AddNewGroupView: View {
                     
                 }
             })
+            for userID in group.userIDs{
+                if userID != userUID{
+                    var notify = Notification(notiType: "Group Request", toUserID: userID, fromUserID: userUID, fromUserProfileImage: profileURL, fromUsername: userNameStored, dismissStatus: false, groupID: grpID, groupName: group.subject)
+                    let _ = try Firestore.firestore().collection("notification").document(notify.id).setData(from: notify, completion: {
+                        error in
+                        if error ==  nil{
+                            //MARK: Print saved successfully
+                            print("saved successfully notfication of \(userID)")
+                            dismiss()
+                            
+                        }
+                    })
+                }
+                
+                
+            }
+            
+            
         }
         catch{
             print(error)
