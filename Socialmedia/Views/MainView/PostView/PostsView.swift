@@ -76,7 +76,7 @@ struct PostsView: View {
                         .foregroundColor(.red)
                 }
             )
-            .navigationBarColor(Color.black.opacity(0.7)) // Glassy translucent color
+           
         }
         .fullScreenCover(isPresented: $createNewPost) {
             CreateNewPost { post in

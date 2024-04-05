@@ -1,3 +1,4 @@
+
 //
 //  GroupDetailView.swift
 //  Socialmedia
@@ -30,7 +31,7 @@ struct GroupDetailView: View {
                     }else{
                         if posts.isEmpty{
                             //NO posts found
-                            Text("No posts found")
+                            Text("Workspace is Empty")
                                 .font(.caption)
                                 .foregroundStyle(Color.gray)
                                 .padding(.top,30)
@@ -39,7 +40,7 @@ struct GroupDetailView: View {
                             //displaying posts
                             
                             ForEach(posts,id:\.id){audio in
-                                SongCell(posts: posts, grpAudio: audio)
+                                SongCell(posts: posts, grpAudio: audio, refetch: fetchPosts)
                             }
                         }
                     }
@@ -78,7 +79,7 @@ struct GroupDetailView: View {
         
         
     .fullScreenCover(isPresented: $createNewAudio){
-        CreateAudioFileView(group: group){audio in
+        CreateAudioFileView(group: group,refetch: fetchPosts){audio in
             // adding created posts at the top of the recent posts
             recentPosts.insert(audio, at: 0)
         }
@@ -89,25 +90,28 @@ struct GroupDetailView: View {
         do{
             var query: Query!
             //implementing pagination here
-            if let paginationDoc{
+//            if let paginationDoc{
+////                query = Firestore.firestore().collection("Group_Audios")
+////                    .whereField("groupID",isEqualTo: group.id)
+////                    .order(by: "publishedDate", descending: false)
+////                    .start(afterDocument:paginationDoc)
+////                    .limit(to: 20)
+//            }else{
                 query = Firestore.firestore().collection("Group_Audios")
                     .whereField("groupID",isEqualTo: group.id)
                     .order(by: "publishedDate", descending: false)
-                    .start(afterDocument:paginationDoc)
                     .limit(to: 20)
-            }else{
-                query = Firestore.firestore().collection("Group_Audios")
-                    .whereField("groupID",isEqualTo: group.id)
-                    .order(by: "publishedDate", descending: false)
-                    .limit(to: 20)
-            }
+//            }
            
             let docs = try await query.getDocuments()
             let fetchedPosts = docs.documents.compactMap{doc->GrpAudioFiles? in
                 try? doc.data(as: GrpAudioFiles.self)
             }
             await MainActor.run(body: {
+                posts = []
                 posts.append(contentsOf: fetchedPosts)
+//                posts = fetchedPosts
+//                posts.wrappedValue = fetchedPosts
                 paginationDoc = docs.documents.last
                 isFetching = false
             })
@@ -122,6 +126,7 @@ struct SongCell:View {
     @State private var isPresented = false
     var posts:[GrpAudioFiles]
     var grpAudio:GrpAudioFiles
+    let refetch:() async -> Void
     @State private var alertMessage = ""
     @State private var showAlert = false
     @State private var isDownloading = false
@@ -273,7 +278,9 @@ struct SongCell:View {
                         }
                     }
                 }
-            }catch{
+             await refetch()
+            }
+            catch{
                 print(error.localizedDescription)
             }
         }
