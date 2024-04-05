@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestoreSwift
 // MARK: Post Model
 
-// MARK: Post Model
+
 
 struct Post: Identifiable, Codable, Equatable, Hashable {
     @DocumentID var id: String?
