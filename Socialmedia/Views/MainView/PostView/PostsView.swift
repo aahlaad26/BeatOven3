@@ -69,13 +69,16 @@ struct PostsView: View {
                         .padding(15)
                     }
                     .navigationTitle("Posts")
+                    .toolbar{
+                        ToolbarItem(placement: .topBarTrailing){
+                            NavigationLink(destination: NotificationView(), isActive: $isNotificationClicked) {
+                                Image(systemName: "bell.badge")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
             }
-            .navigationBarItems(trailing:
-                NavigationLink(destination: NotificationView(), isActive: $isNotificationClicked) {
-                    Image(systemName: "bell.badge")
-                        .foregroundColor(.red)
-                }
-            )
+            
            
         }
         .fullScreenCover(isPresented: $createNewPost) {
