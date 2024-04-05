@@ -201,7 +201,7 @@ struct SongCell:View {
                                             .resizable()
                                             .font(.title3)
                                             .foregroundColor(Color("button-color"))
-                                            .frame(width: 30,height: 30)
+                                            .frame(width: 15,height: 15)
                                         Text(grpAudio.title)
                                             .font(.system(size: 16))
                                             .foregroundStyle(Color.white)

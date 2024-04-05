@@ -43,14 +43,24 @@ struct FetchPortfolioView: View {
                         }
                         Divider()
 
+//                        Text("Social Media Links")
+//                            .font(.title2)
+//                            .foregroundColor(.orange)
+//                        VStack(alignment: .leading, spacing: 5) {
+//                            Text("Facebook: \(portfolioData.metalink)")
+//                            Text("Instagram: \(portfolioData.instalink)")
+//                            Text("Youtube: \(portfolioData.ytlink)")
+//                        }
                         Text("Social Media Links")
-                            .font(.title2)
-                            .foregroundColor(.orange)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Facebook: \(portfolioData.metalink)")
-                            Text("Instagram: \(portfolioData.instalink)")
-                            Text("Youtube: \(portfolioData.ytlink)")
+                                        .font(.title2)
+                                        .foregroundColor(.orange)
+                        HStack(alignment: .top, spacing: 5) {
+                            SocialMediaButton(iconName: "facebook", link: portfolioData.metalink)
+                            SocialMediaButton(iconName: "instagram", link: portfolioData.instalink)
+                            SocialMediaButton(iconName: "youtube", link: portfolioData.ytlink)
                         }
+
+
                         Button(action: {
                             generatePDF()
                         }) {
@@ -176,6 +186,26 @@ struct PDFContentView: View {
         .padding()
     }
 }
+
+struct SocialMediaButton: View {
+    let iconName: String
+    let link: String
+
+    var body: some View {
+        Button(action: {
+            if let url = URL(string: link) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }) {
+            Image(iconName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 32, height: 32) // Adjust size as needed
+                .foregroundColor(.blue)
+        }
+    }
+}
+
 
 struct PortfolioFetchView: View {
     @AppStorage("user_UID") private var userUID: String = ""
