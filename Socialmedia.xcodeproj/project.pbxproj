@@ -16,10 +16,6 @@
 		0F12B9572B9668D4002C3368 /* Condiment-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F12B9552B966850002C3368 /* Condiment-Regular.ttf */; };
 		0F12B9582B9668D6002C3368 /* HoltwoodOneSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F12B9562B966850002C3368 /* HoltwoodOneSC-Regular.ttf */; };
 		0F12B9592B9668D8002C3368 /* SFPRODISPLAYBOLD.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 0F12B9542B96684F002C3368 /* SFPRODISPLAYBOLD.OTF */; };
-		0F12B95B2B96710C002C3368 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12B95A2B96710C002C3368 /* Groups.swift */; };
-		0F12B95D2B96750B002C3368 /* ColabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12B95C2B96750B002C3368 /* ColabView.swift */; };
-		0F12B95F2B9675A1002C3368 /* TrackLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12B95E2B9675A1002C3368 /* TrackLibraryView.swift */; };
-		0F12B9632B967DBA002C3368 /* AudioPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12B9622B967DBA002C3368 /* AudioPosts.swift */; };
 		0F5CBD162BA8D1C600B45EDC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD142BA8D1C600B45EDC /* FirebaseManager.swift */; };
 		0F5CBD172BA8D1C600B45EDC /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD152BA8D1C600B45EDC /* FirebaseConstants.swift */; };
 		0F5CBD1C2BA8D1D900B45EDC /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CBD192BA8D1D900B45EDC /* ChatLogView.swift */; };
@@ -105,10 +101,6 @@
 		0F12B9542B96684F002C3368 /* SFPRODISPLAYBOLD.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYBOLD.OTF; sourceTree = "<group>"; };
 		0F12B9552B966850002C3368 /* Condiment-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Condiment-Regular.ttf"; sourceTree = "<group>"; };
 		0F12B9562B966850002C3368 /* HoltwoodOneSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HoltwoodOneSC-Regular.ttf"; sourceTree = "<group>"; };
-		0F12B95A2B96710C002C3368 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
-		0F12B95C2B96750B002C3368 /* ColabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColabView.swift; sourceTree = "<group>"; };
-		0F12B95E2B9675A1002C3368 /* TrackLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLibraryView.swift; sourceTree = "<group>"; };
-		0F12B9622B967DBA002C3368 /* AudioPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPosts.swift; sourceTree = "<group>"; };
 		0F41E0822B94779200590E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0F5CBD142BA8D1C600B45EDC /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0F5CBD152BA8D1C600B45EDC /* FirebaseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
@@ -221,15 +213,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		0F12B9642B9682A0002C3368 /* Colab */ = {
-			isa = PBXGroup;
-			children = (
-				0F12B95C2B96750B002C3368 /* ColabView.swift */,
-				0F12B95E2B9675A1002C3368 /* TrackLibraryView.swift */,
-			);
-			path = Colab;
-			sourceTree = "<group>";
-		};
 		0F5CBD182BA8D1CB00B45EDC /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,7 +323,6 @@
 			children = (
 				0F5CBD182BA8D1CB00B45EDC /* Chat */,
 				984E28F62BA8BA2F00F3A8A0 /* Groups */,
-				0F12B9642B9682A0002C3368 /* Colab */,
 				0F12B9462B9667DC002C3368 /* SplashScreens */,
 				2F5C5D322B8EDB7F00531C33 /* Helpers */,
 				2F5C5D2F2B8E2D0D00531C33 /* MainView */,
@@ -359,8 +341,6 @@
 				0F5CBD202BA8D1EE00B45EDC /* RecentMessage.swift */,
 				983468A72B8DDA420045D037 /* User.swift */,
 				2F5C5D402B8EFCFE00531C33 /* Post.swift */,
-				0F12B95A2B96710C002C3368 /* Groups.swift */,
-				0F12B9622B967DBA002C3368 /* AudioPosts.swift */,
 				98E682212BA46C2A00FA057A /* PortfolioData.swift */,
 				984E28FB2BA8CB1800F3A8A0 /* Group.swift */,
 				986B833A2BAA07CE00AF74EF /* Model.swift */,
@@ -494,7 +474,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F12B95B2B96710C002C3368 /* Groups.swift in Sources */,
 				984E28FC2BA8CB1800F3A8A0 /* Group.swift in Sources */,
 				0F5CBD162BA8D1C600B45EDC /* FirebaseManager.swift in Sources */,
 				0F12B9512B96681E002C3368 /* Screen3.swift in Sources */,
@@ -504,7 +483,6 @@
 				2F5C5D382B8EDD8000531C33 /* ProfileView.swift in Sources */,
 				2F5C5D3A2B8EEB5F00531C33 /* ReusableProfileContent.swift in Sources */,
 				98356FE32BBFAE0D009A8DB7 /* NotificationView.swift in Sources */,
-				0F12B95D2B96750B002C3368 /* ColabView.swift in Sources */,
 				98CFD48F2BA0C4AE00C8BA0F /* PortfolioView.swift in Sources */,
 				0F5CBD262BA9FE0900B45EDC /* SearchUserGrpsView.swift in Sources */,
 				9836814C2BAB667B00805418 /* GrpAudioFiles.swift in Sources */,
@@ -533,10 +511,8 @@
 				0F12B9522B96681E002C3368 /* SplashScreenView.swift in Sources */,
 				986B833F2BAB106400AF74EF /* GroupDetailView.swift in Sources */,
 				0F5CBD1C2BA8D1D900B45EDC /* ChatLogView.swift in Sources */,
-				0F12B9632B967DBA002C3368 /* AudioPosts.swift in Sources */,
 				2F5C5D312B8E2D8400531C33 /* RegisterView.swift in Sources */,
 				2F5C5D472B8F2A0E00531C33 /* PostCardView.swift in Sources */,
-				0F12B95F2B9675A1002C3368 /* TrackLibraryView.swift in Sources */,
 				0F5CBD212BA8D1EE00B45EDC /* ChatMessage.swift in Sources */,
 				0F12B94D2B96681E002C3368 /* Screen2.swift in Sources */,
 				984E28FA2BA8BBFD00F3A8A0 /* AddNewGroupView.swift in Sources */,

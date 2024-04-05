@@ -18,38 +18,43 @@ struct GroupList: View {
     @State private var searchText = ""
     var body: some View {
         NavigationStack{
-            ForEach(groups.filter { searchText.isEmpty ? true : $0.subject.contains(searchText)}){ group in
-                NavigationLink(destination: GroupDetailView(group: group),
-                               label: {
-                    VStack{
-                        HStack{
-                           let url = group.grpProfileImage
-                                WebImage(url: url)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(Circle())
-                                    .padding(.horizontal)
-                                    Text(group.subject)
-                                               .font(.title3)
-                                           Spacer()
-                                           Image(systemName:"arrow.right")
-                                           
-                                       }
-                                       .padding()
-                                       .foregroundColor(.black)
-                        Divider()
-                    }
-                               })
-                
-                .onTapGesture {
-                    print("NavigationLink was tapped.")
-                    
-
-                }
+            if(groups.isEmpty){
+                Text("No Groups")
             }
-            
-            .searchable(text: $searchText, prompt: "Search by name...")
+            else{
+                ForEach(groups.filter { searchText.isEmpty ? true : $0.subject.contains(searchText)}){ group in
+                    NavigationLink(destination: GroupDetailView(group: group),
+                                   label: {
+                        VStack{
+                            HStack{
+                               let url = group.grpProfileImage
+                                    WebImage(url: url)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 60, height: 60)
+                                        .clipShape(Circle())
+                                        .padding(.horizontal)
+                                        Text(group.subject)
+                                                   .font(.title3)
+                                               Spacer()
+                                               Image(systemName:"arrow.right")
+                                               
+                                           }
+                                           .padding()
+                                           .foregroundColor(.black)
+                            Divider()
+                        }
+                                   })
+                    
+                    .onTapGesture {
+                        print("NavigationLink was tapped.")
+                        
+
+                    }
+                }
+                
+                .searchable(text: $searchText, prompt: "Search by name...")
+            }
         }
     }
 }
