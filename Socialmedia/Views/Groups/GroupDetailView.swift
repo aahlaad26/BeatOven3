@@ -15,15 +15,19 @@ struct GroupDetailView: View {
     @State private var posts: [GrpAudioFiles] = []
     @State private var recentPosts: [GrpAudioFiles] = []
     @State private var paginationDoc: QueryDocumentSnapshot?
+    @State private var isActiveMembers = false
     @AppStorage("user_profile_url") private var profileURL: URL?
     @AppStorage("user_name") private var userName:String = ""
     @AppStorage("user_UID") private var userUID:String = ""
+    @State private var fetchedUsers: [User] = []
     let group: Groupped
     @State private var createNewAudio: Bool = false
     var body: some View {
         NavigationStack{
             ScrollView(.vertical, showsIndicators: false){
-
+                NavigationLink(destination: GroupMemberList(members: fetchedUsers), isActive: $isActiveMembers){
+                    EmptyView()
+                }
                 LazyVStack{
                     if isFetching{
                         ProgressView()
@@ -53,12 +57,13 @@ struct GroupDetailView: View {
                 isFetching = true
                 posts = []
                 await fetchPosts()
+                await fetchUsers()
             }
             .task{
                 // fetching for one time
                 guard posts.isEmpty else{return}
                 await fetchPosts()
-                
+                await fetchUsers()
                 
             }
             
@@ -75,7 +80,19 @@ struct GroupDetailView: View {
             }
             .padding(15)
         }
-        .navigationTitle("Audio Files")
+        .navigationTitle("\(group.subject)")
+        .toolbar{
+            ToolbarItem(placement: .topBarTrailing){
+                Button(action:{isActiveMembers = true}){
+                    Image(systemName: "person.fill")
+                        .font(.caption)
+                        
+                        .foregroundStyle(Color.black)
+                        .padding(8)
+                        .contentShape(Rectangle())
+                }
+            }
+        }
         
         
     .fullScreenCover(isPresented: $createNewAudio){
@@ -119,6 +136,24 @@ struct GroupDetailView: View {
             print(error.localizedDescription)
         }
     }
+    func fetchUsers() async {
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("Users").whereField("userid", in: group.userIDs).getDocuments()
+            let users = try querySnapshot.documents.compactMap { document -> User? in
+                try document.data(as: User.self)
+            }
+            await MainActor.run {
+                fetchedUsers = users
+                print(" users were fetched succesfully")
+                for user in fetchedUsers {
+                    print("\(user.username)")
+                }
+            }
+        } catch {
+            print("Error fetching users: \(error.localizedDescription)")
+        }
+    }
+
  
 }
 struct SongCell:View {
@@ -398,6 +433,49 @@ struct SongCell:View {
         } else {
             isDownloading = false
             print("Doesnt exist")
+        }
+    }
+}
+import SwiftUI
+import SDWebImageSwiftUI
+
+struct GroupMemberList: View {
+    let members: [User]
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
+    @State private var searchText = ""
+    var body: some View {
+        NavigationStack{
+            if(members.isEmpty){
+                Text("No Members")
+                                .foregroundColor(Color.gray.opacity(0.5)) // Apply gray color with 50% opacity
+
+            }
+            else{
+                ScrollView{
+                    VStack{
+                        ForEach(members) { member in
+                            HStack{
+                                WebImage(url: member.userprofileURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                                    .padding(.horizontal)
+                                Text("\(member.username)")
+                                    .font(.title3)
+                                Spacer()
+                            }
+                            Divider()
+                        }
+                    }
+                }
+                .navigationTitle("Members")
+                .navigationBarTitleDisplayMode(.inline)
+                .padding(.vertical)
+            }
         }
     }
 }
