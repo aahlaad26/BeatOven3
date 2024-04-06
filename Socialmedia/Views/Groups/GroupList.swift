@@ -20,6 +20,8 @@ struct GroupList: View {
         NavigationStack{
             if(groups.isEmpty){
                 Text("No Groups")
+                                .foregroundColor(Color.gray.opacity(0.5)) // Apply gray color with 50% opacity
+
             }
             else{
                 ForEach(groups.filter { searchText.isEmpty ? true : $0.subject.contains(searchText)}){ group in

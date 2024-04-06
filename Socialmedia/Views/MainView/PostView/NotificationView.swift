@@ -25,20 +25,48 @@ struct NotificationView: View {
                     }
                     ForEach(notifys){notif in
                         VStack{
-                            Text("\(notif.notiType)")
                             HStack{
-                                Button(action: {reject(notify: notif)}){
-                                    Text("Reject")
+                                WebImage(url: notif.fromUserProfileImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                                Text("Accept \(notif.fromUsername)'s group request")
+                                    .font(.subheadline)
+                                Spacer()
+                                HStack{
+                                    Button(action: {Task{
+                                        try await Firestore.firestore().collection("notification").document(notif.id).updateData(["dismissStatus" : true])
+                                        try await Firestore.firestore().collection("groups").document(notif.groupID).updateData([
+                                                "userIDs": FieldValue.arrayUnion([userUID])
+                                            ])
+                                        try await Firestore.firestore().collection("groups").document(notif.groupID).updateData([
+                                                "requests": FieldValue.arrayRemove([userUID])
+                                            ])
+                                        await fetchNotfications()
+                                    }
+                                    }){
+                                        Text("Accept")
+                                            .padding(5)
+                                            .background(Color("button2-color"))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(8)
+                                    }
+                                    Button(action: {reject(notify: notif)}){
+                                        Text("Reject")
+                                            .padding(5)
+                                            .background(Color("button2-color"))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(8)
+                                    }
+                                    
                                 }
-                                Button(action: {Task{
-                                    try await Firestore.firestore().collection("notification").document(notif.id).updateData(["dismissStatus" : true])
-                                    await fetchNotfications()
-                                }
-                                }){
-                                    Text("Accept")
-                                }
-                            }
-                        }
+                                .padding([.vertical])
+                            }.padding(.horizontal)
+                        Divider()
+                        }.background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
                     }
                 }
             }
@@ -63,7 +91,7 @@ struct NotificationView: View {
             
             
             try await Firestore.firestore().collection("groups").document(notify.groupID).updateData([
-                    "userIDs": FieldValue.arrayRemove([userUID])
+                    "requests": FieldValue.arrayRemove([userUID])
                 ])
             try await Firestore.firestore().collection("notification").document(notify.id).updateData(["dismissStatus" : true])
             await fetchNotfications()

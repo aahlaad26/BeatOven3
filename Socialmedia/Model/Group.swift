@@ -15,6 +15,7 @@ struct Groupped: Codable, Identifiable,Hashable{
         documentId ?? UUID().uuidString
     }
     var userIDs:[String]
+    var requests:[String]
 }
 
 extension Groupped{
@@ -32,6 +33,8 @@ extension Groupped{
         guard let Url = URL(string: url) else{
             return nil
         }
-        return Groupped(documentId: snapshot.documentID, subject: subject, grpProfileImage: Url , userIDs: dictionary["userIDs"] as! [String])
+        let userIDs = dictionary["userIDs"] as! [String]
+        let requests = dictionary["requests"] as! [String]
+        return Groupped(documentId: snapshot.documentID, subject: subject, grpProfileImage: Url , userIDs: userIDs,requests: requests)
     }
 }

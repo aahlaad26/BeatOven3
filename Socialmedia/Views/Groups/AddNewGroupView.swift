@@ -39,7 +39,7 @@ struct AddNewGroupView: View {
         do{
             print(ID.userIDs)
           let db = Firestore.firestore()
-            var group = Groupped(subject: groupSubject,grpProfileImage: URL(string:"https://s3.amazonaws.com/kargopolov/kukushka.mp3")!, userIDs: ID.userIDs)
+            var group = Groupped(subject: groupSubject,grpProfileImage: URL(string:"https://s3.amazonaws.com/kargopolov/kukushka.mp3")!, userIDs: [userUID,], requests: ID.userIDs)
             guard let imageData = grpprofiledata else{return}
             let Storageref = Storage.storage().reference().child("GrpProfile_Images").child(group.id)
             let _ = try await Storageref.putDataAsync(imageData)
@@ -65,7 +65,7 @@ struct AddNewGroupView: View {
                     
                 }
             })
-            for userID in group.userIDs{
+            for userID in group.requests{
                 if userID != userUID{
                     var notify = Notification(notiType: "Group Request", toUserID: userID, fromUserID: userUID, fromUserProfileImage: profileURL, fromUsername: userNameStored, dismissStatus: false, groupID: grpID, groupName: group.subject)
                     let _ = try Firestore.firestore().collection("notification").document(notify.id).setData(from: notify, completion: {
@@ -162,6 +162,15 @@ struct AddNewGroupView: View {
                 ID.addUser(name: userUID)
                 print(ID.userIDs)
             })
+            .onDisappear(){
+                Task{
+                    do{
+                        try await model.populateGroups()
+                    }catch{
+                        print(error)
+                    }
+                }
+            }
         }.padding()
         
     }
