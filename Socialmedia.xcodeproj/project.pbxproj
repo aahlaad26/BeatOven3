@@ -89,6 +89,7 @@
 		98E682222BA46C2A00FA057A /* PortfolioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E682212BA46C2A00FA057A /* PortfolioData.swift */; };
 		98E682252BA4959000FA057A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 98E682242BA4959000FA057A /* Lottie */; };
 		98E682292BA4AE0100FA057A /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E682282BA4AE0100FA057A /* LottieView.swift */; };
+		98E785F62BC1CCB500F846B9 /* ShareSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 98E785F52BC1CCB500F846B9 /* ShareSheetView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,6 +179,7 @@
 				983468752B8D9B9A0045D037 /* FirebaseAppDistribution-Beta in Frameworks */,
 				983468792B8D9B9A0045D037 /* FirebaseAuthCombine-Community in Frameworks */,
 				983468972B8D9B9A0045D037 /* FirebasePerformance in Frameworks */,
+				98E785F62BC1CCB500F846B9 /* ShareSheetView in Frameworks */,
 				9834688F2B8D9B9A0045D037 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				9834689D2B8D9B9A0045D037 /* FirebaseStorage in Frameworks */,
 				983468812B8D9B9A0045D037 /* FirebaseDynamicLinks in Frameworks */,
@@ -410,6 +412,7 @@
 				9834689E2B8D9B9A0045D037 /* FirebaseStorageCombine-Community */,
 				2F5C5D3C2B8EECC900531C33 /* SDWebImageSwiftUI */,
 				98E682242BA4959000FA057A /* Lottie */,
+				98E785F52BC1CCB500F846B9 /* ShareSheetView */,
 			);
 			productName = Socialmedia;
 			productReference = 983468542B8D997E0045D037 /* Socialmedia.app */;
@@ -443,6 +446,7 @@
 				983468692B8D9B9A0045D037 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				2F5C5D3B2B8EECC900531C33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				98E682232BA4959000FA057A /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				98E785F42BC1CCB500F846B9 /* XCRemoteSwiftPackageReference "ShareSheetView" */,
 			);
 			productRefGroup = 983468552B8D997E0045D037 /* Products */;
 			projectDirPath = "";
@@ -756,6 +760,14 @@
 				minimumVersion = 4.4.1;
 			};
 		};
+		98E785F42BC1CCB500F846B9 /* XCRemoteSwiftPackageReference "ShareSheetView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rebeloper/ShareSheetView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -903,6 +915,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 98E682232BA4959000FA057A /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		98E785F52BC1CCB500F846B9 /* ShareSheetView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98E785F42BC1CCB500F846B9 /* XCRemoteSwiftPackageReference "ShareSheetView" */;
+			productName = ShareSheetView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
