@@ -1,7 +1,7 @@
 import SwiftUI
 import Firebase
 import PDFKit
-
+import SDWebImageSwiftUI
 struct FetchPortfolioView: View {
     @AppStorage("user_UID") private var userUID: String = ""
     @State private var portfolioData: PortfolioData?
@@ -13,69 +13,76 @@ struct FetchPortfolioView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    if let portfolioData = portfolioData {
-                        Group {
-                            Text("Hi, I am  \(portfolioData.name)")
-                                .font(.title)
-                            Text("I am from \(portfolioData.cityCountry). \(portfolioData.aboutMe)")
-                        }
-                       
-                        Divider()
+                VStack{
+                    WebImage(url: user.userprofileURL)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 100 , height: 100)
+                    .clipShape(Circle())
+                    VStack(alignment: .leading, spacing: 20) {
+                        if let portfolioData = portfolioData {
+                            Group {
+                                Text("Hi, I am  \(portfolioData.name)")
+                                    .font(.title)
+                                Text("I am from \(portfolioData.cityCountry). \(portfolioData.aboutMe)")
+                            }
+                           
+                            Divider()
 
-                        Text("Instruments Played")
-                            .font(.title2)
-                            .foregroundColor(.green)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("1. \(portfolioData.instrument1)")
-                            Text("2. \(portfolioData.instrument2)")
-                            Text("3. \(portfolioData.instrument3)")
-                        }
-                        Divider()
+                            Text("Instruments Played")
+                                .font(.title2)
+                                .foregroundColor(.green)
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("1. \(portfolioData.instrument1)")
+                                Text("2. \(portfolioData.instrument2)")
+                                Text("3. \(portfolioData.instrument3)")
+                            }
+                            Divider()
 
-                        Text("Featured Songs")
-                            .font(.title2)
-                            .foregroundColor(.purple)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("1. \(portfolioData.song1)")
-                            Text("2. \(portfolioData.song2)")
-                            Text("3. \(portfolioData.song3)")
-                        }
-                        Divider()
+                            Text("Featured Songs")
+                                .font(.title2)
+                                .foregroundColor(.purple)
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("1. \(portfolioData.song1)")
+                                Text("2. \(portfolioData.song2)")
+                                Text("3. \(portfolioData.song3)")
+                            }
+                            Divider()
 
-//                        Text("Social Media Links")
-//                            .font(.title2)
-//                            .foregroundColor(.orange)
-//                        VStack(alignment: .leading, spacing: 5) {
-//                            Text("Facebook: \(portfolioData.metalink)")
-//                            Text("Instagram: \(portfolioData.instalink)")
-//                            Text("Youtube: \(portfolioData.ytlink)")
-//                        }
-                        Text("Social Media Links")
-                                        .font(.title2)
-                                        .foregroundColor(.orange)
-                        HStack(alignment: .top, spacing: 5) {
-                            SocialMediaButton(iconName: "facebook", link: portfolioData.metalink)
-                            SocialMediaButton(iconName: "instagram", link: portfolioData.instalink)
-                            SocialMediaButton(iconName: "youtube", link: portfolioData.ytlink)
-                        }
+    //                        Text("Social Media Links")
+    //                            .font(.title2)
+    //                            .foregroundColor(.orange)
+    //                        VStack(alignment: .leading, spacing: 5) {
+    //                            Text("Facebook: \(portfolioData.metalink)")
+    //                            Text("Instagram: \(portfolioData.instalink)")
+    //                            Text("Youtube: \(portfolioData.ytlink)")
+    //                        }
+                            Text("Social Media Links")
+                                            .font(.title2)
+                                            .foregroundColor(.orange)
+                            HStack(alignment: .top, spacing: 5) {
+                                SocialMediaButton(iconName: "facebook", link: portfolioData.metalink)
+                                SocialMediaButton(iconName: "instagram", link: portfolioData.instalink)
+                                SocialMediaButton(iconName: "youtube", link: portfolioData.ytlink)
+                            }
 
 
-                        Button(action: {
-                            generatePDF()
-                        }) {
-                            Text("Download as PDF")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                            Button(action: {
+                                generatePDF()
+                            }) {
+                                Text("Download as PDF")
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        } else {
+                            Text("No Portfolio Found")
                         }
-                    } else {
-                        Text("No Portfolio Found")
+                
                     }
-            
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("Portfolio")
             .onAppear {
