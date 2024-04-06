@@ -286,21 +286,40 @@ struct SongCell:View {
         }
     }
 
-    func downloadSong(){
-        if let url = grpAudio.audioURL{
+//    func downloadSong(){
+//        if let url = grpAudio.audioURL{
+//            let storageRef = Storage.storage().reference(forURL: url.absoluteString)
+//            let localURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//            let downloadTask = storageRef.write(toFile: localURL) { url, error in
+//              if let error = error {
+//                print("Error in download")
+//              } else {
+//                // Local file URL for "images/island.jpg" is returned
+//                  print("downloaded")
+//              }
+//            }
+//        }
+        
+    func downloadSong() {
+        if let url = grpAudio.audioURL {
             let storageRef = Storage.storage().reference(forURL: url.absoluteString)
-            let localURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let downloadTask = storageRef.write(toFile: localURL) { url, error in
-              if let error = error {
-                print("Error in download")
-              } else {
-                // Local file URL for "images/island.jpg" is returned
-                  print("downloaded")
-              }
+            let destination = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(url.lastPathComponent).appendingPathExtension("mp3")
+            let downloadTask = storageRef.write(toFile: destination) { url, error in
+                if let error = error {
+                    print("Error in download")
+                } else {
+                    // Local file URL for "images/island.jpg" is returned
+                    print("downloaded")
+                    DispatchQueue.main.async {
+                        // Present the share sheet
+                        let activityViewController = UIActivityViewController(activityItems: [destination], applicationActivities: nil)
+                        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+                    }
+                }
             }
         }
-        
-        
+    
+
         
     }
     func downloadAudioFile() {
