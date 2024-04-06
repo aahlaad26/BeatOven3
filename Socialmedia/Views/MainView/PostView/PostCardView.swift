@@ -3,6 +3,7 @@ import SDWebImageSwiftUI
 import Firebase
 import FirebaseStorage
 import AVKit
+import ShareSheetView
 
 struct PostCardView: View {
     @State private var player: AVPlayer?
@@ -22,7 +23,7 @@ struct PostCardView: View {
                 WebImage(url: post.userProfileURL)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 35, height: 35)
+                    .frame(width: 45, height: 45)
                     .clipShape(Circle())
                 VStack(alignment:.leading){
                     Text(post.username)
@@ -171,7 +172,7 @@ struct PostCardView: View {
     }
     
     @ViewBuilder
-    func PostInteraction()->some View {
+    func PostInteraction() -> some View {
         HStack(spacing:20){
             HStack(){
                 Button(action: likePost){
@@ -183,7 +184,23 @@ struct PostCardView: View {
                     .foregroundStyle(post.likedIDs.contains(userUID) ? Color("button2-color") : Color.gray)
             }.frame(width: 75,height: 40)
             HStack{
-                Button(action: {}){
+                Button(action: {
+                    // Download the file
+                    if let songURL = post.songURL {
+                        let destination = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(songURL.lastPathComponent).appendingPathExtension("mp3")
+                        let task = URLSession.shared.downloadTask(with: songURL) { (location, response, error) in
+                            if let location = location {
+                                try? FileManager.default.moveItem(at: location, to: destination)
+                                DispatchQueue.main.async {
+                                    // Present the share sheet
+                                    let activityViewController = UIActivityViewController(activityItems: [destination], applicationActivities: nil)
+                                    UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+                                }
+                            }
+                        }
+                        task.resume()
+                    }
+                }){
                     Image(systemName: "square.and.arrow.down" )
                 }
             }.frame(width: 75,height: 40)
@@ -193,7 +210,9 @@ struct PostCardView: View {
         .foregroundStyle(Color.black)
         .padding(.vertical,8)
     }
-    
+
+
+
     func likePost(){
         Task{
             guard let postID = post.id else { return }
