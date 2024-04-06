@@ -174,8 +174,12 @@ struct SongCell:View {
                             }.padding()
                                 .background(Color(red: 1.00,green : 0.65,blue: 0.30))
                                 .cornerRadius(8)
+                                .contextMenu {
+                                                    menuItems2
+                                                }
                             Spacer()
                         }
+                        
                         
                     }
                     else{
@@ -242,6 +246,11 @@ struct SongCell:View {
         Group {
             Button("Download",action:downloadSong)
             Button("Delete",role: .destructive,action: deleteSong)
+        }
+    }
+    var menuItems2: some View {
+        Group {
+            Button("Download",action:downloadSong)
         }
     }
 
