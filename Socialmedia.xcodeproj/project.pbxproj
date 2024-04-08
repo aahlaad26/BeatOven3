@@ -27,6 +27,7 @@
 		0FEE0F902BAE09DE00E579AD /* ProPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEE0F8F2BAE09DE00E579AD /* ProPlayer.swift */; };
 		0FEE0F942BB2270F00E579AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE0F932BB2270F00E579AD /* GoogleService-Info.plist */; };
 		0FEE0F962BC07F2500E579AD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEE0F952BC07F2500E579AD /* Notification.swift */; };
+		0FEE0F992BC48D1D00E579AD /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0FEE0F982BC48D1D00E579AD /* AlertKit */; };
 		2F5C5D312B8E2D8400531C33 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D302B8E2D8400531C33 /* RegisterView.swift */; };
 		2F5C5D342B8EDB9500531C33 /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */; };
 		2F5C5D362B8EDC0C00531C33 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D352B8EDC0C00531C33 /* MainView.swift */; };
@@ -171,6 +172,7 @@
 				983468772B8D9B9A0045D037 /* FirebaseAuth in Frameworks */,
 				9834687B2B8D9B9A0045D037 /* FirebaseCrashlytics in Frameworks */,
 				9834689B2B8D9B9A0045D037 /* FirebaseRemoteConfigSwift in Frameworks */,
+				0FEE0F992BC48D1D00E579AD /* AlertKit in Frameworks */,
 				9834688D2B8D9B9A0045D037 /* FirebaseInAppMessaging-Beta in Frameworks */,
 				9834687F2B8D9B9A0045D037 /* FirebaseDatabaseSwift in Frameworks */,
 				983468892B8D9B9A0045D037 /* FirebaseFunctions in Frameworks */,
@@ -413,6 +415,7 @@
 				2F5C5D3C2B8EECC900531C33 /* SDWebImageSwiftUI */,
 				98E682242BA4959000FA057A /* Lottie */,
 				98E785F52BC1CCB500F846B9 /* ShareSheetView */,
+				0FEE0F982BC48D1D00E579AD /* AlertKit */,
 			);
 			productName = Socialmedia;
 			productReference = 983468542B8D997E0045D037 /* Socialmedia.app */;
@@ -447,6 +450,7 @@
 				2F5C5D3B2B8EECC900531C33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				98E682232BA4959000FA057A /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				98E785F42BC1CCB500F846B9 /* XCRemoteSwiftPackageReference "ShareSheetView" */,
+				0FEE0F972BC48D1D00E579AD /* XCRemoteSwiftPackageReference "AlertKit" */,
 			);
 			productRefGroup = 983468552B8D997E0045D037 /* Products */;
 			projectDirPath = "";
@@ -736,6 +740,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0FEE0F972BC48D1D00E579AD /* XCRemoteSwiftPackageReference "AlertKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparrowcode/AlertKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.8;
+			};
+		};
 		2F5C5D3B2B8EECC900531C33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -771,6 +783,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0FEE0F982BC48D1D00E579AD /* AlertKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FEE0F972BC48D1D00E579AD /* XCRemoteSwiftPackageReference "AlertKit" */;
+			productName = AlertKit;
+		};
 		2F5C5D3C2B8EECC900531C33 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2F5C5D3B2B8EECC900531C33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

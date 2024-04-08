@@ -15,6 +15,7 @@ import AVFoundation
 struct CreateAudioFileView: View {
        var group:Groupped
         let refetch:() async -> Void
+        var am:AlertModel
         var onPost: (GrpAudioFiles)->()
         @State private var audioTitle: String = ""
        
@@ -33,7 +34,7 @@ struct CreateAudioFileView: View {
         @FocusState private var showkeyboard: Bool
         @State private var player: AVPlayer?
         @State private var fileURL:URL?
-
+        
         var body: some View {
             ZStack {
                 VStack{
@@ -141,6 +142,7 @@ struct CreateAudioFileView: View {
                         try await createDocumentAtFirebase(audio)
                     }
                   await refetch()
+                    am.alertPresented = true
                 }
                 
                 catch{

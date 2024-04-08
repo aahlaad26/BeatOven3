@@ -10,6 +10,10 @@ import SwiftUI
 import Firebase
 import FirebaseStorage
 import SDWebImageSwiftUI
+import AlertKit
+class AlertModel:ObservableObject{
+    @Published var alertPresented = false
+}
 struct GroupDetailView: View {
     @State var isFetching: Bool = true
     @State private var posts: [GrpAudioFiles] = []
@@ -20,8 +24,11 @@ struct GroupDetailView: View {
     @AppStorage("user_name") private var userName:String = ""
     @AppStorage("user_UID") private var userUID:String = ""
     @State private var fetchedUsers: [User] = []
+    @State private var alertView = AlertAppleMusic17View(title: "Audio added to Group", subtitle: nil, icon: .done)
+    @State private var alertPresented = false
     let group: Groupped
     @State private var createNewAudio: Bool = false
+    @ObservedObject private var am = AlertModel()
     var body: some View {
         NavigationStack{
             ScrollView(.vertical, showsIndicators: false){
@@ -93,10 +100,10 @@ struct GroupDetailView: View {
                 }
             }
         }
-        
+        .alert(isPresent: $am.alertPresented, view: alertView)
         
     .fullScreenCover(isPresented: $createNewAudio){
-        CreateAudioFileView(group: group,refetch: fetchPosts){audio in
+        CreateAudioFileView(group: group,refetch: fetchPosts,am: am){audio in
             // adding created posts at the top of the recent posts
             recentPosts.insert(audio, at: 0)
         }
