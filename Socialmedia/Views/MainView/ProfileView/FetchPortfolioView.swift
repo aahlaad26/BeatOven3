@@ -22,15 +22,30 @@ struct FetchPortfolioView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         if let portfolioData = portfolioData {
                             Group {
-                                Text("Hi, I am  \(portfolioData.name)")
-                                    .font(.title)
-                                Text("I am from \(portfolioData.cityCountry). \(portfolioData.aboutMe)")
+//                                Text("Hi, I am  \(portfolioData.name) and you can call me \(user.username)")
+//                                    .font(.title)
+                                VStack(alignment: .leading) {
+                                    Text("Hi, I am \(portfolioData.name)")
+                                        
+                                        .font(Font.custom("Whisper-Regular", size: 20))
+                                    HStack {
+                                        Text("You can call me")
+                                            .font(.title)
+                                        TypingText(text: "\(user.username)", speed: 0.22)
+                                            .font(.title)
+                                    }
+                                }
+
+
+                                Text("From  \(portfolioData.cityCountry) 📌 \n\(portfolioData.aboutMe)")
                             }
                            
                             Divider()
-
-                            Text("Instruments Played")
-                                .font(.title2)
+//                            Text("Hi, I am \(portfolioData.name)")
+//                                
+//                                .font(Font.custom("Whisper-Regular", size: 20))
+                            Text("Instruments I play 🎹")
+                                .font(Font.custom("Whisper-Regular", size: 20))
                                 .foregroundColor(.green)
                             VStack(alignment: .leading, spacing: 5) {
                                 Text("1. \(portfolioData.instrument1)")
@@ -47,6 +62,7 @@ struct FetchPortfolioView: View {
                                 Text("2. \(portfolioData.song2)")
                                 Text("3. \(portfolioData.song3)")
                             }
+                            
                             Divider()
 
     //                        Text("Social Media Links")
@@ -332,3 +348,50 @@ extension UIView {
     }
 }
 
+
+
+
+
+
+struct TypingText: View {
+    let text: String
+    let speed: Double
+    @State private var displayText = ""
+    @State private var timer: Timer? = nil
+    @State private var isAnimating = true
+
+    var body: some View {
+        Text(displayText)
+            .font(.title)
+            .onTapGesture {
+                isAnimating.toggle()
+                if isAnimating {
+                    startAnimation()
+                } else {
+                    stopAnimation()
+                }
+            }
+            .onAppear {
+                startAnimation()
+            }
+            .onDisappear {
+                stopAnimation()
+            }
+    }
+
+    private func startAnimation() {
+        timer = Timer.scheduledTimer(withTimeInterval: speed, repeats: true) { _ in
+            if displayText.count < text.count {
+                let index = text.index(text.startIndex, offsetBy: displayText.count)
+                displayText.append(text[index])
+            } else {
+                displayText = ""
+            }
+        }
+    }
+
+    private func stopAnimation() {
+        timer?.invalidate()
+        timer = nil
+    }
+}

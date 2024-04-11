@@ -148,6 +148,7 @@
 		986B833C2BAAFD2700AF74EF /* GroupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupList.swift; sourceTree = "<group>"; };
 		986B833E2BAB106400AF74EF /* GroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailView.swift; sourceTree = "<group>"; };
 		98CFD48E2BA0C4AE00C8BA0F /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		98DF98D82BC7FF12009A717D /* Whisper-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Whisper-Regular.ttf"; path = "../../../Downloads/Whisper/Whisper-Regular.ttf"; sourceTree = "<group>"; };
 		98E682212BA46C2A00FA057A /* PortfolioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioData.swift; sourceTree = "<group>"; };
 		98E682282BA4AE0100FA057A /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -211,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				0F12B9552B966850002C3368 /* Condiment-Regular.ttf */,
+				98DF98D82BC7FF12009A717D /* Whisper-Regular.ttf */,
 				0F12B9562B966850002C3368 /* HoltwoodOneSC-Regular.ttf */,
 				0F12B9542B96684F002C3368 /* SFPRODISPLAYBOLD.OTF */,
 			);

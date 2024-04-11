@@ -22,6 +22,7 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Whisper-Regular.ttf</string>
 		<string>Condiment-Regular.ttf</string>
 		<string>HoltwoodOneSC-Regular.ttf</string>
 		<string>SFPRODISPLAYBOLD.OTF</string>

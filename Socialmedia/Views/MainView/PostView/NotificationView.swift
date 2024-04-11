@@ -48,14 +48,14 @@ struct NotificationView: View {
                                     }){
                                         Text("Accept")
                                             .padding(5)
-                                            .background(Color("button2-color"))
+                                            .background(Color.green)
                                             .foregroundColor(.white)
                                             .cornerRadius(8)
                                     }
                                     Button(action: {reject(notify: notif)}){
                                         Text("Reject")
                                             .padding(5)
-                                            .background(Color("button2-color"))
+                                            .background(Color.red)
                                             .foregroundColor(.white)
                                             .cornerRadius(8)
                                     }

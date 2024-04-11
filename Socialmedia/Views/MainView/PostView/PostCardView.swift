@@ -315,12 +315,7 @@ struct AudioPlayerControlsView: View {
         }
     }
 }
-//
-//  ProPlayer.swift
-//  Socialmedia
-//
-//  Created by user2 on 23/03/24.
-//
+
 
 
 struct ProPlayer2: View {
